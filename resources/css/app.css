@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .main{
+        @apply h-full w-full overflow-y-auto flex flex-col gap-2
+    }
+    .card {
+        @apply w-full rounded-lg text-lg p-4 font-bold tracking-wide flex flex-col justify-between
+    }
+    .header-grid {
+        @apply grid grid-cols-3 grid-flow-row gap-5 h-32 w-full
+    }
+    .panel {
+        @apply min-h-96 bg-white rounded-lg w-full p-5
+    }
+    .panel-title{
+        @apply text-2xl font-bold text-accent
+    }
+    .panel-label{
+        @apply text-sm text-accent
+    }
+    .card-number{
+        @apply flex justify-center text-4xl
+    }
+    .card-label{
+        @apply items-center flex gap-2
+    }
+    .btn-generic{
+        @apply btn btn-xs btn-accent text-primary;
+    }
+    .input-generic-div{
+        @apply flex flex-col gap-2 p-2
+    }
+    .input-generic-label{
+        @apply text-sm text-accent;
+        span {
+            @apply text-xs text-error
+        }
+    }
+    .input-generic{
+        @apply input input-accent
+    }
+}
