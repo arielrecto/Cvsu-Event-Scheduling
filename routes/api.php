@@ -26,10 +26,25 @@ use App\Models\Announcement;
 Route::prefix('mobile')->group(function() {
     Route::post('/student', [RegisterController::class, 'store']);
     Route::post('login', [AuthenticationSessionController::class, 'store']);
-    Route::post('/test', function(Request $request){
+    Route::get('/landing', function(Request $request){
+        $announcements = Announcement::latest()->first();
+
+        $events = Event::latest()->get();
 
 
-        return response(['message' => $request->all()]);
+        return response([
+            'announcements' => $announcements,
+            'events' => $events
+        ], 200);
+    });
+
+    Route::get('/event/{id}', function(string $id){
+        $event = Event::whereId($id)->with(['speaker'])->first();
+
+
+        return response([
+            'event' => $event
+        ], 200);
     });
 });
 
