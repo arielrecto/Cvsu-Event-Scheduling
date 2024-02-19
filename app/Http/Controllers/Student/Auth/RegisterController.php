@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
-    public function store(Request $request){
+    public function store(Request $request)
+    {
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|unique:users,email',
@@ -27,11 +30,11 @@ class RegisterController extends Controller
             'section' => 'required',
             'course' => 'required',
             'image' => 'required|sometimes|base64mimes:jpeg, png, jpg',
-            'valid_documents' => 'required|sometimes|base64mimes:jpeg, png, jpg',
+            'valid_documents' => 'required|sometimes|base64mimes:jpeg, jpg',
             'address' => 'required'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()], 422);
         }
 
@@ -51,28 +54,32 @@ class RegisterController extends Controller
 
 
         $image = $request->image;  // your base64 encoded
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName =  'IMG-' . uniqid() .'.'.'png';
-        $filename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $imageName);
+        // $image = str_replace('data:image/png;base64,', '', $image);
+        // $image = str_replace(' ', '+', $image);
+        // $imageName =  'IMG-' . uniqid() . '.' . 'png';
+        // $filename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $imageName);
 
-        $imageDecoded = base64_decode($image);
+        // $imageDecoded = base64_decode($image);
 
-        Storage::disk('public')->put('profile/' . $filename, $imageDecoded);
+        // Storage::disk('public')->put('profile/' . $filename, $imageDecoded);
+
+        $imageName = $this->base64ImageHandler($image, 'profile/', 'IMG');
 
         // $documentImage = 'DCMNTS-' . uniqid() . '.' . $request->valid_documents->extension();
         // $valid_dir = $request->valid_documents->storeAs('/document', $documentImage, 'public');
 
 
         $documentImage = $request->valid_documents;  // your base64 encoded
-        $documentImage = str_replace('data:image/png;base64,', '', $documentImage);
-        $documentImage = str_replace(' ', '+', $documentImage);
-        $documentImageName =  'DCMNTS-' . uniqid() .'.'.'png';
-        $documentFilename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $documentImageName);
+        // $documentImage = str_replace('data:image/png;base64,', '', $documentImage);
+        // $documentImage = str_replace(' ', '+', $documentImage);
+        // $documentImageName =  'DCMNTS-' . uniqid() . '.' . 'png';
+        // $documentFilename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $documentImageName);
 
-        $documentImageDecoded = base64_decode($documentImage);
+        // $documentImageDecoded = base64_decode($documentImage);
 
-        Storage::disk('public')->put('document/' . $documentFilename, $documentImageDecoded);
+        // Storage::disk('public')->put('document/' . $documentFilename, $documentImageDecoded);
+
+        $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
 
 
         $profile = Profile::create([
@@ -86,7 +93,7 @@ class RegisterController extends Controller
             'section' => $request->section,
             'course' => $request->course,
             'address' => $request->address,
-            'valid_documents' => asset('/storage/document/'. $documentImageName),
+            'valid_documents' => asset('/storage/document/' . $documentImageName),
             'user_id' => $user->id
         ]);
 
@@ -98,5 +105,22 @@ class RegisterController extends Controller
 
 
         return response(['message' => 'Register Success Admin will review your application'], 200);
+    }
+
+
+    private function base64ImageHandler($base64, string $path, string $name)
+    {
+        $image = $base64;  // your base64 encoded
+
+          $image = str_replace('data:image/jpeg;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName =  "{$name}-" . uniqid() . '.' . 'png';
+        $filename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $imageName);
+
+        $imageDecoded = base64_decode($image);
+
+        Storage::disk('public')->put($path . $filename, $imageDecoded);
+
+        return $filename;
     }
 }
