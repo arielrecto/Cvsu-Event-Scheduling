@@ -34,21 +34,21 @@ class EventAttendance
         $start_time = Carbon::parse($event->start_time)->format('h:s A');
 
         if($start_date->gt($current_date)){
-            return response([
+            return back()->with([
                 'message' => "The Event will Start at {$start_date->format('F d, Y')}, The system process Attendance"
-            ], 400);
+            ]);
         };
 
         if($end_date->lt($current_date)){
-            return response([
+            return back()->with([
                 'message' => "The Event is Ended at {$start_date->format('F d, Y')}, The system process Attendance"
-            ], 400);
+            ]);
         }
 
         if($current_time->lt($event->start_time)){
-            return response([
+            return back()->with([
                 'message' => "The Event is start at {$start_time}, The system process Attendance"
-            ], 400);
+            ]);
         }
 
 

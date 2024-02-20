@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\Auth\RegisterController;
 use App\Http\Controllers\Student\Auth\AuthenticationSessionController;
+use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\EventController;
 use App\Http\Controllers\Student\StudentController;
 use App\Models\Announcement;
@@ -38,7 +39,10 @@ Route::prefix('mobile')->group(function() {
         ], 200);
     });
 
-    Route::get('/event/{id}', function(string $id){
+
+
+
+    Route::get('/public/event/{id}', function(string $id){
         $event = Event::whereId($id)->with(['speaker'])->first();
 
 
@@ -63,9 +67,13 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
         ], 200);
     });
 
+    Route::prefix('dashboard')->group(function(){
+        Route::get('', [DashboardController::class, 'index']);
+    });
+
 
     Route::prefix('event')->group(function (){
-        Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance']);
+        // Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance']);
         Route::post('/rf={event_ref}/evaluation', [EventController::class, 'evaluation'])->middleware(['event-evaluation']);
     });
 

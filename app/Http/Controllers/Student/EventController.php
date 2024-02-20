@@ -42,7 +42,32 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $event = Event::whereId($id)->with([
+            'evaluationForm',
+            'speaker',
+        ])->first();
+
+
+        $user = Auth::user();
+
+        $event_evaluation_average = $event->evaluationsAverage();
+
+        $event_evaluation_result = $event->evaluationsResult();
+
+        $total_attendees = count($event->attendances()->get());
+
+
+        $has_evaluation = User::find($user->id)->evaluations()->where('event_id', $event->id)->exists();
+
+
+        return response([
+            'event' => $event,
+            'event_evaluation_average' => $event_evaluation_average,
+            'event_evaluation_result' => $event_evaluation_result,
+            'total_attendees' => $total_attendees,
+            'user_has_evaluation' => $has_evaluation,
+            'attendance_link' => route('event.portal', ['event_ref' => $event->ref])
+        ]);
     }
 
     /**
@@ -72,7 +97,6 @@ class EventController extends Controller
     {
         $event = Event::where('ref', $event_ref)->first();
 
-
         $user = User::find(Auth::user()->id);
 
 
@@ -85,20 +109,21 @@ class EventController extends Controller
 
 
 
-        if($user->attendances()
-        ->whereDate('created_at',now()->toDateString())
-        ->where('event_id', $event->id)
-        ->whereNotNull('time_out')->whereNotNull('time_in')->latest()->first() !== null){
+        if ($user->attendances()
+            ->whereDate('created_at', now()->toDateString())
+            ->where('event_id', $event->id)
+            ->whereNotNull('time_out')->whereNotNull('time_in')->latest()->first() !== null
+        ) {
 
-            return response([
+            return back()->with([
                 'message' => "You Have Attendance Today {$current_date}"
-            ], 200);
+            ]);
         }
 
         $attendance = $user->attendances()
-        ->whereDate('created_at',now()->toDateString())
-        ->where('event_id', $event->id)
-        ->whereNull('time_out')->latest()->first();
+            ->whereDate('created_at', now()->toDateString())
+            ->where('event_id', $event->id)
+            ->whereNull('time_out')->latest()->first();
 
 
         if ($attendance !== null && $event_time_end->lt($current_time)) {
@@ -107,9 +132,9 @@ class EventController extends Controller
                 'time_out' =>  Carbon::now('GMT+8')->format('h:i A')
             ]);
 
-            return response([
+            return back()->with([
                 'message' => "Time Out @ {$current_time}"
-            ], 200);
+            ]);
         };
 
 
@@ -121,12 +146,17 @@ class EventController extends Controller
         ]);
 
 
-        return response([
+        return back()->with([
             'message' => "Time in @ {$current_time}"
-        ], 200);
+        ]);
     }
-    public function evaluation(Request $request, string $event_ref){
+    public function evaluation(Request $request, string $event_ref)
+    {
+
         $event = Event::where('ref', $event_ref)->first();
+
+
+        $form = json_encode($request->form);
 
         $user = Auth::user();
 
@@ -134,7 +164,7 @@ class EventController extends Controller
             'user_id' => $user->id,
             'event_id' => $event->id,
             'result' => $request->result,
-            'form' => $request->form,
+            'form' => $form,
             'average' => $request->average
         ]);
 
