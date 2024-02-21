@@ -78,6 +78,6 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
     });
 
     Route::resource('event', EventController::class)->only(['index', 'show']);
-    Route::resource('student', StudentController::class)->only(['update', 'show']);
+    Route::resource('student', StudentController::class)->only(['update', 'show', 'destroy']);
     Route::post('logout', [AuthenticationSessionController::class, 'logout']);
 });

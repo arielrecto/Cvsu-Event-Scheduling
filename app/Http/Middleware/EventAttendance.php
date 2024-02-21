@@ -33,21 +33,30 @@ class EventAttendance
 
         $start_time = Carbon::parse($event->start_time)->format('h:s A');
 
-        if($start_date->gt($current_date)){
+        $end_time = Carbon::parse($event->end_time)->format('h:s A');
+
+        if ($start_date->gt($current_date)) {
             return back()->with([
                 'message' => "The Event will Start at {$start_date->format('F d, Y')}, The system process Attendance"
             ]);
         };
 
-        if($end_date->lt($current_date)){
+        if ($end_date->lt($current_date)) {
             return back()->with([
                 'message' => "The Event is Ended at {$start_date->format('F d, Y')}, The system process Attendance"
             ]);
         }
 
-        if($current_time->lt($event->start_time)){
+        if ($current_time->lt($event->start_time)) {
             return back()->with([
-                'message' => "The Event is start at {$start_time}, The system process Attendance"
+                'message' => "The Event starts at {$start_time}, You can only time in when the event starts"
+            ]);
+        }
+
+
+        if ($current_time->lt($event->end_time)) {
+            return back()->with([
+                'message' => "The Event Ends at {$end_time}, You can only timeout when the event ends"
             ]);
         }
 
