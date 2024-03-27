@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->string('time_in');
             $table->string('time_out')->nullable();
-            $table->foreignId('event_id')->constrained()->onDelete('CASCADE');
+            $table->foreignId('event_id')->constrained('events')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
