@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->constrained()->onDelete('CASCADE');
+            $table->foreignId('user_id')->constrained()->onDelete('CASCADE');
             $table->string('time_in');
             $table->string('time_out')->nullable();
-            $table->foreignId('event_id')->constrained('events')->onDelete('CASCADE');
+            $table->foreignId('event_id')->constrained()->onDelete('CASCADE');
             $table->timestamps();
         });
     }
