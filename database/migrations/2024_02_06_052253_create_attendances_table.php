@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->onDelete('CASCADE');
             $table->string('time_in');
             $table->string('time_out')->nullable();
-            $table->foreignIdFor(Event::class)->constrained()->onDelete('CASCADE');
+            $table->foreignId('event_id')->constrained('events')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
