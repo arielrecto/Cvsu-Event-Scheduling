@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('end_time');
             $table->longText('description');
             $table->json('location');
-            $table->foreignIdFor(EventSpeaker::class)->constrained()->onDelete("CASCADE");
+            $table->foreignIdFor(EventSpeaker::class);
             $table->boolean('is_done')->default(false);
             $table->string('status')->default(EventStatusEnum::INCOMING->value);
             $table->timestamps();
