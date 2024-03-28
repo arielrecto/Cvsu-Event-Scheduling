@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('student_id');
             $table->string('last_name');
             $table->string('first_name');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->longText('address');
             $table->string('section');
             $table->string('course');
-            $table->string('valid_documents');
+            $table->string('valid_documents')->nullable();
             $table->string('verified_at')->nullable();
             $table->foreignIdFor(User::class)->constrained()->onDelete('CASCADE');
             $table->timestamps();

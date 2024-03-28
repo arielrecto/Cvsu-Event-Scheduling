@@ -29,8 +29,8 @@ class RegisterController extends Controller
             'gender' => 'required',
             'section' => 'required',
             'course' => 'required',
-            'image' => 'required|sometimes|base64mimes:jpeg, png, jpg',
-            'valid_documents' => 'required|sometimes|base64mimes:jpeg, jpg',
+            // 'image' => 'required|sometimes|base64mimes:jpeg, png, jpg',
+            // 'valid_documents' => 'required|sometimes|base64mimes:jpeg, jpg',
             'address' => 'required'
         ]);
 
@@ -53,7 +53,7 @@ class RegisterController extends Controller
         // $dir = $request->image->storeAs('/profile', $imageName, 'public');
 
 
-        $image = $request->image;  // your base64 encoded
+        // $image = $request->image;  // your base64 encoded
         // $image = str_replace('data:image/png;base64,', '', $image);
         // $image = str_replace(' ', '+', $image);
         // $imageName =  'IMG-' . uniqid() . '.' . 'png';
@@ -63,13 +63,13 @@ class RegisterController extends Controller
 
         // Storage::disk('public')->put('profile/' . $filename, $imageDecoded);
 
-        $imageName = $this->base64ImageHandler($image, 'profile/', 'IMG');
+        // $imageName = $this->base64ImageHandler($image, 'profile/', 'IMG');
 
         // $documentImage = 'DCMNTS-' . uniqid() . '.' . $request->valid_documents->extension();
         // $valid_dir = $request->valid_documents->storeAs('/document', $documentImage, 'public');
 
 
-        $documentImage = $request->valid_documents;  // your base64 encoded
+        // $documentImage = $request->valid_documents;  // your base64 encoded
         // $documentImage = str_replace('data:image/png;base64,', '', $documentImage);
         // $documentImage = str_replace(' ', '+', $documentImage);
         // $documentImageName =  'DCMNTS-' . uniqid() . '.' . 'png';
@@ -79,11 +79,11 @@ class RegisterController extends Controller
 
         // Storage::disk('public')->put('document/' . $documentFilename, $documentImageDecoded);
 
-        $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
+        // $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
 
 
         $profile = Profile::create([
-            'image' => asset('/storage/profile/' . $imageName),
+            // 'image' => asset('/storage/profile/' . $imageName),
             'last_name' => $request->last_name,
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
@@ -93,7 +93,7 @@ class RegisterController extends Controller
             'section' => $request->section,
             'course' => $request->course,
             'address' => $request->address,
-            'valid_documents' => asset('/storage/document/' . $documentImageName),
+            // 'valid_documents' => asset('/storage/document/' . $documentImageName),
             'user_id' => $user->id
         ]);
 
