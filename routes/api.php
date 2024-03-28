@@ -9,6 +9,7 @@ use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\EventController;
 use App\Http\Controllers\Student\StudentController;
 use App\Models\Announcement;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,15 @@ Route::prefix('mobile')->group(function() {
 
 
 Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-student'])->group(function(){
+
+    Route::get('/loadUser', function(){
+        $user = Auth::user();
+
+        return response([
+            'user' => $user
+        ], 200);
+    });
+
     Route::get('', function(){
         $events = Event::with(['speaker', 'evaluationForm'])->latest()->get();
 

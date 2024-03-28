@@ -58,7 +58,7 @@ class AuthenticationSessionController extends Controller
         return response([
             'message' => 'login Success',
             'token' => $token,
-            'user_id' => $user,
+            'user' => $user,
             'token_type' => 'Bearer'
         ]);
     }
