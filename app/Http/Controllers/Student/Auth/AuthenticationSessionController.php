@@ -53,12 +53,12 @@ class AuthenticationSessionController extends Controller
 
         $token = $tokenResult->plainTextToken;
 
-        $userId = Auth::user()->id;
+        $user = Auth::user();
 
         return response([
             'message' => 'login Success',
             'token' => $token,
-            'user_id' => $userId,
+            'user_id' => $user,
             'token_type' => 'Bearer'
         ]);
     }
