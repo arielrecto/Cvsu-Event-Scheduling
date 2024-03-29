@@ -18,7 +18,12 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::latest()->get();
+
+
+        return response([
+            'events' => $events
+        ], 200);
     }
 
     /**
