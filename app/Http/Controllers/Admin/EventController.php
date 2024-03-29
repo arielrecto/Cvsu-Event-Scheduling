@@ -67,7 +67,7 @@ class EventController extends Controller
 
 
         $imageName = 'IMG-' . uniqid() . '.' . $request->image->extension();
-        $dir = $request->image->storeAs('/event/', $imageName, 'public');
+        $dir = $request->image->storeAs('/event', $imageName, 'public');
 
 
 
