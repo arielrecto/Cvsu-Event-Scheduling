@@ -28,7 +28,7 @@
 
             <div class="flex gap-2 capitalize">
                 <div class="w-1/4 flex justify-center">
-                    {!! QrCode::size(100)->color(18, 55, 42)->generate($event->ref) !!}
+                    {!! QrCode::size(100)->color(18, 55, 42)->generate(route('event.attendance', ['event_ref' => $event->ref])) !!}
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <div class="flex flex-col gap-2">
