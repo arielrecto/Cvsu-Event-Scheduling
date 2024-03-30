@@ -320,7 +320,7 @@
                                         <td>{{ $evaluation->user->profile->section }}</td>
                                         <td>
                                             <div class="flex items-center">
-                                                <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
+                                                <a href="{{ route('students.show', ['student' => $evaluation->user->id]) }}"
                                                     class="btn btn-xs btn-ghost">
                                                     <i class="fi fi-rr-eye"></i>
                                                 </a>
