@@ -159,8 +159,6 @@ class EventController extends Controller
     {
 
 
-        return $request->all();
-
         $event = Event::where('ref', $event_ref)->first();
 
 
