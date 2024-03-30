@@ -158,6 +158,9 @@ class EventController extends Controller
     public function evaluation(Request $request, string $event_ref)
     {
 
+
+        return $request->all();
+
         $event = Event::where('ref', $event_ref)->first();
 
 
