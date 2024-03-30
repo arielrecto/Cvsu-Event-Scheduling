@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Student\AnnouncementController;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,7 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
         ], 200);
     });
 
+
     Route::get('', function(){
         $events = Event::with(['speaker', 'evaluationForm'])->latest()->get();
 
@@ -86,7 +88,7 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
         // Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance']);
         Route::post('/rf={event_ref}/evaluation', [EventController::class, 'evaluation'])->middleware(['event-evaluation']);
     });
-
+    Route::resource('announcements', AnnouncementController::class)->only(['index', 'show']);
     Route::resource('event', EventController::class)->only(['index', 'show']);
     Route::resource('student', StudentController::class)->only(['update', 'show', 'destroy']);
     Route::post('logout', [AuthenticationSessionController::class, 'logout']);
