@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->constrained()->onDelete('CASCADE');
             $table->foreignIdFor(Event::class)->constrained()->onDelete('CASCADE');
             $table->string('result');
-            $table->string('form');
+            $table->json('form');
             $table->string('average');
             $table->timestamps();
         });
