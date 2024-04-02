@@ -25,6 +25,11 @@
             'icon' => 'fi fi-rr-users-alt mt-1',
             'name' => 'Students',
         ],
+        [
+            'url' => 'course.index',
+            'icon' => 'fi fi-rr-e-learning mt-1',
+            'name' => 'Course',
+        ],
     ];
 @endphp
 

@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\EventSpeakerController;
 use App\Http\Controllers\Admin\EvaluationFormController;
 use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\Student\StudentController as StudentStudentController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\SectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,11 +89,24 @@ Route::middleware('auth')->group(function () {
         });
 
 
+        Route::prefix('course')->as('course.')->group(function(){
+            Route::prefix('{course}/section')->as('section.')->group(function(){
+                Route::get('create', [SectionController::class, 'create'])->name('create');
+                Route::post('', [SectionController::class, 'store'])->name('store');
+            });
+        });
+
+        Route::prefix('section')->as('section.')->group(function(){
+            Route::delete('{section}/delete', [SectionController::class, 'destroy'])->name('destroy');
+        });
+
+
 
         Route::resource('announcements', AnnouncementController::class);
         Route::resource('events', EventController::class);
         Route::resource('event/speaker', EventSpeakerController::class);
         Route::resource('students', StudentController::class);
+        Route::resource('course', CourseController::class);
     });
 });
 
