@@ -53,6 +53,11 @@
                     </div>
                     <h1 class="panel-label">Location</h1>
                     <div x-data="mapDisplay({{ $event->location }})" class="h-64 w-full">
+
+
+                        <h1 class="text-sm">
+                            <span x-text="address"/>
+                        </h1>
                         <div x-ref="map" class="h-full w-full">
 
                         </div>

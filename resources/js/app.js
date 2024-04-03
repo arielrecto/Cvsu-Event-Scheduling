@@ -100,6 +100,7 @@ Alpine.data("mapRender", () => ({
 
 Alpine.data("mapDisplay", (data) => ({
     location: data,
+    address : data.address,
     init() {
         const mapElement = this.$refs.map;
 
