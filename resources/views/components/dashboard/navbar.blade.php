@@ -3,7 +3,7 @@
         <div class="flex items-center gap-2">
             <x-application-logo class="h-16 w-16 object object-center"/>
             <h1 class="text-xl font-bold tracking-wider text-primary">
-                Cavite State Event Scheduling
+                Computer Studies Department, CvSU Bacoor City Campuser Event Scheduling
             </h1>
         </div>
         <form action="{{route('logout')}}" method="post" class="flex justify-center gap-2">
