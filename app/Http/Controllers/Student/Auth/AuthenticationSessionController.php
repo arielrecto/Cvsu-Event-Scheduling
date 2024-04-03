@@ -68,7 +68,7 @@ class AuthenticationSessionController extends Controller
         $request->user()->tokens()->delete();
 
         return response([
-            'message' => 'logout success'
+            'message' => 'Logout Success'
         ]);
     }
 }
