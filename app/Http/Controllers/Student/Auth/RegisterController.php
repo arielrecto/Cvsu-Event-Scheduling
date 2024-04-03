@@ -8,6 +8,8 @@ use App\Enums\UserRolesEnum;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -82,6 +84,10 @@ class RegisterController extends Controller
         // $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
 
 
+        $course = Course::where('name', $request->course)->first();
+        $section = Section::find($request->section);
+
+
         $profile = Profile::create([
             // 'image' => asset('/storage/profile/' . $imageName),
             'last_name' => $request->last_name,
@@ -90,8 +96,8 @@ class RegisterController extends Controller
             'student_id' => $request->student_id,
             'age' => $request->age,
             'gender' => $request->gender,
-            'section' => $request->section,
-            'course' => $request->course,
+            'section_id' => $section->id,
+            'course_id' => $course->id,
             'address' => $request->address,
             // 'valid_documents' => asset('/storage/document/' . $documentImageName),
             'user_id' => $user->id

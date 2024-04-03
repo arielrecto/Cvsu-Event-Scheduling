@@ -26,14 +26,20 @@
                 </div>
             </div>
 
+
             <div class="flex gap-2 capitalize">
                 <div class="w-1/4 flex justify-center">
                     {!! QrCode::size(100)->color(18, 55, 42)->generate(route('event.portal', ['event_ref' => $event->ref])) !!}
+
                 </div>
                 <div class="flex flex-col gap-2 w-full">
                     <div class="flex flex-col gap-2">
                         <label for="" class="text-sm text-accent">Name</label>
                         <h1 class="text-lg">{{ $event->name }}</h1>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="" class="text-sm text-accent">Event Referrence:</label>
+                        <h1 class="text-sm">{{ $event->ref }}</h1>
                     </div>
                     <div class="grid grid-cols-2 grid-flow-row gap-2">
                         <div class="flex flex-col gap-2">
@@ -316,8 +322,8 @@
                                         <td>{{ $evaluation->user->profile->fullName() }}</td>
                                         <td>{{ $evaluation->average }}</td>
                                         <td>{{ $evaluation->result }}</td>
-                                        <td>{{ $evaluation->user->profile->course }}</td>
-                                        <td>{{ $evaluation->user->profile->section }}</td>
+                                        <td>{{ $evaluation->user->profile->course->name }}</td>
+                                        <td>{{ $evaluation->user->profile->section->year }} - {{$evaluation->user->profile->section->number}}</td>
                                         <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $evaluation->user->id]) }}"

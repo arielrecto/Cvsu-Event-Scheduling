@@ -2,12 +2,24 @@
 
 namespace App\Http\Controllers\Instructor;
 
-use App\Http\Controllers\Controller;
+use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index(){
-        return view('users.instructor.dashboard');
+    public function index()
+    {
+        $currentDate = Carbon::now();
+
+        // Query events where the current date is between start_date and end_date
+        $event = Event::where('start_date', '<=', $currentDate)
+            ->where('end_date', '>=', $currentDate)
+            ->first();
+
+
+
+        return view('users.instructor.dashboard', compact(['event']));
     }
 }

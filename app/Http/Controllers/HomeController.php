@@ -12,6 +12,7 @@ class HomeController extends Controller
 
         $userRole = Auth::user()->roles()->first();
 
+
         switch($userRole->name){
             case UserRolesEnum::ADMIN->value:
                 return to_route('dashboard');
@@ -19,8 +20,12 @@ class HomeController extends Controller
             case UserRolesEnum::INSTRUCTOR->value:
                 return to_route('faculty.dashboard');
                 break;
+            case UserRolesEnum::STUDENT->value:
+                return to_route('student.student.welcome');
+                break;
             default :
-                return to_route('home');
+                Auth::logout();
+                return to_route('home')->with(['warning' => 'Don\'`t Permission to access this section']);
                 break;
         }
     }

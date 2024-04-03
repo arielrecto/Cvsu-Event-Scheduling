@@ -353,4 +353,36 @@ Alpine.data('getSections', (data) => ({
     }
 }));
 
+
+Alpine.data('getEventAttendances', (id) =>({
+    section : null,
+    course : null,
+    attendances : [],
+    eventId : id,
+    init(){
+        this.getInitAttendances();
+    },
+    async getInitAttendances(){
+        try {
+
+            const { data} = await axios.get(`/faculty/events/${this.eventId}/attendances`);
+
+
+            console.log(data);
+
+            this.attendances = [...data.attendances];
+
+
+            setTimeout(() => {
+                this.getInitAttendances()
+            },  2000);
+
+        } catch (error) {
+            console.log('====================================');
+            console.log(error);
+            console.log('====================================');
+        }
+    }
+}));
+
 Alpine.start();

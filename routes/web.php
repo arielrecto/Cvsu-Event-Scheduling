@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Instructor\DashboardController;
+use App\Http\Controllers\Instructor\EventController as InstructorEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,13 @@ use App\Http\Controllers\Instructor\DashboardController;
 */
 
 Route::get('/', function () {
+
+    $user = Auth::user();
+
+    if($user){
+        Auth::logout();
+    }
+
     return view('welcome');
 })->name('home');
 
@@ -71,13 +79,19 @@ Route::middleware('auth')->group(function () {
 
             $user = Auth::user();
 
-
             $attendance = $event->attendances()->where('user_id', $user->id)->whereDate('created_at', now())->first();
 
             return view('users.students.attendance.index', compact(['event', 'attendance']));
         })->name('portal');
 
         Route::post('/portal/{event_ref}/attendance', [StudentEventController::class, 'attendance'])->name('attendance')->middleware(['event-attendance']);
+    });
+
+
+    Route::middleware(['role:student'])->as('student.')->prefix('student')->group(function(){
+        Route::get('', function (){
+            return view('users.students.welcome');
+        })->name('student.welcome');
     });
 
 
@@ -120,6 +134,12 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['role:instructor'])->prefix('faculty')->as('faculty.')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::prefix('events')->as('events.')->group(function(){
+            Route::get('', [InstructorEventController::class, 'index'])->name('index');
+            Route::get('{event}/show', [InstructorEventController::class, 'show'])->name('show');
+            Route::get('{event}/current', [InstructorEventController::class, 'current'])->name('current');
+            Route::get('{event}/attendances', [InstructorEventController::class, 'eventAttendances'])->name('attendances');
+        });
     });
 });
 

@@ -74,11 +74,11 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <h1 class="panel-label">Course</h1>
-                        <p>{{ $student->profile->course }}</p>
+                        <p>{{ $student->profile->course->name }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <h1 class="panel-label">Year & Section</h1>
-                        <p>{{ $student->profile->section }}</p>
+                        <p>{{ $student->profile->section->year }} - {{$student->profile->section->number}}</p>
                     </div>
                     <div class="flex flex-col gap-2">
                         <h1 class="panel-label">gender</h1>

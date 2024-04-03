@@ -58,7 +58,7 @@
                             <th></th>
                             <td>{{ $student->profile->student_id }}</td>
                             <td>{{ $student->name }}</td>
-                            <td>{{ $student->profile->course }}</td>
+                            <td>{{ $student->profile->course->name }}</td>
                             {{-- <td>{{ $event->dateDuration() }}</td>
                             <td>{{ $event->timeDuration() }}</td>
                             <td>{{ $event->address() }}</td> --}}
