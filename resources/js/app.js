@@ -330,4 +330,27 @@ Alpine.data("print", () => ({
     },
 }));
 
+Alpine.data('getSections', (data) => ({
+    sections : [],
+    course  : null,
+    init() {
+        this.$watch('course', () => {
+            this.getSectionsData();
+        });
+    },
+    async getSectionsData(){
+        try {
+
+            const {data} = await axios.get(`/section/course/${this.course}`)
+
+            this.sections = [...data.sections]
+
+        } catch (error) {
+            console.log('====================================');
+            console.log(error);
+            console.log('====================================');
+        }
+    }
+}));
+
 Alpine.start();

@@ -86,4 +86,14 @@ class SectionController extends Controller
 
         return back()->with(['message' => 'Section Deleted']);
      }
+
+     public function sectionCourse(string $name){
+        $course = Course::where('name', $name)->first();
+
+        $sections = $course->sections;
+
+        return response([
+            'sections' => $sections
+        ], 200);
+     }
 }

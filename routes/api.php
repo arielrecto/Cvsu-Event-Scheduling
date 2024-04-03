@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\Student\AnnouncementController;
 use App\Models\Event;
+use App\Models\Course;
+use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Student\Auth\RegisterController;
-use App\Http\Controllers\Student\Auth\AuthenticationSessionController;
-use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\EventController;
 use App\Http\Controllers\Student\StudentController;
-use App\Models\Announcement;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Student\DashboardController;
+use App\Http\Controllers\Student\AnnouncementController;
+use App\Http\Controllers\Student\Auth\RegisterController;
+use App\Http\Controllers\Student\Auth\AuthenticationSessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 Route::prefix('mobile')->group(function() {
     Route::post('/student', [RegisterController::class, 'store']);
     Route::post('login', [AuthenticationSessionController::class, 'store']);
+
     Route::get('/landing', function(Request $request){
         $announcements = Announcement::latest()->first();
 
@@ -38,6 +40,26 @@ Route::prefix('mobile')->group(function() {
         return response([
             'announcements' => $announcements,
             'events' => $events
+        ], 200);
+    });
+
+
+    Route::get('/course', function(){
+        $courses = Course::get();
+
+        return response([
+            'courses' => $courses
+        ], 200);
+    });
+
+
+    Route::get('/course/{course}/sections', function(string $name){
+        $course = Course::where('name', $name)->first();
+
+        $sections = $course->sections;
+
+        return response([
+            'sections' => $sections
         ], 200);
     });
 

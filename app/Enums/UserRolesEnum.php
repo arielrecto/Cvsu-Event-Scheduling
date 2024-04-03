@@ -7,4 +7,5 @@ enum UserRolesEnum
 :string {
    case STUDENT = "student";
    case ADMIN = "admin";
+   case INSTRUCTOR = 'instructor';
 }

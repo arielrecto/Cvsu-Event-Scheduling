@@ -5,23 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Course extends Model
+class InstructorInfo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'user_id'
     ];
 
 
     public function sections(){
-        return $this->hasMany(Section::class);
+        return $this->hasMany(InstructorSection::class);
     }
 
-    public function instructors(){
+    public function courses(){
         return $this->hasMany(InstructorCourse::class);
-    }
-    public function students(){
-        return $this->hasMany(Profile::class);
     }
 }

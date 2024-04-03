@@ -15,7 +15,10 @@ use App\Http\Controllers\Admin\EvaluationFormController;
 use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\Student\StudentController as StudentStudentController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Instructor\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +34,9 @@ use App\Http\Controllers\Admin\SectionController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+
+Route::get('home', [HomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
 
@@ -98,7 +104,9 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('section')->as('section.')->group(function(){
             Route::delete('{section}/delete', [SectionController::class, 'destroy'])->name('destroy');
+            Route::get('course/{course}', [SectionController::class, 'sectionCourse'])->name('course');
         });
+
 
 
 
@@ -107,6 +115,11 @@ Route::middleware('auth')->group(function () {
         Route::resource('event/speaker', EventSpeakerController::class);
         Route::resource('students', StudentController::class);
         Route::resource('course', CourseController::class);
+        Route::resource('instructors', InstructorController::class);
+    });
+
+    Route::middleware(['role:instructor'])->prefix('faculty')->as('faculty.')->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 });
 

@@ -1,9 +1,11 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Course;
+use App\Models\Section;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -22,8 +24,8 @@ return new class extends Migration
             $table->string('age');
             $table->string('gender');
             $table->longText('address');
-            $table->string('section');
-            $table->string('course');
+            $table->foreignIdFor(Section::class);
+            $table->foreignIdFor(Course::class);
             $table->string('valid_documents')->nullable();
             $table->string('verified_at')->nullable();
             $table->foreignIdFor(User::class)->constrained()->onDelete('CASCADE');

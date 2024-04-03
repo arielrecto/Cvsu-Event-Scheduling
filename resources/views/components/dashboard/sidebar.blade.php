@@ -30,6 +30,11 @@
             'icon' => 'fi fi-rr-e-learning mt-1',
             'name' => 'Course',
         ],
+        [
+            'url' => 'instructors.index',
+            'icon' => 'fi fi-rr-chalkboard-user mt-1',
+            'name' => 'Instructors',
+        ],
     ];
 @endphp
 

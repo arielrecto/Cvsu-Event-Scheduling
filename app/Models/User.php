@@ -55,4 +55,7 @@ class User extends Authenticatable
     public function evaluations(){
         return $this->hasMany(Evaluation::class);
     }
+    public function instructorInfo(){
+        return $this->hasOne(InstructorInfo::class);
+    }
 }

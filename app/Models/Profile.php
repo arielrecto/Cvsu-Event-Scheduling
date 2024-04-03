@@ -20,8 +20,8 @@ class Profile extends Model
         'age',
         'gender',
         'address',
-        'section',
-        'course',
+        'section_id',
+        'course_id',
         'valid_documents',
         'verified_at',
         'user_id'
@@ -41,5 +41,11 @@ class Profile extends Model
 
 
         return $date;
+    }
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+    public function section(){
+        return $this->belongsTo(Section::class);
     }
 }
