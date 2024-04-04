@@ -13,10 +13,12 @@ class DashboardController extends Controller
     {
         $currentDate = Carbon::now();
 
-        // Query events where the current date is between start_date and end_date
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate)
             ->first();
+
+
+            dd($event);
 
 
 

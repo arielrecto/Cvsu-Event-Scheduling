@@ -83,7 +83,7 @@
                                         @endif
                                     </div> --}}
 
-                                    <form action="#" method="post">
+                                    <form action="{{route('course.destroy', ['course' => $course->id])}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-xs btn-error">
