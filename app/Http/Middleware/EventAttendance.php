@@ -29,7 +29,10 @@ class EventAttendance
 
         $start_date = Carbon::parse($event->start_date);
 
-        $end_date = Carbon::parse($event->end_date);
+        $end_date = Carbon::parse($event->end_date).addDays(1);
+
+
+        dd(['end_date' => $end_date, $current_date]);
 
         $start_time = Carbon::parse($event->start_time)->format('h:s A');
 
