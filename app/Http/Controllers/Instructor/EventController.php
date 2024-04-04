@@ -13,7 +13,7 @@ class EventController extends Controller
     public function index()
     {
 
-        $currentDate = Carbon::now();
+        $currentDate = Carbon::now('Asia/Manila')->format('Y-m-d');
 
         $passed_events = Event::where('end_date', '<', $currentDate)->latest()->paginate(10);
 

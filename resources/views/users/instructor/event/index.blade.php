@@ -4,11 +4,13 @@
             <h1 class="panel-title">Events</h1>
 
 
+
             <div class="panel flex flex-col gap-2">
                 <h1 class="panel-title">Current Event</h1>
+                @if($event !== null)
                 <div class="flex rounded-lg bg-blue-500 h-96 relative">
                     <img src="{{ $event->image }}" class="object-cover h-auto w-full" />
-                    <a href="{{ route('faculty.events.current', ['event' => $event->id]) }}"
+                    <a href="{{route('faculty.events.current', ['event' => $event->id])}}"
                         class="w-full absolute z-10 bottom-0 h-24 flex items-center justify-between backdrop-blur-lg bg-white/30 p-5">
                         <div class="flex items-center gap-2">
                             <h1 class="text-lg font-bold">
@@ -36,6 +38,17 @@
                         </div>
                     </a>
                 </div>
+                @else
+                <div class="flex rounded-lg bg-blue-500 h-96 relative">
+                    <img src="{{ asset('calendar.png') }}" class="object-cover h-auto w-full" />
+                    <a href="#"
+                        class="w-full absolute z-10 bottom-0 h-24 flex items-center justify-center backdrop-blur-lg bg-white/30 p-5">
+                        <h1 class="text-3xl font-bold text-neural">
+                            No Current Event
+                        </h1>
+                    </a>
+                </div>
+                @endif
             </div>
 
 
