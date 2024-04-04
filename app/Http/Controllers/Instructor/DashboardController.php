@@ -11,10 +11,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $currentDate = Carbon::now('Asia/Manila');
+        $currentDate = Carbon::now('Asia/Manila')->format('Y-m-d');
 
 
-
+        dd($currentDate);
 
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate)->first();
