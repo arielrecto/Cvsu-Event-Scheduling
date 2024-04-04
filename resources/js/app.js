@@ -271,7 +271,7 @@ Alpine.data("pieChart", (data) => ({
         const series = [];
 
         data.map((item) => {
-            const key = Object.keys(ite.name);
+            const key = Object.keys(item.name);
             const value = Object.values(item);
             labels.push(key);
             series.push(value);
