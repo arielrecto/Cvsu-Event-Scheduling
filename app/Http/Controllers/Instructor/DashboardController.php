@@ -13,12 +13,15 @@ class DashboardController extends Controller
     {
         $currentDate = Carbon::now('Asia/Manila');
 
+
+        dd($currentDate);
+
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate);
 
             dd($event->toSql());
 
-            dd($event);
+
 
 
 
