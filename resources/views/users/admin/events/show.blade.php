@@ -241,8 +241,8 @@
                                         <td>{{ $attendance->user->profile->fullName() }}</td>
                                         <td>{{ $attendance->time_in }}</td>
                                         <td>{{ $attendance->time_out ?? '-' }}</td>
-                                        <td>{{ $attendance->user->profile->course }}</td>
-                                        <td>{{ $attendance->user->profile->section }}</td>
+                                        <td>{{ $attendance->user->profile->course->name }}</td>
+                                        <td>{{ $attendance->user->profile->section->year }} - {{ $attendance->user->profile->section->number }}</td>
                                         <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
