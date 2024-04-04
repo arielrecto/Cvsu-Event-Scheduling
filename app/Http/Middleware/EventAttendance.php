@@ -44,7 +44,7 @@ class EventAttendance
             ]);
         };
 
-        if ($end_date->lt($current_date)) {
+        if ($end_date->gt($current_date)) {
             return back()->with([
                 'message' => "The Event is Ended at {$start_date->format('F d, Y')}, The system process Attendance"
             ]);
