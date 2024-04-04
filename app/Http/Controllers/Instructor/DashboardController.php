@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $currentDate = Carbon::now('UTC+08');
+        $currentDate = Carbon::now('Asia/Manila');
 
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate);
