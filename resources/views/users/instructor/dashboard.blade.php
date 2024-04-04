@@ -3,7 +3,7 @@
         <div class="panel flex flex-col gap-2">
             <h1 class="panel-title">Current Event</h1>
 
-            @if($event === null)
+            @if($event !== null)
             <div class="flex rounded-lg bg-blue-500 h-96 relative">
                 <img src="{{ $event->image }}" class="object-cover h-auto w-full" />
                 <a href="{{route('faculty.events.current', ['event' => $event->id])}}"
