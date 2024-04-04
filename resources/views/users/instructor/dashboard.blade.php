@@ -39,7 +39,9 @@
                 <img src="{{ asset('calendar.png') }}" class="object-cover h-auto w-full" />
                 <a href="#"
                     class="w-full absolute z-10 bottom-0 h-24 flex items-center justify-center backdrop-blur-lg bg-white/30 p-5">
-                    No Current Event
+                    <h1 class="text-3xl font-bold text-neural">
+                        No Current Event
+                    </h1>
                 </a>
             </div>
             @endif
