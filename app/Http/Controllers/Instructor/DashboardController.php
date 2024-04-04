@@ -19,9 +19,6 @@ class DashboardController extends Controller
 
 
 
-        dd($event);
-
-
 
         return view('users.instructor.dashboard', compact(['event']));
     }
