@@ -271,7 +271,7 @@ Alpine.data("pieChart", (data) => ({
         const series = [];
 
         data.map((item) => {
-            const key = Object.keys(item.name);
+            const key = Object.keys(item);
             const value = Object.values(item);
             labels.push(key);
             series.push(value);
@@ -358,6 +358,8 @@ Alpine.data('getSections', (data) => ({
 Alpine.data('getEventAttendances', (id) =>({
     section : null,
     course : null,
+    search : '',
+    category : null,
     attendances : [],
     eventId : id,
     init(){
@@ -366,7 +368,16 @@ Alpine.data('getEventAttendances', (id) =>({
     async getInitAttendances(){
         try {
 
-            const { data} = await axios.get(`/faculty/events/${this.eventId}/attendances`);
+
+            let url = `/faculty/events/${this.eventId}/attendances`;
+
+
+            if(this.category){
+              url = `/faculty/events/${this.eventId}/attendances?category=${this.category}&search=${this.search}`;
+            }
+
+
+            const { data} = await axios.get(url);
 
 
             console.log(data);
@@ -383,6 +394,9 @@ Alpine.data('getEventAttendances', (id) =>({
             console.log(error);
             console.log('====================================');
         }
+    },
+    selectCategory(e) {
+       this.category =  e.target.value;
     }
 }));
 

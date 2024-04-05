@@ -20,7 +20,26 @@
                 </h1>
             </div>
 
-            <div class="overflow-x-auto" x-data="getEventAttendances({{$event->id}})">
+            <div class="overflow-x-auto" x-data="getEventAttendances({{ $event->id }})">
+                <div class="flex justify-end p-5">
+                    <div class="join">
+                        <div>
+                            <div>
+                                <input class="input input-bordered join-item" placeholder="Search"
+                                    x-model.debounce.500ms="search" />
+                            </div>
+                        </div>
+                        <select class="select select-bordered join-item" @change="selectCategory($event)">
+                            <option disabled selected>Filter</option>
+                            <option value="time in">Time In</option>
+                            <option value="time out">Time Out</option>
+                            <option value="course">Course</option>
+                        </select>
+                        <div class="indicator">
+                            <button class="btn join-item">Search</button>
+                        </div>
+                    </div>
+                </div>
                 <table class="table">
                     <!-- head -->
                     <thead class="bg-accent text-white">
@@ -32,43 +51,45 @@
                             <th>Time out</th>
                             <th>Course</th>
                             <th>Year & Section</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                     <template x-for="attendance in attendances" :key="attendance.id">
+                        <template x-for="attendance in attendances" :key="attendance.id">
 
-                        <tr>
-                            <th></th>
-                            <td><span x-text="attendance.user.profile.student_id" /></td>
-                            <td><span x-text="attendance.user.name" /></td>
-                            <td><span x-text="attendance.time_in" /></td>
-                            <td><span x-text="attendance.time_out" /></td>
-                            <td><span x-text="attendance.user.profile.course.name" /></td>
-                            <td>
-                                <div class="flex items-center gap-2">
-                                    <h1>
-                                        <span x-text="attendance.user.profile.section.year" />
-                                    </h1>
-                                    <span> - </span>
-                                    <h1>
-                                        <span x-text="attendance.user.profile.section.number" />
-                                    </h1>
-                                </div>
-                            </td>
-                            <td>
-                                {{-- <div class="flex items-center">
-                                    <a href="#"
-                                        class="btn btn-xs btn-ghost">
-                                        <i class="fi fi-rr-eye"></i>
-                                    </a>
-                                </div> --}}
-                            </td>
-                        </tr>
-                     </template>
-
-
-
+                            <tr>
+                                <th></th>
+                                <td><span x-text="attendance.user.profile.student_id" /></td>
+                                <td><span x-text="attendance.user.name" /></td>
+                                <td><span x-text="attendance.time_in" /></td>
+                                <td><span x-text="attendance.time_out" /></td>
+                                <td><span x-text="attendance.user.profile.course.name" /></td>
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <h1>
+                                            <span x-text="attendance.user.profile.section.year" />
+                                        </h1>
+                                        <span> - </span>
+                                        <h1>
+                                            <span x-text="attendance.user.profile.section.number" />
+                                        </h1>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <a :href="`/faculty/attendances/${attendance.id}`" class="btn btn-xs btn-ghost">
+                                            <i class="fi fi-rr-eye"></i>
+                                        </a>
+                                        <form :action="`/faculty/attendances/${attendance.id}`" method="post" class="btn btn-xs btn-ghost">
+                                            @method('delete')
+                                            @csrf
+                                            <button><i class="fi fi-rr-trash-xmark text-error"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </div>

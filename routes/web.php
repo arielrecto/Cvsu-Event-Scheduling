@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Instructor\AttendanceController;
 use App\Http\Controllers\Instructor\DashboardController;
 use App\Http\Controllers\Instructor\EventController as InstructorEventController;
 
@@ -140,6 +141,7 @@ Route::middleware('auth')->group(function () {
             Route::get('{event}/current', [InstructorEventController::class, 'current'])->name('current');
             Route::get('{event}/attendances', [InstructorEventController::class, 'eventAttendances'])->name('attendances');
         });
+        Route::resource('attendances', AttendanceController::class)->only(['show', 'destroy']);
     });
 });
 

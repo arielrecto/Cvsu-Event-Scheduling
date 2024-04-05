@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class EventAttendance
@@ -22,6 +23,7 @@ class EventAttendance
 
         $event = Event::where('ref', $request->event_ref)->first();
 
+        $user = Auth::user();
 
         $current_date = now();
 
@@ -55,10 +57,12 @@ class EventAttendance
             ]);
         }
 
-
-        if ($current_time->lt($event->end_time)) {
+        if (
+            $current_time->gt($event->end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
+            ->where('event_id', $event->id)->latest()->first() === null
+        ) {
             return back()->with([
-                'message' => "The Event Ends at {$end_time}, You can only timeout when the event ends"
+                'message' => "The Event Ends at {$end_time}, You can only time in when the event is start at tomorrow {$start_time}"
             ]);
         }
 
