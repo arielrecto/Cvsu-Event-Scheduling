@@ -57,7 +57,7 @@
                         <tr class="bg-base-100">
                             <th></th>
                             <td>{{ $student->profile->student_id }}</td>
-                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->profile->fullName() }}</td>
                             <td>{{ $student->profile->course->name }}</td>
                             {{-- <td>{{ $event->dateDuration() }}</td>
                             <td>{{ $event->timeDuration() }}</td>
