@@ -143,7 +143,7 @@ class EventController extends Controller
         };
 
 
-        if ($attendance !== null && $event_time_end->gt($current_time)) {
+        if ($attendance !== null && $event_time_end->lt($current_time)) {
 
             $attendance->update([
                 'time_out' =>  "-"
