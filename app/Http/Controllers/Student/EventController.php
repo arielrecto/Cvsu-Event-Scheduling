@@ -143,21 +143,6 @@ class EventController extends Controller
         };
 
 
-        if ($attendance !== null && $event_time_end->lt($current_time)) {
-
-            $attendance->update([
-                'time_out' =>  "-"
-            ]);
-
-            return back()->with([
-                'message' => "The System can't process time out the event is ended at {$event_time_end}"
-            ]);
-        };
-
-
-
-
-
         Attendance::create([
             'time_in' => $current_time,
             'event_id' => $event->id,
