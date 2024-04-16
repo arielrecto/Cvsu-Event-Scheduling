@@ -36,7 +36,6 @@ class EventAttendance
         $event_end_time = Carbon::parse($event->end_time)->timezone('GMT+8');
 
 
-        dd($event_end_time);
 
 
 
@@ -63,7 +62,7 @@ class EventAttendance
         }
 
         if (
-            $current_time->gt($event->end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
+            $current_time->gt($event_end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
             ->where('event_id', $event->id)->latest()->first() === null
         ) {
             return back()->with([
