@@ -33,6 +33,11 @@ class EventAttendance
 
         $end_date = Carbon::parse($event->end_date);
 
+        $event_end_time = Carbon::parse($event->end_time)->timezone('GMT+8');
+
+
+        dd($event_end_time);
+
 
 
         $start_time = Carbon::parse($event->start_time)->format('h:s A');
