@@ -65,13 +65,17 @@ class EventController extends Controller
         $has_evaluation = User::find($user->id)->evaluations()->where('event_id', $event->id)->exists();
 
 
+        $event_is_done = Carbon::parse($event->end_date)->lt(now());
+
+
         return response([
             'event' => $event,
             'event_evaluation_average' => $event_evaluation_average,
             'event_evaluation_result' => $event_evaluation_result,
             'total_attendees' => $total_attendees,
             'user_has_evaluation' => $has_evaluation,
-            'attendance_link' => route('event.portal', ['event_ref' => $event->ref])
+            'attendance_link' => route('event.portal', ['event_ref' => $event->ref]),
+            'event_is_done' => $event_is_done
         ]);
     }
 
