@@ -62,7 +62,7 @@ class EventAttendance
         }
 
         if (
-            $current_time->gt($event->end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
+            $current_time->lt($event->end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
             ->where('event_id', $event->id)->latest()->first() === null
         ) {
 
