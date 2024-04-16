@@ -131,7 +131,7 @@ class EventController extends Controller
             ->whereNull('time_out')->latest()->first();
 
 
-        if ($attendance !== null && $event_time_end->lt($current_time)) {
+        if ($attendance !== null && $event_time_end->gt($current_time)) {
 
             $attendance->update([
                 'time_out' =>  Carbon::now('GMT+8')->format('h:i A')
