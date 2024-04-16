@@ -220,13 +220,13 @@
 
 
             @if (count($attendances) !== 0)
-                <div class="grid gird-cols-2 grid-flow-row gap-5 h-auto" x-data="pieChart({{ $attendancesByCourse_json }})">
+                {{-- <div class="grid gird-cols-2 grid-flow-row gap-5 h-auto" x-data="pieChart({{ $attendancesByCourse_json }})">
                     <div class="w-full h-full">
                         <div x-ref="chart" class="w-1/2 h-auto">
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="flex flex-col w-full min-h-64 max-h-96 overflow-y-auto" id="attendances">
 
                     <div class="overflow-x-auto">
