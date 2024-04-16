@@ -62,11 +62,9 @@ class EventAttendance
         }
 
         if (
-            $current_time->gt($event_end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
+            $current_time->gt($event->end_time) && $user->attendances()->whereDate('created_at', now()->toDateString())
             ->where('event_id', $event->id)->latest()->first() === null
         ) {
-
-            dd($current_time, $event_end_time);
 
             return back()->with([
                 'message' => "The Event Ends at {$end_time}, You can only time in when the event is start at tomorrow {$start_time}"

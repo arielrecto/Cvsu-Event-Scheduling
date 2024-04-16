@@ -4,13 +4,18 @@
         <x-dashboard.header :route="route('events.index')" :event_name="'Event Edit'" />
         {{-- <h1 class="panel-title">Event Create</h1> --}}
 
-        <x-notification-message/>
-        <form action="{{ route('events.update', ['event' => $event->id]) }}" method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
+        <x-notification-message />
+        <form action="{{ route('events.update', ['event' => $event->id]) }}" method="post" class="flex flex-col gap-2"
+            enctype="multipart/form-data">
             @method('put')
             @csrf
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Event Speaker
-                    <p class="text-xs text-accent capitalize">{{$event->speaker->fullName()}}</p>
+
+                    @foreach ($event->hosts as $host)
+                        <p class="text-xs text-accent capitalize">{{ $host->speaker->fullName() }}</p>
+                    @endforeach
+
                 </label>
                 <div class="flex items-center gap-2">
                     <select name="speaker" class="select select-accent w-full">
@@ -55,7 +60,8 @@
                 <p class="text-xs text-error">{{ $errors->first('image') }}</p>
             @endif
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Name <p class="text-xs text-accent capitalize">{{$event->name}}</p></label>
+                <label for="" class="input-generic-label">Name <p class="text-xs text-accent capitalize">
+                        {{ $event->name }}</p></label>
                 <input type="text" class="input input-accent" name="name" placeholder="Event Name">
                 @if ($errors->has('name'))
                     <p class="text-xs text-error">{{ $errors->first('name') }}</p>
@@ -65,14 +71,16 @@
             <label for="" class="input-generic-label">Event Duration</label>
             <div class="grid grid-cols-2 grid-flow-row gap-5">
                 <div class="input-generic-div">
-                    <label for="" class="input-generic-label">Start Date: <p class="text-xs text-accent">{{$event->start_date}}</p></label>
+                    <label for="" class="input-generic-label">Start Date: <p class="text-xs text-accent">
+                            {{ $event->start_date }}</p></label>
                     <input type="date" name="start_date" placeholder="Start Date" class="input-generic">
                     @if ($errors->has('start_date'))
                         <p class="text-xs text-error">{{ $errors->first('start_date') }}</p>
                     @endif
                 </div>
                 <div class="input-generic-div">
-                    <label for="" class="input-generic-label">End Date  <p class="text-xs text-accent">{{$event->end_date}}</p></label>
+                    <label for="" class="input-generic-label">End Date <p class="text-xs text-accent">
+                            {{ $event->end_date }}</p></label>
                     <input type="date" name="end_date" placeholder="End Date" class="input-generic">
                     @if ($errors->has('end_date'))
                         <p class="text-xs text-error">{{ $errors->first('end_date') }}</p>
@@ -83,14 +91,16 @@
             <label for="" class="input-generic-label">Event Duration per Day</label>
             <div class="grid grid-cols-2 grid-flow-row gap-5">
                 <div class="input-generic-div">
-                    <label for="" class="input-generic-label">Start Time <p class="text-xs text-accent">{{date('h:s A', strtotime($event->start_time)) }}</p></label>
+                    <label for="" class="input-generic-label">Start Time <p class="text-xs text-accent">
+                            {{ date('h:s A', strtotime($event->start_time)) }}</p></label>
                     <input type="time" name="start_time" class="input-generic">
                     @if ($errors->has('start_time'))
                         <p class="text-xs text-error">{{ $errors->first('start_time') }}</p>
                     @endif
                 </div>
                 <div class="input-generic-div">
-                    <label for="" class="input-generic-label">End Time <p class="text-xs text-accent">{{ date('h:s A', strtotime($event->end_time))}}</p></label>
+                    <label for="" class="input-generic-label">End Time <p class="text-xs text-accent">
+                            {{ date('h:s A', strtotime($event->end_time)) }}</p></label>
                     <input type="time" name="end_time" class="input-generic">
                     @if ($errors->has('end_time'))
                         <p class="text-xs text-error">{{ $errors->first('end_time') }}</p>
@@ -104,7 +114,7 @@
 
             <div class="input-generic-div" x-data="mapRender">
                 <label for="" class="input-generic-label">Location
-                    <p class="text-xs text-accent">{{$location->address}}</p>
+                    <p class="text-xs text-accent">{{ $location->address }}</p>
                 </label>
 
                 <div x-ref="map" class="h-96 w-full">
