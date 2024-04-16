@@ -49,7 +49,7 @@ class EventController extends Controller
     {
         $event = Event::whereId($id)->with([
             'evaluationForm',
-            'speaker',
+            'hosts.speaker',
         ])->first();
 
 
