@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"  class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 
 <head>
     <meta charset="utf-8">
@@ -26,15 +26,21 @@
 
     {{-- leaflet css  --}}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
 
     {{-- venovox --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.1.6/venobox.css" integrity="sha512-s+l15zg0IbE3rd3e24wM2Nne3q4bsueCUVmELW2EbU2NCp/gUdgnzfO9MHQ5OwqtUXxJ7H5mM5drz59BdApJNQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/2.1.6/venobox.css"
+        integrity="sha512-s+l15zg0IbE3rd3e24wM2Nne3q4bsueCUVmELW2EbU2NCp/gUdgnzfO9MHQ5OwqtUXxJ7H5mM5drz59BdApJNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
+    {{-- swipper --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 </head>
 
 <body class="font-sans antialiased">
@@ -58,17 +64,16 @@
 
     {{-- full calendar --}}
     <script src="
-    https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js
-    "></script>
+            https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js
+            "></script>
 
 
     {{-- quill editor --}}
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-{{-- leaftlet --}}
+    {{-- leaftlet --}}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 
     {{-- venobox --}}
@@ -79,12 +84,18 @@
     {{-- Apex Chart --}}
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+    {{-- swipper --}}
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 
     <script>
         new VenoBox({
-            selector : '.venobox'
+            selector: '.venobox'
         })
     </script>
+
+
+    @stack('js')
 
 </body>
 

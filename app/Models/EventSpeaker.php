@@ -23,8 +23,9 @@ class EventSpeaker extends Model
         'description'
     ];
 
-    public function events (){
-        return $this->hasMany(Event::class);
+
+    public function events(){
+        return $this->hasMany(EventHost::class, 'event_speaker_id');
     }
 
     public function fullName():string{

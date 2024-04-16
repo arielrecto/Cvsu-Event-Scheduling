@@ -7,6 +7,9 @@ use App\Models\EventSpeaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use App\Models\EventHost;
+
+use function PHPSTORM_META\map;
 
 class EventController extends Controller
 {
@@ -18,7 +21,7 @@ class EventController extends Controller
 
         $search = $request->search;
 
-        $events = Event::with(['speaker'])->latest()->paginate(10);
+        $events = Event::with(['hosts.speaker'])->latest()->paginate(10);
 
 
         if($search){
@@ -55,7 +58,7 @@ class EventController extends Controller
 
 
         $request->validate([
-            'speaker' => 'required',
+            'speakers' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg',
             'name' => 'required',
             'start_date' => 'required',
@@ -74,7 +77,7 @@ class EventController extends Controller
         $event_ref = 'VNT-' . uniqid() . now()->format('Y-m-d');
 
 
-        Event::create([
+        $event = Event::create([
             'image' => asset('/storage/' . $dir),
             'ref' => $event_ref,
             'name' => $request->name,
@@ -84,10 +87,17 @@ class EventController extends Controller
             'end_time' => $request->end_time,
             'description' => $request->description,
             'location' => $request->locations,
-            'event_speaker_id' => $request->speaker
         ]);
 
+        $speakers = $request->speakers;
 
+
+        collect($speakers)->map(function($speaker) use($event) {
+            EventHost::create([
+                'event_id' => $event->id,
+                'event_speaker_id' => $speaker
+            ]);
+        });
 
 
         return to_route('events.index')->with([
@@ -203,7 +213,7 @@ class EventController extends Controller
             ->with('user.profile') // Ensure the necessary relationships are loaded
             ->get()
             ->groupBy(function ($attendance) {
-                return $attendance->user->profile->course;
+                return $attendance->user->profile->course->name;
             })
             ->map(function ($attendances) {
                 return $attendances->count();

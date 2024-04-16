@@ -11,7 +11,7 @@
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Event Speaker</label>
                 <div class="flex items-center gap-2">
-                    <select name="speaker" class="select select-accent w-full">
+                    <select name="speakers[]" multiple class="select select-accent w-full">
                         <option disabled selected>Select Host/Speaker</option>
                         @foreach ($speakers as $speaker)
                             <option value="{{ $speaker->id }}" class="capitalize">{{ $speaker->fullName() }}</option>
@@ -19,8 +19,8 @@
                     </select>
                     <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
                 </div>
-                @if ($errors->has('speaker'))
-                    <p class="text-xs text-error">{{ $errors->first('speaker') }}</p>
+                @if ($errors->has('speakers'))
+                    <p class="text-xs text-error">{{ $errors->first('speakers') }}</p>
                 @endif
             </div>
             <div class="flex justify-center min-h-24" x-data="imageUploadHandler">

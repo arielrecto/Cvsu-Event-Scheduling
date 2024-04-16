@@ -21,7 +21,7 @@
                     <tr>
                         <th></th>
                         <th>Name</th>
-                        <th>Speaker</th>
+                        <th>Hosts</th>
                         <th>Date</th>
                         <th>Time</th>
                         <td>Address</th>
@@ -34,7 +34,17 @@
                         <tr class="bg-base-100">
                             <th></th>
                             <td>{{ $event->name }}</td>
-                            <td>{{ $event->speaker->fullName() }}</td>
+
+                            <td>
+
+
+
+
+                                @foreach ($event->hosts as $host)
+                                    <p>{{$host->speaker->fullName()}},</p>
+                                @endforeach
+
+                            </td>
                             <td>{{ $event->dateDuration() }}</td>
                             <td>{{ $event->timeDuration() }}</td>
                             <td>{{ $event->address() }}</td>

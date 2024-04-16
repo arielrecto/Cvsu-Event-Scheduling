@@ -21,17 +21,15 @@ class Event extends Model
         'end_time',
         'description',
         'location',
-        'event_speaker_id',
         'status',
         'is_done'
     ];
 
 
-
-    public function speaker()
-    {
-        return $this->belongsTo(EventSpeaker::class, 'event_speaker_id');
+    public function hosts(){
+        return $this->hasMany(EventHost::class);
     }
+
     public function attendances()
     {
         return $this->hasMany(Attendance::class);

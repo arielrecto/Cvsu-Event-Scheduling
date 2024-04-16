@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
+use App\Models\AnnouncementImage;
 use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
@@ -34,15 +35,34 @@ class AnnouncementController extends Controller
     {
 
 
+
         $request->validate([
             'title' => 'required',
             'description' => 'required'
         ]);
 
-        Announcement::create([
+        $announcement = Announcement::create([
             'title' => $request->title,
             'description' => $request->description
         ]);
+
+
+        if($request->hasFile('images')){
+            $images = $request->images;
+            collect($images)->map(function($image) use ($announcement){
+
+                $imageName = 'IMG-' . uniqid() . '.' . $image->extension();
+                $dir = $image->storeAs('/announcement', $imageName, 'public');
+
+                AnnouncementImage::create([
+                    'name' => $imageName,
+                    'url' => asset('/storage/' . $dir),
+                    'announcement_id' => $announcement->id
+                ]);
+
+            });
+
+        }
 
 
         return back()->with(['message' => 'Announcement is Added']);

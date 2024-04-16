@@ -96,48 +96,60 @@
             <h1 class="text-accent">Speaker/Host Information</h1>
 
             @php
-                $speaker = $event->speaker;
+                $hosts = $event->hosts;
             @endphp
+
+            @forelse ($hosts as $host)
+
             <div class="flex gap-2 w-full">
                 <div class="w-1/4 h-64">
-                    <img src="{{ $speaker->image }}" alt="" srcset=""
+                    <img src="{{ $host->speaker->image }}" alt="" srcset=""
                         class="w-full h-auto object object-cover">
                 </div>
                 <div class="flex flex-col gap-2 capitalize p-2 w-full">
                     <div class="grid grid-cols-3 grid-flow-row">
                         <div class="flex flex-col gap-2">
                             <label for="" class="panel-label">Last Name</label>
-                            <h1>{{ $speaker->last_name }}</h1>
+                            <h1>{{ $host->speaker->last_name }}</h1>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="" class="panel-label">First Name</label>
-                            <h1>{{ $speaker->first_name }}</h1>
+                            <h1>{{ $host->speaker->first_name }}</h1>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="" class="panel-label">Middle Name</label>
-                            <h1>{{ $speaker->middle_name }}</h1>
+                            <h1>{{ $host->speaker->middle_name }}</h1>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="" class="panel-label">Age</label>
-                            <h1>{{ $speaker->age }}</h1>
+                            <h1>{{ $host->speaker->age }}</h1>
                         </div>
                         <div class="flex flex-col gap-2">
                             <label for="" class="panel-label">gender</label>
-                            <h1>{{ $speaker->gender }}</h1>
+                            <h1>{{ $host->speaker->gender }}</h1>
                         </div>
                     </div>
                     <h1 class="panel-label">
                         Address
                     </h1>
-                    <p class="">{{ $speaker->address }}</p>
+                    <p class="">{{ $host->speaker->address }}</p>
                     <h1 class="penel-label">
                         Descriptions
                     </h1>
                     <div class="min-h-64 max-h-94 w-full bg-base-100 rounded-lg p-2">
-                        {{ $speaker->description }}
+                        {{ $host->speaker->description }}
                     </div>
                 </div>
             </div>
+
+
+            @empty
+                <p>
+                    No hosts
+                </p>
+            @endforelse
+
+
 
             <h1 class="text-accent">Evaluation</h1>
             <div class="flex items-center justify-between">

@@ -97,14 +97,21 @@
                         <h1 class="panel-label">
                             Host/Speaker
                         </h1>
+
+                        @forelse ($event->hosts as $host)
                         <div class="flex flex-col gap-2">
                             <h1 class="text-xs text-accent">
                                 name
                             </h1>
                             <h1>
-                                {{$event->speaker->fullName()}}
+                                {{$host->speaker->fullName()}}
                             </h1>
                         </div>
+                        @empty
+
+                            <p>No Hosts</p>
+                        @endforelse
+
                     </div>
                 </div>
 
@@ -117,13 +124,13 @@
 
                 @endphp
 
-                <div class="grid gird-cols-2 grid-flow-row gap-5 h-auto" x-data="pieChart({{ $attendancesByCourse_json }})">
+                {{-- <div class="grid gird-cols-2 grid-flow-row gap-5 h-auto" x-data="pieChart({{ $attendancesByCourse_json }})">
                     <div class="w-full h-full">
                         <div x-ref="chart" class="w-1/2 h-auto">
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="flex flex-col w-full" id="attendances">
 

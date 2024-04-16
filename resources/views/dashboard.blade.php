@@ -71,7 +71,14 @@
                             <tr class="bg-base-100">
                                 <th></th>
                                 <td>{{ $event->name }}</td>
-                                <td>{{ $event->speaker->fullName() }}</td>
+                                <td>
+
+                                    @forelse ($event->hosts as $host)
+                                    {{ $host->speaker->fullName() }}
+                                    @empty
+                                        no host
+                                    @endforelse
+                                    </td>
                                 <td>{{ $event->dateDuration() }}</td>
                                 <td>{{ $event->timeDuration() }}</td>
                                 <td>{{ $event->address() }}</td>
