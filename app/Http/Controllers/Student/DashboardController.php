@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $events = Event::whereMonth('start_date', now())->orWhere('end_date', now())->with(['speaker'])->get();
+        $events = Event::whereMonth('start_date', now())->orWhere('end_date', now())->with(['hosts'])->get();
         $totalEvent = Event::count();
         $totalAnnouncement= Announcement::count();
 
