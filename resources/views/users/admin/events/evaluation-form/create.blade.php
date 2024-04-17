@@ -48,7 +48,7 @@
                             class="select select-accent w-full">
                             <option disabled selected>Select</option>
                             <option value="text">Text</option>
-                            <option value="number">Number</option>
+                            {{-- <option value="number">Number</option> --}}
                             <option value="radio">Radio</option>
                             {{-- <option>Light mode</option> --}}
                         </select>
