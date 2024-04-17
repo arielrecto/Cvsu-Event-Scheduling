@@ -175,10 +175,14 @@
 
                         <form
                             action="{{ route('events.evaluation.form.destroy', ['form' => $evaluation_form->id]) }}"
-                            method="post"></form>
-                        <button  class="btn btn-xs btn-error">
-                            <i class="fi fi-rr-trash"></i>
-                        </button>
+                            method="post">
+                            @csrf
+                            @method('delete')
+                            <button  class="btn btn-xs btn-error">
+                                <i class="fi fi-rr-trash"></i>
+                            </button>
+                        </form>
+
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 min-h-64 relative">
