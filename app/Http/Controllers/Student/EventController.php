@@ -112,7 +112,7 @@ class EventController extends Controller
         $current_time =  Carbon::now('GMT+8')->format('h:i A');
 
         $event_time_start = Carbon::parse($event->start_time);
-        $event_time_end = Carbon::parse($event->end_time);
+        $event_time_end = Carbon::create($event->end_time);
 
         $current_date = Carbon::now('GMT+8')->format('F d, Y');
 
@@ -135,7 +135,7 @@ class EventController extends Controller
             ->whereNull('time_out')->latest()->first();
 
 
-        if ($attendance !== null && $event_time_end->gt($current_time)) {
+        if ($attendance !== null && $event_time_end->addDay(1)->gt($current_time)) {
 
             $attendance->update([
                 'time_out' =>  Carbon::now('GMT+8')->format('h:i A')
