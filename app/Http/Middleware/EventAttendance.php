@@ -34,7 +34,7 @@ class EventAttendance
         $end_date = Carbon::create($event->end_date);
 
 
-        dd($end_date);
+        dd($end_date->addDay(1));
 
 
 
