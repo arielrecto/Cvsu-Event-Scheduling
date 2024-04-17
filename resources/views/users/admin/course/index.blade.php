@@ -29,7 +29,7 @@
         <div class="flex items-center justify-between">
             <h1 class="panel-title">Course</h1>
             <a href="{{ route('course.create') }}" class="btn-generic">
-                create
+                create Course
             </a>
         </div>
 

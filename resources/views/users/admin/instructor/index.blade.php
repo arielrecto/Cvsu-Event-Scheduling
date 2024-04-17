@@ -4,7 +4,7 @@
         <div class="flex items-center justify-between">
             <h1 class="panel-title">Faculty Members</h1>
             <a href="{{ route('instructors.create') }}" class="btn-generic">
-                create
+                create Faculty Member
             </a>
         </div>
 
