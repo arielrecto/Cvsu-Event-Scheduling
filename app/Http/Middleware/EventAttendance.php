@@ -34,9 +34,6 @@ class EventAttendance
         $end_date = Carbon::create($event->end_date);
 
 
-        dd($end_date->addDay(1));
-
-
 
         $start_time = Carbon::parse($event->start_time)->format('h:s A');
 
@@ -48,7 +45,7 @@ class EventAttendance
             ]);
         };
 
-        if ($end_date->lt($current_date)) {
+        if ($end_date->addDay(1)->lt($current_date)) {
             return back()->with([
                 'message' => "The Event is Ended at {$end_date->format('F d, Y')}, The system process Attendance"
             ]);
