@@ -56,7 +56,7 @@
 
 
                         <h1 class="text-sm">
-                            <span x-text="address"/>
+                            <span x-text="address" />
                         </h1>
                         <div x-ref="map" class="h-full w-full">
 
@@ -100,47 +100,46 @@
             @endphp
 
             @forelse ($hosts as $host)
-
-            <div class="flex gap-2 w-full">
-                <div class="w-1/4 h-64">
-                    <img src="{{ $host->speaker->image }}" alt="" srcset=""
-                        class="w-full h-auto object object-cover">
-                </div>
-                <div class="flex flex-col gap-2 capitalize p-2 w-full">
-                    <div class="grid grid-cols-3 grid-flow-row">
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="panel-label">Last Name</label>
-                            <h1>{{ $host->speaker->last_name }}</h1>
+                <div class="flex gap-2 w-full">
+                    <div class="w-1/4 h-64">
+                        <img src="{{ $host->speaker->image }}" alt="" srcset=""
+                            class="w-full h-auto object object-cover">
+                    </div>
+                    <div class="flex flex-col gap-2 capitalize p-2 w-full">
+                        <div class="grid grid-cols-3 grid-flow-row">
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="panel-label">Last Name</label>
+                                <h1>{{ $host->speaker->last_name }}</h1>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="panel-label">First Name</label>
+                                <h1>{{ $host->speaker->first_name }}</h1>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="panel-label">Middle Name</label>
+                                <h1>{{ $host->speaker->middle_name }}</h1>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="panel-label">Age</label>
+                                <h1>{{ $host->speaker->age }}</h1>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="" class="panel-label">gender</label>
+                                <h1>{{ $host->speaker->gender }}</h1>
+                            </div>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="panel-label">First Name</label>
-                            <h1>{{ $host->speaker->first_name }}</h1>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="panel-label">Middle Name</label>
-                            <h1>{{ $host->speaker->middle_name }}</h1>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="panel-label">Age</label>
-                            <h1>{{ $host->speaker->age }}</h1>
-                        </div>
-                        <div class="flex flex-col gap-2">
-                            <label for="" class="panel-label">gender</label>
-                            <h1>{{ $host->speaker->gender }}</h1>
+                        <h1 class="panel-label">
+                            Address
+                        </h1>
+                        <p class="">{{ $host->speaker->address }}</p>
+                        <h1 class="penel-label">
+                            Descriptions
+                        </h1>
+                        <div class="min-h-64 max-h-94 w-full bg-base-100 rounded-lg p-2">
+                            {{ $host->speaker->description }}
                         </div>
                     </div>
-                    <h1 class="panel-label">
-                        Address
-                    </h1>
-                    <p class="">{{ $host->speaker->address }}</p>
-                    <h1 class="penel-label">
-                        Descriptions
-                    </h1>
-                    <div class="min-h-64 max-h-94 w-full bg-base-100 rounded-lg p-2">
-                        {{ $host->speaker->description }}
-                    </div>
                 </div>
-            </div>
 
 
             @empty
@@ -152,21 +151,10 @@
 
 
             <h1 class="text-accent">Evaluation</h1>
-            <div class="flex items-center justify-between">
-                <label for="" class="input-generic-label">
-                    <span>*</span>
-                    This the evaluation form preview
-                </label>
-                <div class="flex items-center gap-2">
-                    <a href="#" class="btn btn-xs btn-primary"><i class="fi fi-rr-edit"></i></a>
-                    <a href="#" class="btn btn-xs btn-error">
-                        <i class="fi fi-rr-trash"></i>
-                    </a>
-                </div>
-            </div>
 
 
             @if ($event->evaluationForm === null)
+
                 <div class="min-h-64 w-full p-5 rounded-lg bg-base-100 flex items-center justify-center">
                     <a href="{{ route('events.evaluation.form.create', ['event' => $event->id]) }}"
                         class="btn-generic">Add Evaluation Form</a>
@@ -177,6 +165,22 @@
 
                     $form = json_decode($evaluation_form->form);
                 @endphp
+                <div class="flex items-center justify-between">
+                    <label for="" class="input-generic-label">
+                        <span>*</span>
+                        This the evaluation form preview
+                    </label>
+                    <div class="flex items-center gap-2">
+                        {{-- <a href="#" class="btn btn-xs btn-primary"><i class="fi fi-rr-edit"></i></a> --}}
+
+                        <form
+                            action="{{ route('events.evaluation.form.destroy', ['form' => $evaluation_form->id]) }}"
+                            method="post"></form>
+                        <a href="#" class="btn btn-xs btn-error">
+                            <i class="fi fi-rr-trash"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="flex flex-col gap-2 min-h-64 relative">
                     <div class="w-full h-auto p-2 rouned-lg bg-base-100 flex justify-center">
                         <h1 class="text-4xl font-bold tracking-widest">{{ $form->title }}</h1>
@@ -254,7 +258,8 @@
                                         <td>{{ $attendance->time_in }}</td>
                                         <td>{{ $attendance->time_out ?? '-' }}</td>
                                         <td>{{ $attendance->user->profile->course->name }}</td>
-                                        <td>{{ $attendance->user->profile->section->year }} - {{ $attendance->user->profile->section->number }}</td>
+                                        <td>{{ $attendance->user->profile->section->year }} -
+                                            {{ $attendance->user->profile->section->number }}</td>
                                         <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
@@ -340,7 +345,8 @@
                                         <td>{{ $evaluation->average }}</td>
                                         <td>{{ $evaluation->result }}</td>
                                         <td>{{ $evaluation->user->profile->course->name }}</td>
-                                        <td>{{ $evaluation->user->profile->section->year }} - {{$evaluation->user->profile->section->number}}</td>
+                                        <td>{{ $evaluation->user->profile->section->year }} -
+                                            {{ $evaluation->user->profile->section->number }}</td>
                                         <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $evaluation->user->id]) }}"

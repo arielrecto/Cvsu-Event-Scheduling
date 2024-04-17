@@ -89,6 +89,13 @@ class EvaluationFormController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $evaluationFrom = EvaluationForm::find($id);
+
+
+        $evaluationFrom->delete();
+
+
+
+        return back()->with(['message' => 'Evaluation Form Deleted']);
     }
 }

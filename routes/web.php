@@ -107,6 +107,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{event}/evaluation/form', [EvaluationFormController::class, 'create'])->name('evaluation.form.create');
             Route::post('evaluation/store', [EvaluationFormController::class, 'store'])->name('evaluation.form.store');
             Route::get('{event}/report', [EventController::class, 'report'])->name('report');
+            Route::delete('evaluation/from/{form}/delete', [EvaluationFormController::class, 'destroy'])->name('evaluation.form.destroy');
         });
 
 
