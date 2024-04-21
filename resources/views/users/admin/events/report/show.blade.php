@@ -19,9 +19,20 @@
                         <img src="{{ asset('logo.png') }}" alt="" srcset=""
                             class="h-12 w-12 object object-center">
                         <div>
-                            <h1 class="text-lg font-bold">Cavite State University - Bacoor Campus</h1>
+                            <p class="text-gray-600 text-center text-xs">
+                                Republic of the Philippines
+                            </p>
+                            <h1 class="text-lg font-bold flex flex-col">
+                                <span>
+                                    Cavite State University
+                                </span>
+
+                                 <span>Bacoor City Campus</span> </h1>
                             <p class="text-gray-600 text-center text-xs">
                                 Soldiers Hills IV, Molino VI, Bacoor City, Cavite
+                            </p>
+                            <p class="text-gray-600 text-center text-xs">
+                               DEPARTMENT OF COMPUTER STUDIES
                             </p>
                         </div>
                     </div>
