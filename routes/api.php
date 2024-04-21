@@ -107,7 +107,7 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
 
 
     Route::prefix('event')->group(function (){
-        Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance'])->middleware(['event-attendance']);
+        Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance']);
         Route::post('/rf={event_ref}/evaluation', [EventController::class, 'evaluation'])->middleware(['event-evaluation']);
     });
     Route::resource('announcements', AnnouncementController::class)->only(['index', 'show']);
