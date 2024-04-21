@@ -74,7 +74,7 @@ class EventController extends Controller
             'event_evaluation_result' => $event_evaluation_result,
             'total_attendees' => $total_attendees,
             'user_has_evaluation' => $has_evaluation,
-            'attendance_link' => route('event.portal', ['event_ref' => $event->ref]),
+            // 'attendance_link' => route('event.portal', ['event_ref' => $event->ref]),
             'event_is_done' => $event_is_done
         ]);
     }
