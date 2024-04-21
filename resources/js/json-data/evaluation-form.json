@@ -1,0 +1,68 @@
+{
+    "default" : [
+        {
+            "question": "A. RELEVANCE OF THE ACTIVITY",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "B. QUALITY OF ACTIVITY",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "C. TIMELINESS",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "What are your suggestions and comments to further improve the conduct of the activity",
+            "input_type": "text",
+            "data": null
+        },
+        {
+            "question": "Attainment of the Objectives.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Appropriateness of the topic to attain the objective.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Appropriateness of the searching methods used.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "What topic/s you think should be included in the discussion?",
+            "input_type": "text",
+            "data": null
+        },
+        {
+            "question": "A. Appropriates of the topic/s in the present time.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "B. Usefulness of the topic/s discussed in the activity.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "C. Appropriateness of the searching methods used.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        }
+    ]
+}

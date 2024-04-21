@@ -3,6 +3,9 @@ import "./bootstrap";
 
 import Alpine from "alpinejs";
 
+import defaultEvaluationData from './json-data/evaluation-form.json'
+import speakerDefaultEvaluationFormData from './json-data/speaker-form.json'
+
 window.Alpine = Alpine;
 
 Alpine.data("calendar", (data) => ({
@@ -164,6 +167,7 @@ Alpine.data("evaluationFormGenerator", () => ({
     form: {
         title: null,
         fields: [],
+        speakers : []
     },
     fieldBlueprint: {
         localId: 1,
@@ -175,11 +179,19 @@ Alpine.data("evaluationFormGenerator", () => ({
     fieldToggle: false,
     editFieldId: null,
     init() {
-        this.form.fields.push({
-            ...this.fieldBlueprint,
-            question: "example question",
-            input_type: "text",
-        });
+
+
+        defaultEvaluationData.default.forEach((item) => {
+            this.form.fields.push({
+                ...this.fieldBlueprint,
+                ...item
+            })
+            this.fieldBlueprint.localId += 1;
+        })
+
+        console.log('====================================');
+        console.log(this.form);
+        console.log('====================================');
     },
     addField() {
         console.log(this.fieldBlueprint);
@@ -229,6 +241,25 @@ Alpine.data("evaluationFormGenerator", () => ({
                 (field) => field.localId !== localId
             ),
         };
+    },
+    addSpeakersDefault(speakers){
+
+        console.log('====================================');
+        console.log(speakers);
+        console.log('====================================');
+        speakers.forEach((item) => {
+            this.form.speakers.push({
+                name : `${item.speaker.last_name}, ${item.speaker.first_name}, ${item.speaker.middle_name === null ? '' : item.speaker.middle_name}`,
+                fields : [
+                    ...speakerDefaultEvaluationFormData.default
+                ]
+            })
+        })
+
+
+        console.log('====================================');
+        console.log(this.form);
+        console.log('====================================');
     },
 }));
 

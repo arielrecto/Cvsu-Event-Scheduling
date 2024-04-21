@@ -1,0 +1,52 @@
+{
+    "default": [
+        {
+            "question": "Displayed a thorough knowledge of the topics and provided valuable insights and responses to participants queries.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Thoroughly explained and processed the learning activities throughout the training.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Able to create a good learning environment, sustain the attention of the participants and encourage their participants for the entire duration.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Able to manage her/him time well.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Demonstrated keenness to the participants' needs and other requirements.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Timeliness or suitability of the service provided in the present time.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Timeliness or suitability of the service provided in the present time.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        },
+        {
+            "question": "Overall satisfaction.",
+            "input_type": "radio",
+            "radio_max": 5,
+            "data": null
+        }
+    ]
+}

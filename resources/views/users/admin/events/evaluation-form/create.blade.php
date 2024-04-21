@@ -2,11 +2,13 @@
     <div class="panel">
         <x-dashboard.header :route="route('events.show', ['event' => $event->id])" :event_name="'Evaluation From Create - ' . $event->name" />
 
-
-
             <x-notification-message/>
 
-        <div x-data="evaluationFormGenerator" class="flex flex-col gap-2">
+            @php
+                $hosts = json_encode($event->hosts()->with('speaker')->get())
+            @endphp
+
+        <div x-data="evaluationFormGenerator" x-init="addSpeakersDefault({{$hosts}})" class="flex flex-col gap-2">
             <p class="input-generic-label">
                 <span>*</span>
                 sample text
@@ -123,6 +125,93 @@
                 </div>
 
             </template>
+
+
+            <template x-for="speaker in form.speakers">
+                <div class="flex items-center justify-between">
+                    <div class="input-generic-div w-full">
+                        <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
+
+                        <template x-for="s_field in speaker.fields">
+                            <div class="w-auto h-auto">
+                                <label for="" class="input-generic-label capitalize" x-text="s_field.question"></label>
+                                <template x-if="s_field.input_type !== 'radio'">
+                                    <input :type="s_field.input_type" class="input-generic">
+                                </template>
+                                <template x-if="s_field.input_type === 'radio'">
+                                    <div class="flex items-center gap-5">
+                                        <template x-for="i in parseInt(s_field.radio_max)" :key="i">
+                                            <div class="flex flex-col items-center">
+                                                <input type="radio" name="radio-4" class="radio radio-accent"
+                                                    :value="i" />
+                                                <span x-text="i"></span>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+
+                            </div>
+
+                        </template>
+
+
+                        {{-- <template x-if="field.input_type !== 'radio'">
+                            <input :type="field.input_type" class="input-generic">
+                        </template>
+
+                        <template x-if="field.input_type === 'radio'">
+                            <div class="flex items-center gap-5">
+                                <template x-for="i in parseInt(field.radio_max)" :key="i">
+                                    <div class="flex flex-col items-center">
+                                        <input type="radio" name="radio-4" class="radio radio-accent"
+                                            :value="i" />
+                                        <span x-text="i"></span>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <div class="flex items-center justify-end gap-2">
+                            <button class="btn btn-xs btn-primary"
+                                @click="() => editFieldId = field.localId"><i class="fi fi-rr-edit"></i></button>
+                            <button class="btn btn-xs btn-error" @click="removeField(field.localId)">
+                                <i class="fi fi-rr-trash"></i>
+                            </button>
+                        </div>
+
+                        <div class="input-generic-div" x-show="editFieldId === field.localId">
+                            <div class="w-full flex items-center justify-between">
+                                <label for="" class="input-generic-label">Question</label>
+                                <button @click="() => editFieldId = null" class="btn btn-xs btn-error"><i
+                                        class="fi fi-rr-cross"></i></button>
+                            </div>
+
+                            <input type="text" x-model="field.question" class="input-generic">
+                            <label for="" class="input-generic-label">Input Type</label>
+                            <select x-model="field.input_type" @change="checkInputTypeField($event)"
+                                class="select select-accent w-full">
+                                <option disabled selected>Select</option>
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+
+                            </select>
+
+                            <template x-if="field.input_type === 'radio'">
+                                <div class="flex flex-col gap-2">
+                                    <label for="" class="input-generic-label">Radio Range</label>
+                                    <input type="text" x-model="fieldBlueprint.radio_max" class="input-generic">
+                                </div>
+                            </template>
+
+                        </div> --}}
+                    </div>
+
+                </div>
+
+            </template>
+
+
+
 
 
 

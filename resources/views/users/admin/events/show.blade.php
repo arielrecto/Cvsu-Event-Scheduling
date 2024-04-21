@@ -173,12 +173,11 @@
                     <div class="flex items-center gap-2">
                         {{-- <a href="#" class="btn btn-xs btn-primary"><i class="fi fi-rr-edit"></i></a> --}}
 
-                        <form
-                            action="{{ route('events.evaluation.form.destroy', ['form' => $evaluation_form->id]) }}"
+                        <form action="{{ route('events.evaluation.form.destroy', ['form' => $evaluation_form->id]) }}"
                             method="post">
                             @csrf
                             @method('delete')
-                            <button  class="btn btn-xs btn-error">
+                            <button class="btn btn-xs btn-error">
                                 <i class="fi fi-rr-trash"></i>
                             </button>
                         </form>
@@ -205,6 +204,32 @@
                                     @endfor
                                 </div>
                             @endif
+                        @endforeach
+
+
+                        <h1 class="panel-label text-lg font-bold">
+                            Hosts
+                        </h1>
+                        @foreach ($form->speakers as $speaker)
+                            <h1 class="font-bold capitalize">
+                              Host:   {{ $speaker->name }}
+                            </h1>
+                            @foreach ($speaker->fields as $s_field)
+                                <label for="" class="input-generic-label">{{ $s_field->question }}</label>
+                                @if ($field->input_type !== 'radio')
+                                    <input type="{{ $s_field->input_type }}" class="input-generic">
+                                @else
+                                    <div class="flex items-center gap-5">
+                                        @for ($i = 1; $i <= $s_field->radio_max; $i++)
+                                            <div class="flex flex-col items-center">
+                                                <input type="radio" name="radio-4" class="radio radio-accent"
+                                                    value="{{ $i }}" />
+                                                <span>{{ $i }}</span>
+                                            </div>
+                                        @endfor
+                                    </div>
+                                @endif
+                            @endforeach
                         @endforeach
                     </div>
                     <div class=" absolute z-10 top-0 h-full w-full ">
