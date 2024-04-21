@@ -23,12 +23,12 @@
                                 Republic of the Philippines
                             </p>
                             <h1 class="text-2xl font-bold flex flex-col items-center">
-                                <span>
+                                <span class="text-3xl">
                                     Cavite State University
                                 </span>
 
                                  <span class="text-sm">Bacoor City Campus</span> </h1>
-                            <p class="text-gray-600 text-center text-xs">
+                            <p class="text-gray-600 text-center text-xs font-bold">
                                 Soldiers Hills IV, Molino VI, Bacoor City, Cavite
                             </p>
                             <p class="text-gray-600 text-center text-xs">
