@@ -19,10 +19,10 @@
                         <img src="{{ asset('logo.png') }}" alt="" srcset=""
                             class="h-12 w-12 object object-center">
                         <div>
-                            <p class="text-gray-600 text-center text-xs">
+                            <p class="text-gray-600 text-center text-sm">
                                 Republic of the Philippines
                             </p>
-                            <h1 class="text-lg font-bold flex flex-col items-center">
+                            <h1 class="text-2xl font-bold flex flex-col items-center">
                                 <span>
                                     Cavite State University
                                 </span>
