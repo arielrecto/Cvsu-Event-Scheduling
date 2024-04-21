@@ -248,12 +248,20 @@ Alpine.data("evaluationFormGenerator", () => ({
         console.log(speakers);
         console.log('====================================');
         speakers.forEach((item) => {
-            this.form.speakers.push({
+            const data = {
                 name : `${item.speaker.last_name}, ${item.speaker.first_name}, ${item.speaker.middle_name === null ? '' : item.speaker.middle_name}`,
-                fields : [
-                    ...speakerDefaultEvaluationFormData.default
-                ]
+                fields : []
+            }
+
+            speakerDefaultEvaluationFormData.default.map((field) => {
+                data.fields.push({
+                    ...field,
+                   localId : this.fieldBlueprint.localId += 1
+                })
             })
+
+
+            this.form.speakers.push(data);
         })
 
 
