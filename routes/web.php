@@ -74,19 +74,19 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::prefix('event')->as('event.')->group(function(){
-        Route::get('/portal/{event_ref}', function($event_ref){
-            $event = Event::where('ref', $event_ref)->first();
+    // Route::prefix('event')->as('event.')->group(function(){
+    //     Route::get('/portal/{event_ref}', function($event_ref){
+    //         $event = Event::where('ref', $event_ref)->first();
 
-            $user = Auth::user();
+    //         $user = Auth::user();
 
-            $attendance = $event->attendances()->where('user_id', $user->id)->whereDate('created_at', now())->first();
+    //         $attendance = $event->attendances()->where('user_id', $user->id)->whereDate('created_at', now())->first();
 
-            return view('users.students.attendance.index', compact(['event', 'attendance']));
-        })->name('portal');
+    //         return view('users.students.attendance.index', compact(['event', 'attendance']));
+    //     })->name('portal');
 
-        Route::post('/portal/{event_ref}/attendance', [StudentEventController::class, 'attendance'])->name('attendance')->middleware(['event-attendance']);
-    });
+    //     Route::post('/portal/{event_ref}/attendance', [StudentEventController::class, 'attendance'])->name('attendance')->middleware(['event-attendance']);
+    // });
 
 
     Route::middleware(['role:student'])->as('student.')->prefix('student')->group(function(){

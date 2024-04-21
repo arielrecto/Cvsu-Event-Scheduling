@@ -124,9 +124,13 @@ class EventController extends Controller
             ->whereNotNull('time_out')->whereNotNull('time_in')->latest()->first() !== null
         ) {
 
-            return back()->with([
+            // return back()->with([
+            //     'message' => "You Have Attendance Today {$current_date}"
+            // ]);
+            return response([
                 'message' => "You Have Attendance Today {$current_date}"
-            ]);
+            ], 200);
+
         }
 
         $attendance = $user->attendances()
@@ -141,9 +145,12 @@ class EventController extends Controller
                 'time_out' =>  Carbon::now('GMT+8')->format('h:i A')
             ]);
 
-            return back()->with([
+            // return back()->with([
+            //     'message' => "Time Out @ {$current_time}"
+            // ]);
+            return response([
                 'message' => "Time Out @ {$current_time}"
-            ]);
+            ], 200);
         };
 
 
@@ -154,9 +161,13 @@ class EventController extends Controller
         ]);
 
 
-        return back()->with([
+        // return back()->with([
+        //     'message' => "Time in @ {$current_time}"
+        // ]);
+
+        return response([
             'message' => "Time in @ {$current_time}"
-        ]);
+        ], 200);
     }
     public function evaluation(Request $request, string $event_ref)
     {

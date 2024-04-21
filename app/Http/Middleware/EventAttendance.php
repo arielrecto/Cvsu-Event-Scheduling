@@ -40,21 +40,32 @@ class EventAttendance
         $end_time = Carbon::parse($event->end_time)->format('h:s A');
 
         if ($start_date->gt($current_date)) {
-            return back()->with([
+            // return back()->with([
+            //     'message' => "The Event will Start at {$start_date->format('F d, Y')}, The system process Attendance"
+            // ]);
+
+            return response([
                 'message' => "The Event will Start at {$start_date->format('F d, Y')}, The system process Attendance"
-            ]);
+            ],200);
         };
 
         if ($end_date->addDay(1)->lt($current_date)) {
-            return back()->with([
+            // return back()->with([
+            //     'message' => "The Event is Ended at {$end_date->format('F d, Y')}, The system process Attendance"
+            // ]);
+            return response([
                 'message' => "The Event is Ended at {$end_date->format('F d, Y')}, The system process Attendance"
-            ]);
+            ],200);
         }
 
         if ($current_time->lt($event->start_time)) {
-            return back()->with([
-                'message' => "The Event starts at {$start_time}, You can only time in when the event starts"
-            ]);
+            // return back()->with([
+            //     'message' => "The Event starts at {$start_time}, You can only time in when the event starts"
+            // ]);
+
+            return response([
+                 'message' => "The Event starts at {$start_time}, You can only time in when the event starts"
+            ],200);
         }
 
         if (
@@ -62,9 +73,12 @@ class EventAttendance
             ->where('event_id', $event->id)->latest()->first() !== null
         ) {
 
-            return back()->with([
+            // return back()->with([
+            //     'message' => "The Event Ends at {$end_time}, You can only time in when the event is start at tomorrow {$start_time}"
+            // ]);
+            return response([
                 'message' => "The Event Ends at {$end_time}, You can only time in when the event is start at tomorrow {$start_time}"
-            ]);
+           ],200);
         }
 
 
