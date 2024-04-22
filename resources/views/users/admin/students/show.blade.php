@@ -16,7 +16,8 @@
                 <h1 class="input-generic-label"><span>*</span> Review all the information of the student for verification</h1>
                 <div class="flex items-center gap-2">
                     <a href="{{route('students.approved', ['student' => $student->id])}}" class="btn btn-success btn-xs">verified</a>
-                    <a href="http://" class="btn btn-xs btn-error">Reject</a>
+
+                    <a href="{{route('students.reject', ['student' => $student->id])}}" class="btn btn-xs btn-error">Reject</a>
                 </div>
             </div>
         @endif

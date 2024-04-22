@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('students')->as('students.')->group(function () {
             Route::get('approved/{student}', [StudentController::class, 'approved'])->name('approved');
+            Route::get('reject/{student}', [StudentController::class, 'reject'])->name('reject');
         });
 
         Route::prefix('events')->as('events.')->group(function () {

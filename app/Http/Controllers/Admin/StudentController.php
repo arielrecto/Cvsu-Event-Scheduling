@@ -6,6 +6,7 @@ use App\Enums\UserRolesEnum;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Notifications\StudentRegistrationNotification;
 
 class StudentController extends Controller
 {
@@ -179,6 +180,42 @@ class StudentController extends Controller
             'verified_at' => now()
         ]);
 
+
+        $verified_date = date('F d, Y', strtotime($student->profile->verified_at));
+
+
+        $details = [
+            'greeting' => "Good Day Sir/Ma'am {$student->name}",
+            'body' => "Your Account is Verified by Admin @{$verified_date}"
+        ];
+
+
+        $student->notify(new StudentRegistrationNotification($details));
+
+
         return back()->with(['message' => 'Account is Verified']);
+    }
+    public function reject(string $id)
+    {
+
+        $student = User::find($id);
+
+
+        $verified_date = date('F d, Y', strtotime(now()));
+
+
+        $details = [
+            'greeting' => "Good Day Sir/Ma'am {$student->name}",
+            'body' => "Your Account is Rejected by Admin @ {$verified_date}"
+        ];
+
+
+        $student->notify(new StudentRegistrationNotification($details));
+
+
+        $student->delete();
+
+
+        return to_route('students.index')->with(['message' => 'Account is rejected']);
     }
 }
