@@ -6,6 +6,14 @@
 
         <x-notification-message />
         <form action="{{ route('events.store') }}" method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
+            <div class="input-generic-div">
+                <label for="" class="input-generic-label">Name</label>
+                <input type="text" class="input input-accent" name="name" placeholder="Event Name">
+                @if ($errors->has('name'))
+                    <p class="text-xs text-error">{{ $errors->first('name') }}</p>
+                @endif
+            </div>
+
 
             @csrf
             <div class="input-generic-div">
@@ -52,11 +60,20 @@
             @if ($errors->has('image'))
                 <p class="text-xs text-error">{{ $errors->first('image') }}</p>
             @endif
+
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Name</label>
-                <input type="text" class="input input-accent" name="name" placeholder="Event Name">
-                @if ($errors->has('name'))
-                    <p class="text-xs text-error">{{ $errors->first('name') }}</p>
+                <label for="" class="input-generic-label">Event Speaker (optional)</label>
+                <div class="flex items-center gap-2">
+                    <select name="speakers[]" multiple class="select select-accent w-full">
+                        <option disabled selected>Select Host/Speaker</option>
+                        @foreach ($speakers as $speaker)
+                            <option value="{{ $speaker->id }}" class="capitalize">{{ $speaker->fullName() }}</option>
+                        @endforeach
+                    </select>
+                    <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
+                </div>
+                @if ($errors->has('speakers'))
+                    <p class="text-xs text-error">{{ $errors->first('speakers') }}</p>
                 @endif
             </div>
 
