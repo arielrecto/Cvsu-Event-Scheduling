@@ -10,6 +10,7 @@ use App\Http\Controllers\Student\EventController;
 use App\Http\Controllers\Student\StudentController;
 use App\Http\Controllers\Student\DashboardController;
 use App\Http\Controllers\Student\AnnouncementController;
+use App\Http\Controllers\student\AttendanceController;
 use App\Http\Controllers\Student\Auth\RegisterController;
 use App\Http\Controllers\Student\Auth\AuthenticationSessionController;
 
@@ -110,6 +111,8 @@ Route::prefix('mobile')->as('mobile.')->middleware(['auth:sanctum', 'verified-st
         Route::post('/rf={event_ref}/attendance', [EventController::class, 'attendance'])->middleware(['event-attendance']);
         Route::post('/rf={event_ref}/evaluation', [EventController::class, 'evaluation'])->middleware(['event-evaluation']);
     });
+
+    Route::get('/attendances', [AttendanceController::class, 'index']);
     Route::resource('announcements', AnnouncementController::class)->only(['index', 'show']);
     Route::resource('event', EventController::class)->only(['index', 'show']);
     Route::resource('student', StudentController::class)->only(['update', 'show', 'destroy']);
