@@ -7,6 +7,7 @@ use App\Models\EventSpeaker;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\EventHost;
 
 use function PHPSTORM_META\map;
@@ -24,12 +25,12 @@ class EventController extends Controller
         $events = Event::with(['hosts.speaker'])->latest()->paginate(10);
 
 
-        if($search){
+        if ($search) {
 
             $events = Event::where('name', 'like', '%' . $search . '%')
-            ->orWhereYear('start_date',$search)
-            ->orWhereYear('end_date', $search)
-            ->paginate(10);
+                ->orWhereYear('start_date', $search)
+                ->orWhereYear('end_date', $search)
+                ->paginate(10);
         }
 
 
@@ -57,8 +58,8 @@ class EventController extends Controller
     {
 
 
+
         $request->validate([
-            'speakers' => 'required',
             'image' => 'required|mimes:png,jpg,jpeg',
             'name' => 'required',
             'start_date' => 'required',
@@ -92,12 +93,16 @@ class EventController extends Controller
         $speakers = $request->speakers;
 
 
-        collect($speakers)->map(function($speaker) use($event) {
-            EventHost::create([
-                'event_id' => $event->id,
-                'event_speaker_id' => $speaker
-            ]);
-        });
+
+        if ($speakers !== null) {
+            collect($speakers)->map(function ($speaker) use ($event) {
+                EventHost::create([
+                    'event_id' => $event->id,
+                    'event_speaker_id' => $speaker
+                ]);
+            });
+        }
+
 
 
         return to_route('events.index')->with([
@@ -172,7 +177,7 @@ class EventController extends Controller
 
         $locations = json_decode($request->locations);
 
-        if($locations->address !== null){
+        if ($locations->address !== null) {
             $event->update([
                 'location' => $request->locations
             ]);
@@ -225,5 +230,39 @@ class EventController extends Controller
         $attendancesByCourse_json = json_encode([$attendancesByCourse]);
 
         return view('users.admin.events.report.show', compact(['event', 'attendancesByCourse_json', 'attendancesByCourse']));
+    }
+    public function searchAttendance(string $id, Request $request)
+    {
+
+        $attendances = Attendance::where('event_id', $id)
+        ->with(['user.profile' => function ($q) {
+            $q->with(['course', 'section']);
+        }, 'event'])->latest()->get();
+
+        $search = $request->search;
+
+        if ($search !== null) {
+            $attendances = Attendance::where(function ($q) use ($search, $id) {
+                $q->where('event_id', $id)->whereHas('user', function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%')
+                        ->orWhereHas('profile', function ($q) use ($search) {
+                            $q->where('last_name', 'like', '%' . $search . '%')
+                                ->orWhere('first_name', 'like', '%' . $search . '%')
+                                ->orWhere('gender', 'like', '%' . $search . '%')
+                                ->orWhereHas('course', function ($q) use ($search) {
+                                    $q->where('name', 'like', '%' . $search . '%');
+                                })
+                                ->orWhereHas('section', function ($q) use ($search) {
+                                    $q->where('year', 'like', '%' . $search . '%')
+                                        ->orWhere('number', 'like', '%' . $search . '%');
+                                });
+                        });
+                });
+            })->with(['user.profile' => function ($q) {
+                $q->with(['course', 'section']);
+            }, 'event'])->get();
+        }
+
+        return $attendances;
     }
 }

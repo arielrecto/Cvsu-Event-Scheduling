@@ -9,27 +9,16 @@
             enctype="multipart/form-data">
             @method('put')
             @csrf
+
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Event Speaker
-
-                    @foreach ($event->hosts as $host)
-                        <p class="text-xs text-accent capitalize">{{ $host->speaker->fullName() }}</p>
-                    @endforeach
-
-                </label>
-                <div class="flex items-center gap-2">
-                    <select name="speakers"  multiple class="select select-accent w-full">
-                        <option disabled selected>Select Host/Speaker</option>
-                        @foreach ($speakers as $speaker)
-                            <option value="{{ $speaker->id }}" class="capitalize">{{ $speaker->fullName() }}</option>
-                        @endforeach
-                    </select>
-                    <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
-                </div>
-                @if ($errors->has('speakers'))
-                    <p class="text-xs text-error">{{ $errors->first('speakers') }}</p>
+                <label for="" class="input-generic-label">Name <p class="text-xs text-accent capitalize">
+                        {{ $event->name }}</p></label>
+                <input type="text" class="input input-accent" name="name" placeholder="Event Name">
+                @if ($errors->has('name'))
+                    <p class="text-xs text-error">{{ $errors->first('name') }}</p>
                 @endif
             </div>
+
             <div class="flex justify-center min-h-24" x-data="imageUploadHandler">
                 <div class="w-1/2 h-full">
                     <div class="flex items-center justify-center w-full">
@@ -59,12 +48,27 @@
             @if ($errors->has('image'))
                 <p class="text-xs text-error">{{ $errors->first('image') }}</p>
             @endif
+
+
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Name <p class="text-xs text-accent capitalize">
-                        {{ $event->name }}</p></label>
-                <input type="text" class="input input-accent" name="name" placeholder="Event Name">
-                @if ($errors->has('name'))
-                    <p class="text-xs text-error">{{ $errors->first('name') }}</p>
+                <label for="" class="input-generic-label">Event Speaker
+
+                    @foreach ($event->hosts as $host)
+                        <p class="text-xs text-accent capitalize">{{ $host->speaker->fullName() }}</p>
+                    @endforeach
+
+                </label>
+                <div class="flex items-center gap-2">
+                    <select name="speakers"  multiple class="select select-accent w-full">
+                        <option disabled selected>Select Host/Speaker</option>
+                        @foreach ($speakers as $speaker)
+                            <option value="{{ $speaker->id }}" class="capitalize">{{ $speaker->fullName() }}</option>
+                        @endforeach
+                    </select>
+                    <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
+                </div>
+                @if ($errors->has('speakers'))
+                    <p class="text-xs text-error">{{ $errors->first('speakers') }}</p>
                 @endif
             </div>
 

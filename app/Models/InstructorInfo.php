@@ -21,4 +21,8 @@ class InstructorInfo extends Model
     public function courses(){
         return $this->hasMany(InstructorCourse::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

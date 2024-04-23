@@ -29,6 +29,15 @@ class EventEvaluation
 
         $evaluation_form = $event->evaluations()->where('user_id', $user->id)->first();
 
+
+        $hasAttendance = $event->attendances()->where('user_id', $user->id)->exists();
+
+        if(!$hasAttendance){
+            return response([
+                'message' => "You need to Attendance first"
+            ], 400);
+        }
+
         $event_end_date = Carbon::parse($event->end_date);
 
         if($evaluation_form !== null){

@@ -4,12 +4,12 @@
         <x-dashboard.header :route="route('events.index')" :event_name="'Event Create'" />
         {{-- <h1 class="panel-title">Event Create</h1> --}}
 
-        <x-notification-message/>
+        <x-notification-message />
         <form action="{{ route('events.store') }}" method="post" class="flex flex-col gap-2" enctype="multipart/form-data">
 
             @csrf
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Event Speaker</label>
+                <label for="" class="input-generic-label">Event Speaker (optional)</label>
                 <div class="flex items-center gap-2">
                     <select name="speakers[]" multiple class="select select-accent w-full">
                         <option disabled selected>Select Host/Speaker</option>
@@ -62,19 +62,28 @@
 
             <label for="" class="input-generic-label">Event Duration</label>
             <div class="grid grid-cols-2 grid-flow-row gap-5">
-                <div class="input-generic-div">
+                <div class="input-generic-div" x-data="checkDateIsPast">
                     <label for="" class="input-generic-label">Start Date</label>
-                    <input type="date" name="start_date" placeholder="Start Date" class="input-generic">
+                    <input type="date" name="start_date" x-model="selectedDate" placeholder="Start Date"
+                        class="input-generic">
                     @if ($errors->has('start_date'))
                         <p class="text-xs text-error">{{ $errors->first('start_date') }}</p>
                     @endif
+                    <template x-if="message !== null">
+                        <p class="text-xs text-error" x-text="message" />
+                    </template>
+
                 </div>
-                <div class="input-generic-div">
+                <div class="input-generic-div"  x-data="checkDateIsPast">
                     <label for="" class="input-generic-label">End Date</label>
-                    <input type="date" name="end_date" placeholder="End Date" class="input-generic">
+                    <input type="date" name="end_date" x-model="selectedDate" placeholder="End Date" class="input-generic">
                     @if ($errors->has('end_date'))
                         <p class="text-xs text-error">{{ $errors->first('end_date') }}</p>
                     @endif
+
+                    <template x-if="message !== null">
+                        <p class="text-xs text-error" x-text="message" />
+                    </template>
                 </div>
             </div>
 

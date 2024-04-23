@@ -45,17 +45,19 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'email' => 'required',
             'password' => 'required|confirmed',
             'name' => 'required',
             'course' => 'required',
-            'section' => 'required'
+            'sections' => 'required'
         ]);
+
+
 
         $course = Course::where('name', $request->course)->first();
 
-        $section = Section::find($request->section);
 
         $instructor = Role::where(['name' => UserRolesEnum::INSTRUCTOR->value])->first();
 
@@ -81,10 +83,17 @@ class InstructorController extends Controller
             'course_id' => $course->id
         ]);
 
-        InstructorSection::create([
-            'section_id' => $section->id,
-            'instructor_info_id' => $instractorInfo->id
-        ]);
+
+        collect($request->sections)->map(function($_section) use($instractorInfo){
+
+            $section = Section::find($_section);
+
+            InstructorSection::create([
+                'section_id' => $section->id,
+                'instructor_info_id' => $instractorInfo->id
+            ]);
+
+        });
 
 
         return back()->with(['message' => 'Instructor Added']);

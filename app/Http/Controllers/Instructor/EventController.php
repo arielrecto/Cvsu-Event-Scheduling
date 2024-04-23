@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Instructor;
 
-use App\Http\Controllers\Controller;
-use App\Models\Attendance;
-use App\Models\Event;
 use Carbon\Carbon;
+use App\Models\Event;
+use App\Models\Attendance;
 use Illuminate\Http\Request;
+use App\Models\InstructorSection;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -20,6 +22,9 @@ class EventController extends Controller
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate)
             ->first();
+
+
+
 
         $incoming_events = Event::where('start_date', '>', $currentDate)->latest()->paginate(10);
 
@@ -36,7 +41,14 @@ class EventController extends Controller
     {
         $event = Event::find($id);
 
-        return view('users.instructor.event.current',  compact(['event']));
+        $user = Auth::user();
+
+        $instructor_info = $user->instructorInfo;
+
+
+        $sections = InstructorSection::where('instructor_info_id', $instructor_info->id)->get();
+
+        return view('users.instructor.event.current',  compact(['event', 'sections']));
     }
 
     public function eventAttendances(Request $request, $id)
@@ -74,10 +86,52 @@ class EventController extends Controller
                     $q->with(['course', 'section']);
                 }])->latest()->get();
             }
+            if ($category === 'my-section'  && $search !== null) {
+                $attendances =  $event->attendances()->where(function($q) use ($search){
+                    $q->whereHas('user.profile', function($q) use($search) {
+                        $q->whereHas('section', function($q) use($search) {
+                            $q->where('id', $search);
+                        });
+                    });
+                })->with(['user.profile' => function ($q) {
+                    $q->with(['course', 'section']);
+                }])->latest()->get();
+
+            }
         }
 
         return response([
             'attendances' => $attendances
         ], 200);
+    }
+
+    public function report(string $id, Request $request) {
+
+        $event = Event::find($id);
+        $user = Auth::user();
+
+        $instructor_info = $user->instructorInfo;
+
+        $search = $request->search;
+
+
+
+
+        $sections = InstructorSection::where('instructor_info_id', $instructor_info->id)->get();
+
+        $attendances = Attendance::where('event_id', $event->id)->latest()->get();
+
+
+        if($search !== null) {
+            $attendances = Attendance::where('event_id', $event->id)->where(function($q) use($search) {
+                $q->whereHas('user.profile', function($q) use($search){
+                    $q->whereHas('section', function($q) use($search) {
+                        $q->where('id', $search);
+                    });
+                });
+            })->get();
+        }
+
+        return view('users.instructor.event.report.show', compact(['event', 'sections', 'attendances']));
     }
 }

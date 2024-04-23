@@ -21,6 +21,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Instructor\AttendanceController;
 use App\Http\Controllers\Instructor\DashboardController;
 use App\Http\Controllers\Instructor\EventController as InstructorEventController;
+use App\Http\Controllers\Instructor\SectionController as InstructorSectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,6 +109,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/{event}/evaluation/form', [EvaluationFormController::class, 'create'])->name('evaluation.form.create');
             Route::post('evaluation/store', [EvaluationFormController::class, 'store'])->name('evaluation.form.store');
             Route::get('{event}/report', [EventController::class, 'report'])->name('report');
+            Route::get('{event}/attendances', [EventController::class, 'searchAttendance'])->name('attendances');
             Route::delete('evaluation/from/{form}/delete', [EvaluationFormController::class, 'destroy'])->name('evaluation.form.destroy');
         });
 
@@ -141,9 +143,11 @@ Route::middleware('auth')->group(function () {
             Route::get('', [InstructorEventController::class, 'index'])->name('index');
             Route::get('{event}/show', [InstructorEventController::class, 'show'])->name('show');
             Route::get('{event}/current', [InstructorEventController::class, 'current'])->name('current');
+            Route::get('{event}/report', [InstructorEventController::class, 'report'])->name('report');
             Route::get('{event}/attendances', [InstructorEventController::class, 'eventAttendances'])->name('attendances');
         });
         Route::resource('attendances', AttendanceController::class)->only(['show', 'destroy']);
+        Route::resource('sections', InstructorSectionController::class)->only(['index', 'destroy']);
     });
 });
 

@@ -64,8 +64,8 @@
 
     {{-- full calendar --}}
     <script src="
-            https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js
-            "></script>
+                    https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js
+                    "></script>
 
 
     {{-- quill editor --}}
@@ -74,6 +74,25 @@
     {{-- leaftlet --}}
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+
+    {{-- leaflet esri  --}}
+    <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"
+        integrity="sha512-G4+fuKc1B96F0sUG7eKtgiJr0JM3iQC4bfc8WtYvmm7msHES0Hst2mLWASPb8zZk91tqMG86AjP0tgXIEFPPUA=="
+        crossorigin=""></script>
+
+    {{-- leaflet geocoder css --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
+    {{-- leaflet estri geocoder --}}
+    {{-- <script src="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.js"
+        integrity="sha512-ODcrBUbBplqiGXL2S0tWNVYStUTTWYyQcSrCLjIW8vL+CEb758m7Dm0v5vyl8qrT8stBwKaYVWZTGymf7vj9jg=="
+        crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@3.1.4/dist/esri-leaflet-geocoder.css"
+        integrity="sha512-BkZKghR9DV2LpDgmb/Uvl8bdoQj9O6OkkgbfXVpFfHTGcrHGqJIk1J5t+ZY5E3peLfTBazzjScnBguwthKvC1g=="
+        crossorigin="" /> --}}
+
 
 
     {{-- venobox --}}
@@ -86,6 +105,9 @@
 
     {{-- swipper --}}
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    {{-- letlet geocoder js --}}
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 
     <script>

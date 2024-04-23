@@ -1,7 +1,16 @@
 <x-dashboard.instructor>
     <div class="flex flex-col gap-2 p-5">
         <div class="panel flex flex-col gap-2">
-            <h1 class="panel-title">Current Event</h1>
+
+            <div class="flex justify-between">
+                <h1 class="panel-title">Current Event</h1>
+
+                <a href="{{ route('faculty.events.report', ['event' => $event->id]) }}" class="btn btn-ghost">
+                    <i class="fi fi-rr-print text-xl"></i>
+                </a>
+
+            </div>
+
             <div class="flex rounded-lg bg-blue-500 h-64 relative">
                 <img src="{{ $event->image }}" class="object-cover h-auto w-full" />
             </div>
@@ -25,8 +34,26 @@
                     <div class="join">
                         <div>
                             <div>
-                                <input class="input input-bordered join-item" placeholder="Search"
-                                    x-model.debounce.500ms="search" />
+                                <template x-if="!changeInpuTypeToggle">
+                                    <input class="input input-bordered join-item" placeholder="Search"
+                                        x-model.debounce.500ms="search" />
+                                </template>
+
+
+                                <template x-if="changeInpuTypeToggle">
+                                    <select x-model="search"
+                                        class="select border-gray-300 w-full max-w-xs rounded-r-none">
+                                        <option>Select Section</option>
+
+                                        @foreach ($sections as $_section)
+                                            <option value="{{ $_section->section->id }}">
+                                                {{ $_section->section->course->name . ' ' . $_section->section->year . '-' . $_section->section->number }}
+                                            </option>
+                                        @endforeach
+
+                                    </select>
+                                </template>
+
                             </div>
                         </div>
                         <select class="select select-bordered join-item" @change="selectCategory($event)">
@@ -34,6 +61,7 @@
                             <option value="time in">Time In</option>
                             <option value="time out">Time Out</option>
                             <option value="course">Course</option>
+                            <option value="my-section">My Section</option>
                         </select>
                         <div class="indicator">
                             <button class="btn join-item">Search</button>
@@ -81,7 +109,8 @@
                                         <a :href="`/faculty/attendances/${attendance.id}`" class="btn btn-xs btn-ghost">
                                             <i class="fi fi-rr-eye"></i>
                                         </a>
-                                        <form :action="`/faculty/attendances/${attendance.id}`" method="post" class="btn btn-xs btn-ghost">
+                                        <form :action="`/faculty/attendances/${attendance.id}`" method="post"
+                                            class="btn btn-xs btn-ghost">
                                             @method('delete')
                                             @csrf
                                             <button><i class="fi fi-rr-trash-xmark text-error"></i></button>

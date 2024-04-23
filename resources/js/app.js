@@ -3,8 +3,8 @@ import "./bootstrap";
 
 import Alpine from "alpinejs";
 
-import defaultEvaluationData from './json-data/evaluation-form.json'
-import speakerDefaultEvaluationFormData from './json-data/speaker-form.json'
+import defaultEvaluationData from "./json-data/evaluation-form.json";
+import speakerDefaultEvaluationFormData from "./json-data/speaker-form.json";
 
 window.Alpine = Alpine;
 
@@ -41,11 +41,34 @@ Alpine.data("mapRender", () => ({
 
         const map = L.map(mapElement).setView([14.4128588, 120.97982], 16);
 
+        // let searchControl = L.esri.Geocoding.geosearch().addTo(map);
+
+        // var results = L.layerGroup().addTo(map);
+
+       L.Control.geocoder().on('markgeocode', (event) => {
+            this.locations = {
+                lat : event.geocode.properties.lat,
+                lng : event.geocode.properties.lon,
+                address : event.geocode.name
+            }
+        }).addTo(map);
+
+
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
             maxZoom: 19,
             attribution:
                 '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         }).addTo(map);
+
+        // searchControl.on("results", function (data) {
+        //     console.log('====================================');
+        //     console.log(data);
+        //     console.log('====================================');
+        //     results.clearLayers();
+        //     for (var i = data.results.length - 1; i >= 0; i--) {
+        //         results.addLayer(L.marker(data.results[i].latlng));
+        //     }
+        // });
 
         let pinMarker = null;
 
@@ -103,7 +126,7 @@ Alpine.data("mapRender", () => ({
 
 Alpine.data("mapDisplay", (data) => ({
     location: data,
-    address : data.address,
+    address: data.address,
     init() {
         const mapElement = this.$refs.map;
 
@@ -167,7 +190,7 @@ Alpine.data("evaluationFormGenerator", () => ({
     form: {
         title: null,
         fields: [],
-        speakers : []
+        speakers: [],
     },
     fieldBlueprint: {
         localId: 1,
@@ -179,19 +202,17 @@ Alpine.data("evaluationFormGenerator", () => ({
     fieldToggle: false,
     editFieldId: null,
     init() {
-
-
         defaultEvaluationData.default.forEach((item) => {
             this.form.fields.push({
                 ...this.fieldBlueprint,
-                ...item
-            })
+                ...item,
+            });
             this.fieldBlueprint.localId += 1;
-        })
+        });
 
-        console.log('====================================');
+        console.log("====================================");
         console.log(this.form);
-        console.log('====================================');
+        console.log("====================================");
     },
     addField() {
         console.log(this.fieldBlueprint);
@@ -242,37 +263,38 @@ Alpine.data("evaluationFormGenerator", () => ({
             ),
         };
     },
-    addSpeakersDefault(speakers){
-
-        console.log('====================================');
+    addSpeakersDefault(speakers) {
+        console.log("====================================");
         console.log(speakers);
-        console.log('====================================');
+        console.log("====================================");
         speakers.forEach((item) => {
             const data = {
-                name : `${item.speaker.last_name}, ${item.speaker.first_name}, ${item.speaker.middle_name === null ? '' : item.speaker.middle_name}`,
-                fields : []
-            }
+                name: `${item.speaker.last_name}, ${item.speaker.first_name}, ${
+                    item.speaker.middle_name === null
+                        ? ""
+                        : item.speaker.middle_name
+                }`,
+                fields: [],
+            };
 
             speakerDefaultEvaluationFormData.default.map((field) => {
                 data.fields.push({
                     ...field,
-                   localId : this.fieldBlueprint.localId += 1
-                })
-            })
-
+                    localId: (this.fieldBlueprint.localId += 1),
+                });
+            });
 
             this.form.speakers.push(data);
-        })
+        });
 
-
-        console.log('====================================');
+        console.log("====================================");
         console.log(this.form);
-        console.log('====================================');
+        console.log("====================================");
     },
 }));
 
 Alpine.data("displayClock", () => ({
-    time : null,
+    time: null,
     init() {
         setInterval(() => {
             const clock = this.$refs.MyClockDisplay;
@@ -299,7 +321,6 @@ Alpine.data("displayClock", () => ({
 
             clock.innerText = this.time;
             clock.textContent = this.time;
-
         }, 1000);
     },
 }));
@@ -370,72 +391,139 @@ Alpine.data("print", () => ({
     },
 }));
 
-Alpine.data('getSections', (data) => ({
-    sections : [],
-    course  : null,
+Alpine.data("getSections", (data) => ({
+    sections: [],
+    course: null,
     init() {
-        this.$watch('course', () => {
+        this.$watch("course", () => {
             this.getSectionsData();
         });
     },
-    async getSectionsData(){
+    async getSectionsData() {
         try {
+            const { data } = await axios.get(`/section/course/${this.course}`);
 
-            const {data} = await axios.get(`/section/course/${this.course}`)
-
-            this.sections = [...data.sections]
-
+            this.sections = [...data.sections];
         } catch (error) {
-            console.log('====================================');
+            console.log("====================================");
             console.log(error);
-            console.log('====================================');
+            console.log("====================================");
         }
-    }
+    },
 }));
 
-
-Alpine.data('getEventAttendances', (id) =>({
-    section : null,
-    course : null,
-    search : '',
-    category : null,
-    attendances : [],
-    eventId : id,
-    init(){
+Alpine.data("getEventAttendances", (id) => ({
+    section: null,
+    course: null,
+    search: "",
+    category: null,
+    attendances: [],
+    eventId: id,
+    changeInpuTypeToggle: false,
+    init() {
         this.getInitAttendances();
     },
-    async getInitAttendances(){
+    async getInitAttendances() {
         try {
-
-
             let url = `/faculty/events/${this.eventId}/attendances`;
 
-
-            if(this.category){
-              url = `/faculty/events/${this.eventId}/attendances?category=${this.category}&search=${this.search}`;
+            if (this.category) {
+                url = `/faculty/events/${this.eventId}/attendances?category=${this.category}&search=${this.search}`;
             }
 
+            console.log('====================================');
+            console.log(this.search);
+            console.log('====================================');
 
-            const { data} = await axios.get(url);
-
+            const { data } = await axios.get(url);
 
             console.log(data);
 
             this.attendances = [...data.attendances];
 
-
             setTimeout(() => {
-                this.getInitAttendances()
-            },  2000);
+                this.getInitAttendances();
+            }, 2000);
+        } catch (error) {
+            console.log("====================================");
+            console.log(error);
+            console.log("====================================");
+        }
+    },
+    selectCategory(e) {
+        this.category = e.target.value;
+
+        if( this.category === 'my-section'){
+            this.changeInpuTypeToggle = true;
+
+            return
+        }
+
+        this.changeInpuTypeToggle = false;
+    },
+}));
+
+Alpine.data("checkDateIsPast", () => ({
+    message: null,
+    selectedDate: null,
+    init() {
+        this.$watch("selectedDate", () => {
+            this.checker();
+
+            console.log("====================================");
+            console.log(this.message);
+            console.log("====================================");
+        });
+    },
+    checker() {
+        const currentDate = new Date().toJSON().slice(0, 10);
+        const date2 = new Date(currentDate).getTime();
+        const date1 = new Date(this.selectedDate).getTime();
+
+        if (date2 < date1) {
+            this.message = null;
+            return;
+        }
+
+        this.message = "selected Date is in past";
+    },
+}));
+
+
+Alpine.data('adminEventAttendances', () => ({
+    search : null,
+    attendances : [],
+    event_id : null,
+    initAttendances (data, eventId){
+
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
+        this.attendances = [...data]
+        this.event_id = eventId;
+    },
+
+    init(){
+        this.$watch('search', () => {
+            this.searchAttendances();
+        })
+    },
+    async searchAttendances (){
+        try {
+
+            const response = await axios.get(`/events/${this.event_id}/attendances?search=${this.search}`)
+
+            this.attendances = [...response.data]
+
+            console.log('====================================');
+            console.log('response', response.data);
+            console.log('====================================');
 
         } catch (error) {
             console.log('====================================');
             console.log(error);
             console.log('====================================');
         }
-    },
-    selectCategory(e) {
-       this.category =  e.target.value;
     }
 }));
 

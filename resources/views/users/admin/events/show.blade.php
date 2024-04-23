@@ -212,7 +212,7 @@
                         </h1>
                         @foreach ($form->speakers as $speaker)
                             <h1 class="font-bold capitalize">
-                              Host:   {{ $speaker->name }}
+                                Host: {{ $speaker->name }}
                             </h1>
                             @foreach ($speaker->fields as $s_field)
                                 <label for="" class="input-generic-label">{{ $s_field->question }}</label>
@@ -241,7 +241,15 @@
             @endif
 
             @php
-                $attendances = $event->attendances;
+                $attendances = $event
+                    ->attendances()
+                    ->with([
+                        'user.profile' => function ($q) {
+                            $q->with(['course', 'section']);
+                        },
+                        'event',
+                    ])
+                    ->get();
 
             @endphp
 
@@ -260,8 +268,15 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="flex flex-col w-full min-h-64 max-h-96 overflow-y-auto" id="attendances">
+                @php
+                    $json_attendances = json_encode($attendances);
+                @endphp
 
+                <div class="flex flex-col w-full min-h-64 max-h-96 overflow-y-auto" id="attendances"
+                    x-data="adminEventAttendances" x-init="initAttendances({{ $json_attendances }}, {{$event->id}})">
+                    <div class="w-full flex justify-end py-2">
+                        <input type="text" placeholder="search" x-model.debounce.700ms="search" class="input-generic te">
+                    </div>
                     <div class="overflow-x-auto">
                         <table class="table">
                             <!-- head -->
@@ -279,7 +294,39 @@
                             </thead>
                             <tbody>
 
-                                @forelse ($attendances as $attendance)
+
+                                <template x-if="attendances.lenth === 0">
+                                    <tr>
+                                        <td>No Record</td>
+
+                                    </tr>
+                                </template>
+
+                                <template x-if="attendances.length !== 0">
+                                    <template x-for="attendance in attendances" :key="attendance.id">
+                                        <tr>
+                                            <th></th>
+                                            <td><span x-text="attendance.user.profile.student_id"></span></td>
+                                            <td><span
+                                                    x-text="`${attendance.user.profile.last_name}, ${attendance.user.profile.first_name}`"></span>
+                                            </td>
+                                            <td><span x-text="attendance.time_in"></span></td>
+                                           <td><span x-text="`${attendance.time_out !== null ? attendance.time_out : '-'}`"></span></td>
+                                             <td><span x-text="attendance.user.profile.course.name"></span></td>
+                                              <td><span x-text="`${attendance.user.profile.section.year} - ${attendance.user.profile.section.number}`"></span></td>
+                                            <td>
+                                                 <div class="flex items-center">
+                                                    <a :href="`/students/${attendance.user.id}`"
+                                                        class="btn btn-xs btn-ghost">
+                                                        <i class="fi fi-rr-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </template>
+
+                                {{-- @forelse ($attendances as $attendance)
                                     <tr>
                                         <th></th>
                                         <td>{{ $attendance->user->profile->student_id }}</td>
@@ -304,7 +351,7 @@
                                         <td>No Record</td>
 
                                     </tr>
-                                @endforelse
+                                @endforelse --}}
                             </tbody>
                         </table>
                     </div>

@@ -70,7 +70,7 @@
                     <label for="" class="input-generic-label">Section</label>
                     {{-- <input type="number" class="input-generic" name="section"
                         placeholder="{{ $profile->section }}"> --}}
-                    <select class="select select-accent w-full" name="section">
+                    <select class="select select-accent w-full" name="sections[]" multiple>
                         <option disabled selected>Select Section</option>
                         <template x-for="section in sections">
                             <option :value="section.id"><span x-text="`${section.year} - ${section.number}`" /></option>

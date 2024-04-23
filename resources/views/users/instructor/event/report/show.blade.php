@@ -3,9 +3,16 @@
         <div class="w-4/6 h-screen flex flex-col gap-2 p-5" x-ref="main">
             <div class="flex items-center justify-between bg-gray-200 rounded-lg p-5" x-ref="header">
                 <div class="flex items-center gap-5">
-                    <a href="{{ route('events.show', ['event' => $event->id]) }}" class="btn-generic"><i
+                    <a href="{{ route('faculty.events.current', ['event' => $event->id]) }}" class="btn-generic"><i
                             class="fi fi-rr-arrow-left"></i></a>
                     <h1 class="panel-title capitalize"> Event Report</h1>
+                </div>
+                <div class="flex items-center gap-2">
+                    <h1>Filter By Sections</h1>
+                    <a href="{{route('faculty.events.report', ['event' => $event->id])}}" class="btn btn-accent btn-sm">All</a>
+                    @foreach ($sections as $_section)
+                        <a class="btn btn-sm btn-accent" href="{{route('faculty.events.report', ['event' => $event->id, 'search' => $_section->section->id])}}">{{$_section->section->course->name . ' ' .  $_section->section->year . '-' . $_section->section->number}}</a>
+                    @endforeach
                 </div>
                 <button class="btn btn-accent" @click="printComponent">
                     Print
@@ -92,20 +99,7 @@
                                 <span class="font-bold text-center"> {{ $event->evaluationsResult() }}</span>
                             </div>
                         </div>
-                        <h1 class="panel-label">
-                            Course Attendees
-                        </h1>
-                        <div class="grid grid-cols-4 grid-flow-row gap-2 border-2 rounded-lg">
 
-                            @foreach ($attendancesByCourse as $key => $value)
-                                <div class="flex items-center border-r-2 p-2 justify-between">
-                                    <h1 class="text-sm">
-                                        {{ $key }}
-                                    </h1>
-                                    <span class="font-bold text-center"> {{ $value }}</span>
-                                </div>
-                            @endforeach
-                        </div>
                         <h1 class="panel-label">
                             Host/Speaker
                         </h1>
@@ -131,10 +125,6 @@
                 <h1 class="panel-label">
                     Attendance Record
                 </h1>
-                @php
-                    $attendances = $event->attendances;
-
-                @endphp
 
                 {{-- <div class="grid gird-cols-2 grid-flow-row gap-5 h-auto" x-data="pieChart({{ $attendancesByCourse_json }})">
                     <div class="w-full h-full">
@@ -195,81 +185,6 @@
                     </div>
                 </div>
 
-                <h1 class="panel-label">
-                    Evaluation Record
-                </h1>
-                @php
-                    $evaluations = $event->evaluations;
-
-                    $average = $event->evaluationsAverage();
-                @endphp
-                <div class="flex flex-col gap-2" id="evaluation">
-                    <div class="grid grid-cols-2 grid-flow-row h-32 w-full gap-2">
-                        <div class="card bg-accent text-primary">
-                            <h1 class="card-label">
-                                Average
-                            </h1>
-                            <span class="card-number">
-                                {{ $average }}
-                            </span>
-                        </div>
-                        <div class="card bg-secondary">
-                            <h1 class="card-label">
-                                Result
-                            </h1>
-                            <span class="card-number">
-                                {{ $event->evaluationsResult() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="table">
-                            <!-- head -->
-                            <thead class="bg-accent text-white">
-                                <tr>
-                                    <th></th>
-                                    <th>Student Id</th>
-                                    <th>Fullname</th>
-                                    <th>Average</th>
-                                    <th>Result</th>
-                                    <th>Course</th>
-                                    <th>Year & Section</th>
-                                    {{-- <th>Action</th> --}}
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @forelse ($evaluations as $evaluation)
-                                    <tr>
-                                        <th></th>
-                                        <td>{{ $evaluation->user->profile->student_id }}</td>
-                                        <td>{{ $evaluation->user->profile->fullName() }}</td>
-                                        <td>{{ $evaluation->average }}</td>
-                                        <td>{{ $evaluation->result }}</td>
-                                        <td>{{ $evaluation->user->profile->course }}</td>
-                                        <td>{{ $evaluation->user->profile->section }}</td>
-                                        {{-- <td>
-                                            <div class="flex items-center">
-                                                <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
-                                                    class="btn btn-xs btn-ghost">
-                                                    <i class="fi fi-rr-eye"></i>
-                                                </a>
-                                            </div>
-                                        </td> --}}
-                                    </tr>
-
-                                @empty
-                                    <tr>
-                                        <td>No Record</td>
-
-                                    </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
                 <div class="mt-24 w-full flex justify-end">
                     <div class="flex flex-col gap-2 w-auto h-auto">
                         <span class="border-b-2 border-black"></span>

@@ -9,7 +9,7 @@
         </div>
 
         <div class="w-full  flex items-center justify-end">
-            <x-search :route="route('events.index')" :value="request()->get('search') ?? ''"/>
+            <x-search :route="route('events.index')" :value="request()->get('search') ?? ''" />
         </div>
 
 
@@ -37,12 +37,13 @@
 
                             <td>
 
+                                @forelse ($event->hosts as $host)
+                                    <p>{{ $host->speaker->fullName() }},</p>
 
+                                @empty
 
-
-                                @foreach ($event->hosts as $host)
-                                    <p>{{$host->speaker->fullName()}},</p>
-                                @endforeach
+                                    <p>No Hosts</p>
+                                @endforelse
 
                             </td>
                             <td>{{ $event->dateDuration() }}</td>
@@ -50,14 +51,17 @@
                             <td>{{ $event->address() }}</td>
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <a href="{{route('events.show', ['event' => $event->id])}}" class="btn btn-xs btn-accent">
+                                    <a href="{{ route('events.show', ['event' => $event->id]) }}"
+                                        class="btn btn-xs btn-accent">
                                         <i class="fi fi-rr-eye"></i>
                                     </a>
-                                    <a href="{{route('events.edit', ['event' => $event->id])}}" class="btn btn-xs btn-secondary">
+                                    <a href="{{ route('events.edit', ['event' => $event->id]) }}"
+                                        class="btn btn-xs btn-secondary">
                                         <i class="fi fi-rr-edit"></i>
                                     </a>
 
-                                    <form action="{{route('events.destroy', ['event' => $event->id])}}" method="post">
+                                    <form action="{{ route('events.destroy', ['event' => $event->id]) }}"
+                                        method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-xs btn-error">

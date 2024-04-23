@@ -10,6 +10,11 @@
             'icon' => 'fi fi-rr-calendar-day mt-1',
             'name' => 'Events',
         ],
+        [
+            'url' => 'faculty.sections.index',
+            'icon' => 'fi fi-rr-chalkboard mt-1',
+            'name' => 'Sections',
+        ],
     ];
 @endphp
 
