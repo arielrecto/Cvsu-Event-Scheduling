@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Models\Event;
 use App\Models\Course;
 use App\Models\Announcement;
@@ -75,6 +76,9 @@ Route::prefix('mobile')->group(function() {
             'event' => $event
         ], 200);
     });
+
+
+    Route::post('forgot-password', [PasswordResetLinkController::class, 'store']);
 });
 
 
