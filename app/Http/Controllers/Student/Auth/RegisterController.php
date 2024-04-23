@@ -20,7 +20,7 @@ class RegisterController extends Controller
     {
 
 
-        return $request->all();
+
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'section' => 'required',
             'course' => 'required',
             // 'image' => 'required|sometimes|base64mimes:jpeg, png, jpg',
-            // 'valid_documents' => 'required|sometimes|base64mimes:jpeg, jpg',
+            'valid_documents' => 'required|sometimes|base64mimes:jpeg, jpg',
             'address' => 'required'
         ]);
 
@@ -73,17 +73,17 @@ class RegisterController extends Controller
         // $valid_dir = $request->valid_documents->storeAs('/document', $documentImage, 'public');
 
 
-        // $documentImage = $request->valid_documents;  // your base64 encoded
-        // $documentImage = str_replace('data:image/png;base64,', '', $documentImage);
-        // $documentImage = str_replace(' ', '+', $documentImage);
-        // $documentImageName =  'DCMNTS-' . uniqid() . '.' . 'png';
-        // $documentFilename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $documentImageName);
+        $documentImage = $request->valid_documents;  // your base64 encoded
+        $documentImage = str_replace('data:image/png;base64,', '', $documentImage);
+        $documentImage = str_replace(' ', '+', $documentImage);
+        $documentImageName =  'DCMNTS-' . uniqid() . '.' . 'png';
+        $documentFilename = preg_replace('~[\\\\\s+/:*?"<>|+-]~', '-', $documentImageName);
 
-        // $documentImageDecoded = base64_decode($documentImage);
+        $documentImageDecoded = base64_decode($documentImage);
 
-        // Storage::disk('public')->put('document/' . $documentFilename, $documentImageDecoded);
+        Storage::disk('public')->put('document/' . $documentFilename, $documentImageDecoded);
 
-        // $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
+        $documentImageName = $this->base64ImageHandler($documentImage, 'document/', 'DCMNTS');
 
 
         $course = Course::where('name', $request->course)->first();
@@ -101,7 +101,7 @@ class RegisterController extends Controller
             'section_id' => $section->id,
             'course_id' => $course->id,
             'address' => $request->address,
-            // 'valid_documents' => asset('/storage/document/' . $documentImageName),
+            'valid_documents' => asset('/storage/document/' . $documentImageName),
             'user_id' => $user->id
         ]);
 
