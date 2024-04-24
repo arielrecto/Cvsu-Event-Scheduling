@@ -69,6 +69,11 @@ class EventController extends Controller
         ]);
 
 
+        if(Carbon::parse($request->start_date)->isPast() || Carbon::parse($request->end_date)->isPast()){
+            return back()->with(['error' => 'Event Date Duration is in past']);
+        }
+
+
 
         $imageName = 'IMG-' . uniqid() . '.' . $request->image->extension();
         $dir = $request->image->storeAs('/event', $imageName, 'public');
