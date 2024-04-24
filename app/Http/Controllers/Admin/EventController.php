@@ -163,7 +163,6 @@ class EventController extends Controller
 
 
 
-
         if ($request->has('image')) {
 
             $imageName = 'IMG-' . uniqid() . '.' . $request->image->extension();
@@ -190,7 +189,32 @@ class EventController extends Controller
             'end_date' => $request->end_date ?? $event->end_date,
             'start_time' => $request->start_time ?? $event->start_time,
             'end_time' => $request->end_time ?? $event->end_time,
+            'description' => $request->description === "<p><br></p>" ? $event->description : $request->description
         ]);
+
+
+        $speakers = $request->speakers;
+
+        if ($speakers !== null) {
+
+            $hosts = $event->hosts;
+
+            if(count($hosts) !== 0) {
+                collect($hosts)->map(function($host){
+                    $_host = EventHost::find($host->id);
+
+                    $_host->delete();
+                });
+            }
+
+
+            collect($speakers)->map(function ($speaker) use ($event) {
+                EventHost::create([
+                    'event_id' => $event->id,
+                    'event_speaker_id' => $speaker
+                ]);
+            });
+        }
 
 
         return back()->with(['message' => 'Event Data Updated']);

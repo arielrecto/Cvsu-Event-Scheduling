@@ -59,7 +59,7 @@
 
                 </label>
                 <div class="flex items-center gap-2">
-                    <select name="speakers"  multiple class="select select-accent w-full">
+                    <select name="speakers[]"  multiple class="select select-accent w-full">
                         <option disabled selected>Select Host/Speaker</option>
                         @foreach ($speakers as $speaker)
                             <option value="{{ $speaker->id }}" class="capitalize">{{ $speaker->fullName() }}</option>
