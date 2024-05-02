@@ -3,7 +3,7 @@
         <x-notification-message />
         <x-dashboard.header :event_name="'Sections'" />
 
-
+        <a href="{{route('faculty.sections.create')}}" class="btn btn-sm btn-accent">Add Section</a>
         <table class="table">
             <!-- head -->
             <thead class="bg-secondary">

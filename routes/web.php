@@ -89,6 +89,9 @@ Route::middleware('auth')->group(function () {
     //     Route::post('/portal/{event_ref}/attendance', [StudentEventController::class, 'attendance'])->name('attendance')->middleware(['event-attendance']);
     // });
 
+    Route::prefix('section')->as('section.')->group(function(){
+        Route::get('course/{course}', [SectionController::class, 'sectionCourse'])->name('course');
+    });
 
     Route::middleware(['role:student'])->as('student.')->prefix('student')->group(function(){
         Route::get('', function (){
@@ -123,7 +126,6 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('section')->as('section.')->group(function(){
             Route::delete('{section}/delete', [SectionController::class, 'destroy'])->name('destroy');
-            Route::get('course/{course}', [SectionController::class, 'sectionCourse'])->name('course');
         });
 
 
@@ -147,7 +149,7 @@ Route::middleware('auth')->group(function () {
             Route::get('{event}/attendances', [InstructorEventController::class, 'eventAttendances'])->name('attendances');
         });
         Route::resource('attendances', AttendanceController::class)->only(['show', 'destroy']);
-        Route::resource('sections', InstructorSectionController::class)->only(['index', 'destroy']);
+        Route::resource('sections', InstructorSectionController::class)->only(['index', 'destroy', 'create', 'store']);
     });
 });
 

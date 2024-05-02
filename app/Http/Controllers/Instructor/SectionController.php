@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Instructor;
 
-use App\Http\Controllers\Controller;
-use App\Models\InstructorSection;
+use App\Models\Course;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use App\Models\InstructorSection;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class SectionController extends Controller
@@ -31,7 +32,10 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+
+        $courses = Course::get();
+
+        return view('users.instructor.section.create',  compact(['courses']));
     }
 
     /**
@@ -39,7 +43,25 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+        $user = Auth::user();
+
+        $instractorInfo = $user->instructorInfo;
+
+        collect($request->sections)->map(function($_section) use($instractorInfo){
+
+            $section = Section::find($_section);
+
+            InstructorSection::create([
+                'section_id' => $section->id,
+                'instructor_info_id' => $instractorInfo->id
+            ]);
+
+        });
+
+
+        return back()->with(['message' => 'Section Added Success']);
     }
 
     /**
