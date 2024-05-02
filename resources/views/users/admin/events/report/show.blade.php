@@ -247,8 +247,8 @@
                                         <td>{{ $evaluation->user->profile->fullName() }}</td>
                                         <td>{{ $evaluation->average }}</td>
                                         <td>{{ $evaluation->result }}</td>
-                                        <td>{{ $evaluation->user->profile->course }}</td>
-                                        <td>{{ $evaluation->user->profile->section }}</td>
+                                        <td>{{ $evaluation->user->profile->course->name }}</td>
+                                        <td>{{ $evaluation->user->profile->section->year . ' - ' . $evaluation->user->profile->section->number }}</td>
                                         {{-- <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
