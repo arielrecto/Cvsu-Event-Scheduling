@@ -67,7 +67,7 @@ class EventController extends Controller
         $user_has_attendance = $event->attendances()->where('user_id', $user->id)->exists();
 
 
-        $event_is_done = Carbon::parse($event->end_date)->lt(now());
+        $event_is_done = Carbon::parse($event->end_date)->addDay(1)->lt(now());
 
 
         return response([
