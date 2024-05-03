@@ -38,7 +38,7 @@ class EventEvaluation
             ], 400);
         }
 
-        $event_end_date = Carbon::parse($event->end_date);
+        $event_end_date = Carbon::parse($event->end_date)->addDays(1);
 
         if($evaluation_form !== null){
             return response([
