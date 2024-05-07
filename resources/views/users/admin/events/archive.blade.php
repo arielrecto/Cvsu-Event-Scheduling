@@ -2,16 +2,10 @@
     <div class="panel flex flex-col gap-2">
         <x-notification-message />
         <div class="flex items-center justify-between">
-            <h1 class="panel-title">Events</h1>
-            <div class="flex items-center gap-5">
-                <a href="{{ route('events.archives') }}" class="btn btn-xs btn-warning">
-                    Archive Events
-                </a>
-                <a href="{{ route('events.create') }}" class="btn-generic">
-                    create Events
-                </a>
-            </div>
-
+            <h1 class="panel-title">Events - Archive</h1>
+            <a href="{{ route('events.create') }}" class="btn-generic">
+                create Events
+            </a>
         </div>
 
         <div class="w-full  flex items-center justify-end">
@@ -81,7 +75,7 @@
 
                     @empty
                         <tr class="bg-base-200">
-                            <td>No Event</td>
+                            <td>No Event Archives</td>
                         </tr>
                     @endforelse
 

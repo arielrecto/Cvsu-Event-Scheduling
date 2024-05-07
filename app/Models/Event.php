@@ -22,7 +22,8 @@ class Event extends Model
         'description',
         'location',
         'status',
-        'is_done'
+        'is_done',
+        'is_archive'
     ];
 
 

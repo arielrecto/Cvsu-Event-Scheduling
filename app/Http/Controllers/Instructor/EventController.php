@@ -17,16 +17,17 @@ class EventController extends Controller
 
         $currentDate = Carbon::now('Asia/Manila')->format('Y-m-d');
 
-        $passed_events = Event::where('end_date', '<', $currentDate)->latest()->paginate(10);
+        $passed_events = Event::where('end_date', '<', $currentDate)->where('is_archive', false)->latest()->paginate(10);
 
         $event = Event::where('start_date', '<=', $currentDate)
             ->where('end_date', '>=', $currentDate)
+            ->where('is_archive', false)
             ->first();
 
 
 
 
-        $incoming_events = Event::where('start_date', '>', $currentDate)->latest()->paginate(10);
+        $incoming_events = Event::where('start_date', '>', $currentDate)->where('is_archive', false)->latest()->paginate(10);
 
         return view('users.instructor.event.index', compact(['passed_events', 'event', 'incoming_events']));
     }
@@ -79,24 +80,23 @@ class EventController extends Controller
             }
 
             if ($category === 'time in' || $category === 'time out' && $search !== null) {
-                $attendances =  $event->attendances()->where(function($q) use ($search){
+                $attendances =  $event->attendances()->where(function ($q) use ($search) {
                     $q->where('time_in', 'like', '%' . $search . '%')
-                    ->orWhere('time_out', 'like', '%' . $search . '%');
+                        ->orWhere('time_out', 'like', '%' . $search . '%');
                 })->with(['user.profile' => function ($q) {
                     $q->with(['course', 'section']);
                 }])->latest()->get();
             }
             if ($category === 'my-section'  && $search !== null) {
-                $attendances =  $event->attendances()->where(function($q) use ($search){
-                    $q->whereHas('user.profile', function($q) use($search) {
-                        $q->whereHas('section', function($q) use($search) {
+                $attendances =  $event->attendances()->where(function ($q) use ($search) {
+                    $q->whereHas('user.profile', function ($q) use ($search) {
+                        $q->whereHas('section', function ($q) use ($search) {
                             $q->where('id', $search);
                         });
                     });
                 })->with(['user.profile' => function ($q) {
                     $q->with(['course', 'section']);
                 }])->latest()->get();
-
             }
         }
 
@@ -105,7 +105,8 @@ class EventController extends Controller
         ], 200);
     }
 
-    public function report(string $id, Request $request) {
+    public function report(string $id, Request $request)
+    {
 
         $event = Event::find($id);
         $user = Auth::user();
@@ -122,10 +123,10 @@ class EventController extends Controller
         $attendances = Attendance::where('event_id', $event->id)->latest()->get();
 
 
-        if($search !== null) {
-            $attendances = Attendance::where('event_id', $event->id)->where(function($q) use($search) {
-                $q->whereHas('user.profile', function($q) use($search){
-                    $q->whereHas('section', function($q) use($search) {
+        if ($search !== null) {
+            $attendances = Attendance::where('event_id', $event->id)->where(function ($q) use ($search) {
+                $q->whereHas('user.profile', function ($q) use ($search) {
+                    $q->whereHas('section', function ($q) use ($search) {
                         $q->where('id', $search);
                     });
                 });

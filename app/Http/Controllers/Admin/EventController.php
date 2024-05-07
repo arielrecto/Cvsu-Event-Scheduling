@@ -22,12 +22,13 @@ class EventController extends Controller
 
         $search = $request->search;
 
-        $events = Event::with(['hosts.speaker'])->latest()->paginate(10);
+        $events = Event::with(['hosts.speaker'])->where('is_archive', false)->latest()->paginate(10);
 
 
         if ($search) {
 
             $events = Event::where('name', 'like', '%' . $search . '%')
+                ->where('is_archive', false)
                 ->orWhereYear('start_date', $search)
                 ->orWhereYear('end_date', $search)
                 ->paginate(10);
@@ -69,7 +70,7 @@ class EventController extends Controller
         ]);
 
 
-        if(Carbon::parse($request->start_date)->isPast() || Carbon::parse($request->end_date)->isPast()){
+        if (Carbon::parse($request->start_date)->isPast() || Carbon::parse($request->end_date)->isPast()) {
             return back()->with(['error' => 'Event Date Duration is in past']);
         }
 
@@ -204,8 +205,8 @@ class EventController extends Controller
 
             $hosts = $event->hosts;
 
-            if(count($hosts) !== 0) {
-                collect($hosts)->map(function($host){
+            if (count($hosts) !== 0) {
+                collect($hosts)->map(function ($host) {
                     $_host = EventHost::find($host->id);
 
                     $_host->delete();
@@ -264,9 +265,9 @@ class EventController extends Controller
     {
 
         $attendances = Attendance::where('event_id', $id)
-        ->with(['user.profile' => function ($q) {
-            $q->with(['course', 'section']);
-        }, 'event'])->latest()->get();
+            ->with(['user.profile' => function ($q) {
+                $q->with(['course', 'section']);
+            }, 'event'])->latest()->get();
 
         $search = $request->search;
 
@@ -293,5 +294,39 @@ class EventController extends Controller
         }
 
         return $attendances;
+    }
+    public function archives(Request $request)
+    {
+
+        $search = $request->search;
+
+        $events = Event::with(['hosts.speaker'])->where('is_archive', true)->latest()->paginate(10);
+
+
+        if ($search) {
+
+            $events = Event::where('name', 'like', '%' . $search . '%')
+                ->where('is_archive', false)
+                ->orWhereYear('start_date', $search)
+                ->orWhereYear('end_date', $search)
+                ->paginate(10);
+        }
+
+
+
+
+
+        return view('users.admin.events.archive', compact(['events']));
+    }
+    public function archiveStore(Request $request, string $id)
+    {
+
+        $event = Event::find($id);
+
+        $event->update([
+            'is_archive' => true
+        ]);
+
+        return back()->with(['message' => 'Event Archive Success']);
     }
 }

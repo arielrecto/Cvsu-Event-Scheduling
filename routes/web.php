@@ -114,6 +114,8 @@ Route::middleware('auth')->group(function () {
             Route::get('{event}/report', [EventController::class, 'report'])->name('report');
             Route::get('{event}/attendances', [EventController::class, 'searchAttendance'])->name('attendances');
             Route::delete('evaluation/from/{form}/delete', [EvaluationFormController::class, 'destroy'])->name('evaluation.form.destroy');
+            Route::get('/archives', [EventController::class, 'archives'])->name('archives');
+            Route::post('/archives/{event}', [EventController::class, 'archiveStore'])->name('archives.store');
         });
 
 

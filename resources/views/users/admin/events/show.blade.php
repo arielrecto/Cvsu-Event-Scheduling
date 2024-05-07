@@ -11,9 +11,18 @@
 
         <div class="w-full flex items-center justify-between">
             <span class="text-xs text-accent">Note: sample text</span>
-            <a href="{{ route('events.report', ['event' => $event->id]) }}" class="btn btn-ghost">
-                <i class="fi fi-rr-print text-xl"></i>
-            </a>
+            <div class="flex items-center gap-5">
+                <form method="POST" action="{{ route('events.archives.store', ['event' => $event->id]) }}" class="btn btn-ghost">
+                    @csrf
+                    <button class="btn btn-xs btn-error">
+                        Archive
+                    </button>
+                </form>
+                <a href="{{ route('events.report', ['event' => $event->id]) }}" class="btn btn-ghost">
+                    <i class="fi fi-rr-print text-xl"></i>
+                </a>
+            </div>
+
         </div>
 
 
