@@ -50,7 +50,7 @@ Route::get('home', [HomeController::class, 'index']);
 
 Route::get('/dashboard', function () {
 
-    $events = Event::with(['hosts'])->latest()->paginate(10);
+    $events = Event::with(['hosts'])->where('is_archive', false)->latest()->paginate(10);
 
     $totalUnverifiedStudent = User::role(UserRolesEnum::STUDENT->value)->whereHas('profile', function ($q) {
         $q->whereNull('verified_at');
