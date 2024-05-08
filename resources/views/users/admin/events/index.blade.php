@@ -66,7 +66,7 @@
                                         <i class="fi fi-rr-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('events.destroy', ['event' => $event->id]) }}"
+                                    <form action="{{ route('events.archives.store', ['event' => $event->id]) }}"
                                         method="post">
                                         @csrf
                                         @method('delete')

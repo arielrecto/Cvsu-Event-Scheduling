@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('evaluation/from/{form}/delete', [EvaluationFormController::class, 'destroy'])->name('evaluation.form.destroy');
             Route::get('/archives', [EventController::class, 'archives'])->name('archives');
             Route::post('/archives/{event}', [EventController::class, 'archiveStore'])->name('archives.store');
+            Route::post('/archives/{event}/restore', [EventController::class, 'archiveRestore'])->name('archives.restore');
         });
 
 

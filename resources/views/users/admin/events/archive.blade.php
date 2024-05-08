@@ -51,14 +51,14 @@
                             <td>{{ $event->address() }}</td>
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <a href="{{ route('events.show', ['event' => $event->id]) }}"
-                                        class="btn btn-xs btn-accent">
-                                        <i class="fi fi-rr-eye"></i>
-                                    </a>
-                                    <a href="{{ route('events.edit', ['event' => $event->id]) }}"
-                                        class="btn btn-xs btn-secondary">
-                                        <i class="fi fi-rr-edit"></i>
-                                    </a>
+
+                                    <form action="{{ route('events.archives.restore', ['event' => $event->id]) }}"
+                                        method="post">
+                                        @csrf
+                                        <button class="btn btn-xs btn-accent">
+                                           restore
+                                        </button>
+                                    </form>
 
                                     <form action="{{ route('events.destroy', ['event' => $event->id]) }}"
                                         method="post">

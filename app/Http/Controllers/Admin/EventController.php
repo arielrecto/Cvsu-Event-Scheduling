@@ -234,11 +234,11 @@ class EventController extends Controller
         $event = Event::find($id);
 
 
-        // $event->delete();
+         $event->delete();
 
-        $event->update([
-            'is_archive' => true
-        ]);
+        // $event->update([
+        //     'is_archive' => true
+        // ]);
 
         return back()->with(['message' => 'Event Deleted']);
     }
@@ -331,5 +331,15 @@ class EventController extends Controller
         ]);
 
         return back()->with(['message' => 'Event Archive Success']);
+    }
+
+    public function archiveRestore(string $id){
+        $event = Event::find($id);
+
+        $event->update([
+            'is_archive' => false
+        ]);
+
+        return back()->with(['message' => 'Event Archive Restore']);
     }
 }
