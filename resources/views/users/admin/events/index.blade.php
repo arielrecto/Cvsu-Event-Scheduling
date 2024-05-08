@@ -69,7 +69,7 @@
                                     <form action="{{ route('events.archives.store', ['event' => $event->id]) }}"
                                         method="post">
                                         @csrf
-                                        @method('delete')
+                                        {{-- @method('delete') --}}
                                         <button class="btn btn-xs btn-error">
                                             <i class="fi fi-rr-trash"></i>
                                         </button>
