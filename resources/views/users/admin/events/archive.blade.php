@@ -3,9 +3,9 @@
         <x-notification-message />
         <div class="flex items-center justify-between">
             <h1 class="panel-title">Events - Archive</h1>
-            <a href="{{ route('events.create') }}" class="btn-generic">
+            {{-- <a href="{{ route('events.create') }}" class="btn-generic">
                 create Events
-            </a>
+            </a> --}}
         </div>
 
         <div class="w-full  flex items-center justify-end">
