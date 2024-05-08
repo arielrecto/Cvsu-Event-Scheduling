@@ -60,7 +60,7 @@ Route::get('/dashboard', function () {
         $q->whereNotNull('verified_at');
     })->count();
 
-    $events_json = Event::get()->toJson();
+    $events_json = Event::where('is_archive', false)->get()->toJson();
 
     return view('dashboard', compact(['events', 'events_json', 'totalUnverifiedStudent', 'totalVerifiedStudent']));
 })->middleware(['auth', 'verified'])->name('dashboard');
