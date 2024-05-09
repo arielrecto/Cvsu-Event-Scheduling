@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function index()
     {
         $events = Event::whereMonth('start_date', now())->orWhere('end_date', now())->with(['hosts'])->get();
-        $totalEvent = Event::count();
+        $totalEvent = Event::where('is_archive', false)->count();
         $totalAnnouncement= Announcement::count();
 
         $latest_announcement = Announcement::latest()->first();
