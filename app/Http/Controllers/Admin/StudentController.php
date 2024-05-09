@@ -51,11 +51,9 @@ class StudentController extends Controller
                         ->orWhere('student_id', 'like', '%' . $search . '%')
                         ->orWhere('verified_at', '!=', null);
                 })
-                ->orWhere('name', 'like', '%' . $search . '%');
+                    ->orWhere('name', 'like', '%' . $search . '%');
             })
-            ->paginate(10);
-
-            dd($students, 'search and filter is null');
+                ->paginate(10);
         }
 
         if ($search !== null && $filter !== null) {
@@ -66,12 +64,9 @@ class StudentController extends Controller
                         ->orWhere('student_id', 'like', '%' . $search . '%')
                         ->orWhereNull('verified_at');
                 })
-                ->orWhere('name', 'like', '%' . $search . '%');
+                    ->orWhere('name', 'like', '%' . $search . '%');
             })
-            ->paginate(10);
-
-
-            dd($students, 'search and filter is not null');
+                ->paginate(10);
         }
 
 
