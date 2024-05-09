@@ -309,7 +309,7 @@ class EventController extends Controller
         if ($search) {
 
             $events = Event::where('name', 'like', '%' . $search . '%')
-                ->where('is_archive', false)
+                ->where('is_archive', true)
                 ->orWhereYear('start_date', $search)
                 ->orWhereYear('end_date', $search)
                 ->paginate(10);

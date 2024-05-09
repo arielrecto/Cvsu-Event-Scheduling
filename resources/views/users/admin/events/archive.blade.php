@@ -9,7 +9,7 @@
         </div>
 
         <div class="w-full  flex items-center justify-end">
-            <x-search :route="route('events.index')" :value="request()->get('search') ?? ''" />
+            <x-search :route="route('events.archives')" :value="request()->get('search') ?? ''" />
         </div>
 
 
