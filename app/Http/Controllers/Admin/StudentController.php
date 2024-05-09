@@ -47,9 +47,9 @@ class StudentController extends Controller
             $students = User::where(function ($query) use ($search) {
                 $query->whereHas('profile', function ($q) use ($search) {
                     $q->where('last_name', 'like', '%' . $search . '%')
+                        ->Where('verified_at', '!=', null)
                         ->orWhere('first_name', 'like', '%' . $search . '%')
-                        ->orWhere('student_id', 'like', '%' . $search . '%')
-                        ->orWhere('verified_at', '!=', null);
+                        ->orWhere('student_id', 'like', '%' . $search . '%');
                 })
                     ->orWhere('name', 'like', '%' . $search . '%');
             })
