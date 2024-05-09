@@ -162,11 +162,11 @@ class EventSpeakerController extends Controller
         $speaker = EventSpeaker::find($id);
 
 
-        $speaker->update([
-            'is_archive' => true
-        ]);
+        // $speaker->update([
+        //     'is_archive' => true
+        // ]);
 
-        // $speaker->delete();
+        $speaker->delete();
 
 
         return back()->with(['message' => 'Event Speaker Delete Success']);
