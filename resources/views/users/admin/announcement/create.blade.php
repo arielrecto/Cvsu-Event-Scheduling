@@ -18,7 +18,7 @@
 
 
             <div class="input-generic-div">
-                <label for="" class="input-generic-label">Title</label>
+                <label for="" class="input-generic-label">Images</label>
                 <input type="file" name="images[]" multiple class="file-input file-input-accent">
 
 
