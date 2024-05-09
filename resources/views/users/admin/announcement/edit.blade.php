@@ -8,7 +8,7 @@
             @csrf
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Title</label>
-                <input type="text" name="title" class="input-generic" placeholder="ex: Sample title">
+                <input type="text" name="title" class="input-generic" placeholder="{{$announcement->title}}">
 
 
                 @if ($errors->has('title'))
@@ -18,7 +18,7 @@
             <div class="input-generic-div" x-data="textEditor">
                 <label for="" class="input-generic-label">Description</label>
                 <div class="min-h-64 max-h-96 overflow-y-auto" x-ref="editor">
-
+                    {!! $announcement->description !!}
                 </div>
                 @if ($errors->has('descriptions'))
                     <p class="text-xs text-error">{{ $errors->first('descriptions') }}</p>
