@@ -34,6 +34,7 @@
         </div> --}}
 
         <div class="w-full  flex items-center justify-end">
+            @dd(request()->all())
             <x-search :route="route('students.index')" :value="request()->get('search') ?? ''" />
         </div>
         <div class="overflow-y-auto">

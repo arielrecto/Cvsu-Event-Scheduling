@@ -54,6 +54,8 @@ class StudentController extends Controller
                 ->orWhere('name', 'like', '%' . $search . '%');
             })
             ->paginate(10);
+
+            dd($students, 'search and filter is null');
         }
 
         if ($search !== null && $filter !== null) {
@@ -67,6 +69,9 @@ class StudentController extends Controller
                 ->orWhere('name', 'like', '%' . $search . '%');
             })
             ->paginate(10);
+
+
+            dd($students, 'search and filter is not null');
         }
 
 
