@@ -35,7 +35,7 @@
             <div class="grid grid-cols-3 grid-flow-row gap-5">
                 <div class="input-generic-div">
                     <label for="" class="input-generic-label">Last Name <span>*</span></label>
-                    <input type="text" name="last_name" class="input-generic" placeholder="Last Name">
+                    <input type="text" name="last_name" class="input-generic" placeholder="Last Name" value="{{old('last_name')}}">
                     @if ($errors->has('last_name'))
                         <p class="text-xs text-error">{{ $errors->first('last_name') }}</p>
                     @endif
@@ -43,20 +43,20 @@
 
                 <div class="input-generic-div">
                     <label for="" class="input-generic-label">First Name <span>*</span></label>
-                    <input type="text" name="first_name" class="input-generic" placeholder="First Name">
+                    <input type="text" name="first_name" class="input-generic" placeholder="First Name" value="{{old('first_name')}}">
                     @if ($errors->has('first_name'))
                         <p class="text-xs text-error">{{ $errors->first('first_name') }}</p>
                     @endif
                 </div>
                 <div class="input-generic-div">
                     <label for="" class="input-generic-label">Middle Name (Optional)</label>
-                    <input type="text" name="middle_name" class="input-generic" placeholder="Middle Name">
+                    <input type="text" name="middle_name" class="input-generic" placeholder="Middle Name" value="{{old('middle_name')}}">
                 </div>
             </div>
             <div class="grid grid-cols-2 grid-flow-row gap-5">
                 <div class="input-generic-div">
                     <label for="" class="input-generic-label">Age <span>*</span></label>
-                    <input type="number" class="input-generic" name="age" placeholder="age">
+                    <input type="number" class="input-generic" name="age" placeholder="age" value="{{old('age')}}">
                     @if ($errors->has('age'))
                         <p class="text-xs text-error">{{ $errors->first('age') }}</p>
                     @endif
@@ -75,14 +75,14 @@
             </div>
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Address <span>*</span> </label>
-                <input type="text" name="address" class="input-generic" placeholder="Address">
+                <input type="text" name="address" class="input-generic" placeholder="Address" value="{{old('address')}}">
                 @if ($errors->has('address'))
                     <p class="text-xs text-error">{{ $errors->first('address') }}</p>
                 @endif
             </div>
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Occupation <span>*</span></label>
-                <input type="text" name="occupation" class="input-generic" placeholder="Ex: Instructor|student|etc.">
+                <input type="text" name="occupation" class="input-generic" placeholder="Ex: Instructor|student|etc." value="{{old('occupation')}}">
                 @if ($errors->has('occupation'))
                     <p class="text-xs text-error">{{ $errors->first('occupation') }}</p>
                 @endif
