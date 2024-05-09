@@ -43,19 +43,33 @@ class StudentController extends Controller
             })->latest()->paginate(10);
         }
 
-        if ($search !== null) {
+        if ($search !== null && $filter === null) {
             $students = User::where(function ($query) use ($search) {
                 $query->whereHas('profile', function ($q) use ($search) {
                     $q->where('last_name', 'like', '%' . $search . '%')
                         ->orWhere('first_name', 'like', '%' . $search . '%')
-                        ->orWhere('course', 'like', '%' . $search . '%')
-                        ->orWhere('section', 'like', '%' . $search . '%')
-                        ->orWhere('student_id', 'like', '%' . $search . '%');
+                        ->orWhere('student_id', 'like', '%' . $search . '%')
+                        ->orWhere('verified_at', '!=', null);
                 })
                 ->orWhere('name', 'like', '%' . $search . '%');
             })
             ->paginate(10);
         }
+
+        if ($search !== null && $filter !== null) {
+            $students = User::where(function ($query) use ($search) {
+                $query->whereHas('profile', function ($q) use ($search) {
+                    $q->where('last_name', 'like', '%' . $search . '%')
+                        ->orWhere('first_name', 'like', '%' . $search . '%')
+                        ->orWhere('student_id', 'like', '%' . $search . '%')
+                        ->orWhereNull('verified_at');
+                })
+                ->orWhere('name', 'like', '%' . $search . '%');
+            })
+            ->paginate(10);
+        }
+
+
 
 
 
