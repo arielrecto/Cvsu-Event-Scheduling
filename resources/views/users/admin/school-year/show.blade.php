@@ -20,7 +20,7 @@
                 <h1 class="text-sm text-accent">Events</h1>
 
 
-                <a href="{{ route('school-year.print.show', ['school-year' => $schoolYear->id]) }}" class="btn btn-ghost">
+                <a href="{{ route('school-year.print.show', ['school_year' => $schoolYear->id]) }}" class="btn btn-ghost">
                     <i class="fi fi-rr-print text-xl"></i>
                 </a>
             </div>
