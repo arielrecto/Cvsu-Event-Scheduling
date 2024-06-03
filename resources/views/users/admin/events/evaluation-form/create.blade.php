@@ -134,32 +134,62 @@
 
                         <template x-for="s_field in speaker.fields">
 
-                            <div class="flex items-center justify-between">
+                            <div class="w-fill flex flex-col gap-2">
+                                <div class="flex items-center justify-between">
 
-                                <div class="w-auto h-auto">
-                                    <label for="" class="input-generic-label capitalize"
-                                        x-text="s_field.question"></label>
-                                    <template x-if="s_field.input_type !== 'radio'">
-                                        <input :type="s_field.input_type" class="input-generic">
-                                    </template>
+                                    <div class="w-auto h-auto">
+                                        <label for="" class="input-generic-label capitalize"
+                                            x-text="s_field.question"></label>
+                                        <template x-if="s_field.input_type !== 'radio'">
+                                            <input :type="s_field.input_type" class="input-generic">
+                                        </template>
+                                        <template x-if="s_field.input_type === 'radio'">
+                                            <div class="flex items-center gap-5">
+                                                <template x-for="i in parseInt(s_field.radio_max)"
+                                                    :key="i">
+                                                    <div class="flex flex-col items-center">
+                                                        <input type="radio" name="radio-4"
+                                                            class="radio radio-accent" :value="i" />
+                                                        <span x-text="i"></span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button class="btn btn-xs btn-primary"  @click="() => editFieldId = field.localId"><i class="fi fi-rr-edit"></i></button>
+                                        <button class="btn btn-xs btn-error">
+                                            <i class="fi fi-rr-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="input-generic-div" x-show="editFieldId === s_field.localId">
+                                    <div class="w-full flex items-center justify-between">
+                                        <label for="" class="input-generic-label">Question</label>
+                                        <button @click="() => editFieldId = null" class="btn btn-xs btn-error"><i
+                                                class="fi fi-rr-cross"></i></button>
+                                    </div>
+
+                                    <input type="text" x-model="s_field.question" class="input-generic">
+                                    <label for="" class="input-generic-label">Input Type</label>
+                                    <select x-model="s_field.input_type" @change="checkInputTypeField($event)"
+                                        class="select select-accent w-full">
+                                        <option disabled selected>Select</option>
+                                        <option value="text">Text</option>
+                                        {{-- <option value="number">Number</option> --}}
+                                        {{-- <option value="radio">Radio</option> --}}
+                                        {{-- <option>Light mode</option> --}}
+                                    </select>
+
                                     <template x-if="s_field.input_type === 'radio'">
-                                        <div class="flex items-center gap-5">
-                                            <template x-for="i in parseInt(s_field.radio_max)" :key="i">
-                                                <div class="flex flex-col items-center">
-                                                    <input type="radio" name="radio-4" class="radio radio-accent"
-                                                        :value="i" />
-                                                    <span x-text="i"></span>
-                                                </div>
-                                            </template>
+                                        <div class="flex flex-col gap-2">
+                                            <label for="" class="input-generic-label">Radio Range</label>
+                                            <input type="text" x-model="s_field.radio_max" class="input-generic">
                                         </div>
                                     </template>
+                                    {{-- <button @click="addField" class="btn btn-accent">Add input</button> --}}
                                 </div>
-                                <div class="flex items-center justify-end gap-2">
-                                    <button class="btn btn-xs btn-primary"><i class="fi fi-rr-edit"></i></button>
-                                    <button class="btn btn-xs btn-error">
-                                        <i class="fi fi-rr-trash"></i>
-                                    </button>
-                                </div>
+
                             </div>
 
 
