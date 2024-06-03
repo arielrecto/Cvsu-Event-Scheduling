@@ -136,7 +136,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('{section}/delete', [SectionController::class, 'destroy'])->name('destroy');
         });
         Route::prefix('school-year')->as('school-year.')->group(function(){
-            Route::get('{school-year}/print', [SchoolYearController::class, 'printShow'])->name('print.show');
+            Route::get('/{school-year}/print', [SchoolYearController::class, 'printShow'])->name('print.show');
         });
 
 
