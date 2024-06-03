@@ -107,7 +107,7 @@
                                 class="select select-accent w-full">
                                 <option disabled selected>Select</option>
                                 <option value="text">Text</option>
-                                <option value="number">Number</option>
+                                {{-- <option value="number">Number</option> --}}
                                 {{-- <option value="radio">Radio</option> --}}
                                 {{-- <option>Light mode</option> --}}
                             </select>
@@ -149,7 +149,6 @@
                                         </template>
                                     </div>
                                 </template>
-
                             </div>
 
                         </template>
@@ -204,6 +203,14 @@
                             </template>
 
                         </div> --}}
+                    </div>
+
+                    <div class="flex items-center justify-end gap-2">
+                        <button class="btn btn-xs btn-primary"
+                           ><i class="fi fi-rr-edit"></i></button>
+                        <button class="btn btn-xs btn-error">
+                            <i class="fi fi-rr-trash"></i>
+                        </button>
                     </div>
 
                 </div>
