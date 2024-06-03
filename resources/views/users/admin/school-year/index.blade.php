@@ -35,7 +35,7 @@
 
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <a href="{{route('shool-year.show', ['shool_year' => $schoolYear->id])}}"
+                                    <a href="{{route('shool-year.show', ['school_year' => $schoolYear->id])}}"
                                         class="btn btn-xs btn-accent">
                                         <i class="fi fi-rr-eye"></i>
                                     </a>

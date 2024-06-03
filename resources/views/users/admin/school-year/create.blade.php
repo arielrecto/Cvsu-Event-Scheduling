@@ -2,7 +2,7 @@
 
     <div class="flex flex-col gap-5">
 
-        <x-dashboard.header :route="route('course.index')" :event_name="'Course Create'" />
+        <x-dashboard.header :route="route('school-year.index')" :event_name="'Course Create'" />
 
 
         <x-notification-message />
