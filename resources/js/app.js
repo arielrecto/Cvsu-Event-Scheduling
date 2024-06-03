@@ -233,6 +233,8 @@ Alpine.data("evaluationFormGenerator", () => ({
                 ],
             };
 
+            this.addSpeakerField = null
+
             this.fieldBlueprint = {
                 ...this.fieldBlueprint,
                 question: null,
