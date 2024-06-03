@@ -195,6 +195,10 @@
                             </button>
                         </form>
 
+                        <a href="{{ route('events.form.print', ['event' => $event->id]) }}" class="btn btn-ghost">
+                            <i class="fi fi-rr-print text-xl"></i>
+                        </a>
+
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 min-h-64 relative">

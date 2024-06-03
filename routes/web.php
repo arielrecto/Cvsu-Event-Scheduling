@@ -120,6 +120,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/archives', [EventController::class, 'archives'])->name('archives');
             Route::post('/archives/{event}', [EventController::class, 'archiveStore'])->name('archives.store');
             Route::post('/archives/{event}/restore', [EventController::class, 'archiveRestore'])->name('archives.restore');
+            Route::get('/{event}/form/print', [EventController::class, 'archiveRestore'])->name('form.print');
         });
 
 

@@ -344,4 +344,10 @@ class EventController extends Controller
 
         return back()->with(['message' => 'Event Archive Restore']);
     }
+    public function printShow(string $id){
+        $form = Event::whereId($id)->evaluationForm;
+
+
+        return view('users.admin.events.evaluation-form.print', compact(['form']));
+    }
 }
