@@ -3,7 +3,7 @@
         <div class="w-4/6 h-screen flex flex-col gap-2 p-5" x-ref="main">
             <div class="flex items-center justify-between bg-gray-200 rounded-lg p-5" x-ref="header">
                 <div class="flex items-center gap-5">
-                    <a href="{{ route('events.show', ['event' => $event->id]) }}" class="btn-generic"><i
+                    <a href="{{ route('school-year.show', ['school_year' => $schoolYear->id]) }}" class="btn-generic"><i
                             class="fi fi-rr-arrow-left"></i></a>
                     <h1 class="panel-title capitalize">School Year {{ $schoolYear->year }}</h1>
                 </div>
