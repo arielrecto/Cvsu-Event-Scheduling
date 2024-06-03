@@ -39,7 +39,7 @@ class UserEmailVerificationNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Email Verification')
-                    ->action('Notification Action', $this->details['url'])
+                    ->action('Verify Email', $this->details['url'])
                     ->line('Thank you for using our application!');
     }
 
