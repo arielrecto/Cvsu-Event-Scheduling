@@ -143,7 +143,7 @@
                         <option value="F2F" class="capitalize">Face to Face</option>
 
                     </select>
-                    <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
+
                 </div>
                 @if ($errors->has('category'))
                     <p class="text-xs text-error">{{ $errors->first('category') }}</p>
