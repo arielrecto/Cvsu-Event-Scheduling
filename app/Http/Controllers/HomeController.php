@@ -12,9 +12,6 @@ class HomeController extends Controller
 
         $userRole = Auth::user()->roles()->first();
 
-
-        dd($userRole);
-
         switch($userRole->name){
             case UserRolesEnum::ADMIN->value:
                 return to_route('dashboard');
