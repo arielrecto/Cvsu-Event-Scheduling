@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\UserRolesEnum;
 use App\Models\Event;
 use App\Models\EventSpeaker;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\EventHost;
 use App\Models\SchoolYear;
+use App\Models\User;
 
 use function PHPSTORM_META\map;
 
@@ -268,10 +270,13 @@ class EventController extends Controller
             ->toArray();
 
 
+            $studentTotal = User::role(UserRolesEnum::STUDENT->value)->count();
+
+
 
         $attendancesByCourse_json = json_encode([$attendancesByCourse]);
 
-        return view('users.admin.events.report.show', compact(['event', 'attendancesByCourse_json', 'attendancesByCourse']));
+        return view('users.admin.events.report.show', compact(['event', 'attendancesByCourse_json', 'attendancesByCourse', 'studentTotal']));
     }
     public function searchAttendance(string $id, Request $request)
     {

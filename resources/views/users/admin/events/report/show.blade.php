@@ -28,12 +28,13 @@
                                     Cavite State University
                                 </span>
 
-                                 <span class="text-sm">Bacoor City Campus</span> </h1>
+                                <span class="text-sm">Bacoor City Campus</span>
+                            </h1>
                             <p class="text-gray-600 text-center text-xs font-bold">
                                 Soldiers Hills IV, Molino VI, Bacoor City, Cavite
                             </p>
                             <p class="text-gray-600 text-center text-xs">
-                               DEPARTMENT OF COMPUTER STUDIES
+                                DEPARTMENT OF COMPUTER STUDIES
                             </p>
                         </div>
                     </div>
@@ -71,6 +72,14 @@
                                     {{ $event->dateDuration() }}
                                 </h1>
                             </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <h1 class="text-xs text-accent">
+                                Expected Attendees
+                            </h1>
+                            <h1 class="text-sm">
+                                {{ $studentTotal }}
+                            </h1>
                         </div>
                         <div class="grid grid-cols-3 grid-flow-row gap-2 border-2 rounded-lg">
                             <div class="flex items-center border-r-2 p-2 justify-between">
@@ -111,14 +120,14 @@
                         </h1>
 
                         @forelse ($event->hosts as $host)
-                        <div class="flex flex-col gap-2">
-                            <h1 class="text-xs text-accent">
-                                name
-                            </h1>
-                            <h1>
-                                {{$host->speaker->fullName()}}
-                            </h1>
-                        </div>
+                            <div class="flex flex-col gap-2">
+                                <h1 class="text-xs text-accent">
+                                    name
+                                </h1>
+                                <h1>
+                                    {{ $host->speaker->fullName() }}
+                                </h1>
+                            </div>
                         @empty
 
                             <p>No Hosts</p>
@@ -173,7 +182,8 @@
                                         <td>{{ $attendance->time_out ?? '-' }}</td>
                                         <td>{{ $attendance->user->profile->gender }}</td>
                                         <td>{{ $attendance->user->profile->course->name }}</td>
-                                        <td>{{ $attendance->user->profile->section->year . ' - ' . $attendance->user->profile->section->number }}</td>
+                                        <td>{{ $attendance->user->profile->section->year . ' - ' . $attendance->user->profile->section->number }}
+                                        </td>
                                         {{-- <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
@@ -248,7 +258,8 @@
                                         <td>{{ $evaluation->average }}</td>
                                         <td>{{ $evaluation->result }}</td>
                                         <td>{{ $evaluation->user->profile->course->name }}</td>
-                                        <td>{{ $evaluation->user->profile->section->year . ' - ' . $evaluation->user->profile->section->number }}</td>
+                                        <td>{{ $evaluation->user->profile->section->year . ' - ' . $evaluation->user->profile->section->number }}
+                                        </td>
                                         {{-- <td>
                                             <div class="flex items-center">
                                                 <a href="{{ route('students.show', ['student' => $attendance->user->id]) }}"
