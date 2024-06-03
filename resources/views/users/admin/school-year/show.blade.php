@@ -9,7 +9,7 @@
 
         <div class="panel">
 
-            <h1 class="panel-title"> {{ $schoolYear->Year }}</h1>
+            <h1 class="panel-title"> {{ $schoolYear->year }}</h1>
 
 
             <div class="overflow-y-auto">
