@@ -145,7 +145,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('students', StudentController::class);
         Route::resource('course', CourseController::class);
         Route::resource('instructors', InstructorController::class);
-        Route::resource('shool-year', SchoolYearController::class);
+        Route::resource('school-year', SchoolYearController::class);
     });
 
     Route::middleware(['role:instructor'])->prefix('faculty')->as('faculty.')->group(function () {
