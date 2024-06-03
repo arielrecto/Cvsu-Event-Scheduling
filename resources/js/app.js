@@ -257,7 +257,7 @@ Alpine.data("evaluationFormGenerator", () => ({
     },
     removeField(localId, speakerIndex = null) {
 
-        if(!speaker){
+        if(!speakerIndex){
 
             console.log('====================================');
             console.log(speakerIndex, localId);
