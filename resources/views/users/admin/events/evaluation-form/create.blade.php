@@ -172,14 +172,14 @@
 
                                     <input type="text" x-model="s_field.question" class="input-generic">
                                     <label for="" class="input-generic-label">Input Type</label>
-                                    <select x-model="s_field.input_type" @change="checkInputTypeField($event)"
+                                    {{-- <select x-model="s_field.input_type" @change="checkInputTypeField($event)"
                                         class="select select-accent w-full">
                                         <option disabled selected>Select</option>
-                                        <option value="text">Text</option>
+                                        <option value="text">Text</option> --}}
                                         {{-- <option value="number">Number</option> --}}
                                         {{-- <option value="radio">Radio</option> --}}
                                         {{-- <option>Light mode</option> --}}
-                                    </select>
+                                    {{-- </select> --}}
 
                                     <template x-if="s_field.input_type === 'radio'">
                                         <div class="flex flex-col gap-2">
