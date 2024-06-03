@@ -73,7 +73,7 @@ class Event extends Model
         $average = $this->evaluations()->avg('average');
 
 
-        return $average ?? 0.0;
+        return $average ?? "N/A";
     }
     public function evaluationsResult ()
     {
@@ -87,7 +87,7 @@ class Event extends Model
             $wordCount = $mostUsed->word_count;
             // Your logic with the most frequent word and its count
         } else {
-          $word = "No Result";
+          $word = "N/A";
         }
 
        return $word;
