@@ -23,7 +23,8 @@ class Event extends Model
         'location',
         'status',
         'is_done',
-        'is_archive'
+        'is_archive',
+        'category'
     ];
 
 

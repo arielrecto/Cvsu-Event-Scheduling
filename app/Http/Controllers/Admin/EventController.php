@@ -67,6 +67,7 @@ class EventController extends Controller
             'end_date' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
+            'category' => 'required'
         ]);
 
 
@@ -94,6 +95,7 @@ class EventController extends Controller
             'end_time' => $request->end_time,
             'description' => $request->description,
             'location' => $request->locations,
+            'category' => $request->category
         ]);
 
         $speakers = $request->speakers;

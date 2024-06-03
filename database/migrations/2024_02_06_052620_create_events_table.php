@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('is_done')->default(false);
             $table->string('status')->default(EventStatusEnum::INCOMING->value);
             $table->boolean('is_archive')->default(false);
+            $table->string('category');
             $table->timestamps();
         });
     }

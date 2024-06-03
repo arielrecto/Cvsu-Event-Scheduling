@@ -77,9 +77,10 @@
                     </template>
 
                 </div>
-                <div class="input-generic-div"  x-data="checkDateIsPast">
+                <div class="input-generic-div" x-data="checkDateIsPast">
                     <label for="" class="input-generic-label">End Date</label>
-                    <input type="date" name="end_date" x-model="selectedDate" placeholder="End Date" class="input-generic">
+                    <input type="date" name="end_date" x-model="selectedDate" placeholder="End Date"
+                        class="input-generic">
                     @if ($errors->has('end_date'))
                         <p class="text-xs text-error">{{ $errors->first('end_date') }}</p>
                     @endif
@@ -128,6 +129,24 @@
 
                 @if ($errors->has('locations'))
                     <p class="text-xs text-error">{{ $errors->first('locations') }}</p>
+                @endif
+            </div>
+
+            <div class="input-generic-div">
+                <label for="" class="input-generic-label">Category</label>
+                <div class="flex items-center gap-2">
+                    <select name="category" multiple class="select select-accent w-full">
+                        <option disabled selected>Select Category</option>
+
+                        <option value="online" class="capitalize">Online</option>
+
+                        <option value="F2F" class="capitalize">Face to Face</option>
+
+                    </select>
+                    <a href="{{ route('speaker.create') }}" class="btn btn-accent">Add Event Speaker</a>
+                </div>
+                @if ($errors->has('category'))
+                    <p class="text-xs text-error">{{ $errors->first('category') }}</p>
                 @endif
             </div>
     </div>
