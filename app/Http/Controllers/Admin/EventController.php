@@ -347,7 +347,7 @@ class EventController extends Controller
     public function printShow(string $id){
 
         $event = Event::whereId($id)->first();
-        $form = $event->evaluationForm;
+        $form =  json_decode($ $event->evaluationForm->form);
 
 
         return view('users.admin.events.evaluation-form.print', compact(['form', 'event']));
