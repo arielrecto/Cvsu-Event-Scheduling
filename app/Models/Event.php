@@ -68,7 +68,7 @@ class Event extends Model
 
         return "{$location->address}";
     }
-    public function evaluationsAverage(): float
+    public function evaluationsAverage()
     {
         $average = $this->evaluations()->avg('average');
 
