@@ -5,7 +5,7 @@
                 <div class="flex items-center gap-5">
                     <a href="{{ route('events.show', ['event' => $event->id]) }}" class="btn-generic"><i
                             class="fi fi-rr-arrow-left"></i></a>
-                    <h1 class="panel-title capitalize"> Event Report</h1>
+                    <h1 class="panel-title capitalize">Evaluation Form</h1>
                 </div>
                 <button class="btn btn-accent" @click="printComponent">
                     Print
