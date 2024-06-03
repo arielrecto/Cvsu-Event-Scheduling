@@ -32,7 +32,19 @@ class SchoolYearController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'start_year' => 'required',
+            'end_year' => 'required'
+        ]);
+
+
+        SchoolYear::create([
+            'year' => "{$request->start_year} - {$request->end_year}"
+        ]);
+
+
+        return back()->with(['message' => 'School Year Added']);
+
     }
 
     /**
