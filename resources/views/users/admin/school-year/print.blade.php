@@ -55,14 +55,14 @@
 
                     <h1 class="panel-title"> {{ $schoolYear->year }}</h1>
 
-                    <div class="grid grid-cols-2 grid-flow-row gap-2">
+                    <div class="grid grid-cols-3 grid-flow-row gap-2">
                         <div class="card bg-accent text-primary">
                             <div class="card-label">
                                 <i class="fi fi-rr-users"></i>
                                 <h1>Total Events</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>0</span>
+                                <span>{{$totalEvents}}</span>
                             </h1>
 
                         </div>
@@ -72,7 +72,7 @@
                                 <h1>1st Semester</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>0</span>
+                                <span>{{$totalEventFirstSem}}</span>
                             </h1>
 
                         </div>
@@ -82,7 +82,7 @@
                                 <h1>2nd semester</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>0</span>
+                                <span>{{$totalEventSecondSem}}</span>
                             </h1>
 
                         </div>
@@ -100,7 +100,8 @@
                                         <th>Date</th>
                                         <th>Time</th>
                                         <td>Address</th>
-                                        <td>Action</td>
+                                       <td>School Year</td>
+                                       <td>Semester</td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -124,29 +125,9 @@
                                             <td>{{ $event->dateDuration() }}</td>
                                             <td>{{ $event->timeDuration() }}</td>
                                             <td>{{ $event->address() }}</td>
-                                            <td>
-                                                <div class="flex items-center gap-2">
-                                                    <a href="{{ route('events.show', ['event' => $event->id]) }}"
-                                                        class="btn btn-xs btn-accent">
-                                                        <i class="fi fi-rr-eye"></i>
-                                                    </a>
-                                                    <a href="{{ route('events.edit', ['event' => $event->id]) }}"
-                                                        class="btn btn-xs btn-secondary">
-                                                        <i class="fi fi-rr-edit"></i>
-                                                    </a>
+                                            <td>{{ $event->school_year }}</td>
+                                            <td>{{ $event->semester }}</td>
 
-                                                    <form
-                                                        action="{{ route('events.archives.store', ['event' => $event->id]) }}"
-                                                        method="post">
-                                                        @csrf
-                                                        {{-- @method('delete') --}}
-                                                        <button class="btn btn-xs btn-error">
-                                                            <i class="fi fi-rr-trash"></i>
-                                                        </button>
-                                                    </form>
-
-                                                </div>
-                                            </td>
                                         </tr>
 
                                     @empty
@@ -158,7 +139,7 @@
 
                                 </tbody>
                             </table>
-                            {{ $events->links() }}
+
                         </div>
                 </div>
 

@@ -88,9 +88,14 @@ class SchoolYearController extends Controller
 
         $schoolYear = SchoolYear::find($id);
 
-        $events  =  Event::whereSchoolYear($schoolYear->year)->latest()->paginate(10);
+        $query =  Event::whereSchoolYear($schoolYear->year);
 
+        $totalEvents = $query->count();
+        $totalEventFirstSem = $query->where('semester', '1st Semester')->count();
+        $totalEventSecondSem = $query->where('semester', '2nd Semester')->count();
 
-        return view('users.admin.school-year.print', compact(['schoolYear', 'events']));
+        $events = $query->get();
+
+        return view('users.admin.school-year.print', compact(['schoolYear', 'events','totalEvents', 'totalEventFirstSem', 'totalEventSecondSem']));
     }
 }
