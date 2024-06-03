@@ -263,13 +263,10 @@ Alpine.data("evaluationFormGenerator", () => ({
             console.log(speakerIndex, localId);
             console.log('====================================');
 
-            // this.form = {
-            //     ...this.form,
-            //     speakers : [
-            //         ...this.form.speakers[speakerIndex].filter((s_field) =>)
-            //     ]
-            // }
-
+            this.form.speakers[0] = {
+                ...this.form.speakers[0],
+                fields : [...this.form.speakers[0].fields.filter((item) => item.localId !== localId)]
+            }
             return;
         }
 
