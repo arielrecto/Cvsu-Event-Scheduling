@@ -157,7 +157,7 @@
                                         </template>
                                     </div>
                                     <div class="flex items-center justify-end gap-2">
-                                        <button class="btn btn-xs btn-primary"  @click="() => editFieldId = field.localId"><i class="fi fi-rr-edit"></i></button>
+                                        <button class="btn btn-xs btn-primary"  @click="() => editFieldId = s_field.localId"><i class="fi fi-rr-edit"></i></button>
                                         <button class="btn btn-xs btn-error">
                                             <i class="fi fi-rr-trash"></i>
                                         </button>
