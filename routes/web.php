@@ -17,6 +17,7 @@ use App\Http\Controllers\Student\StudentController as StudentStudentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\SectionController;
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Instructor\AttendanceController;
 use App\Http\Controllers\Instructor\DashboardController;
@@ -47,6 +48,7 @@ Route::get('/', function () {
 
 
 Route::get('home', [HomeController::class, 'index']);
+Route::get('user-email-verify/{user}', [EmailVerificationController::class, 'verify'])->name('user.email.verify');
 
 Route::get('/dashboard', function () {
 

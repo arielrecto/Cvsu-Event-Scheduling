@@ -10,6 +10,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Section;
+use App\Notifications\UserEmailVerificationNotification;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -109,7 +110,11 @@ class RegisterController extends Controller
 
         $user->assignRole($studentRole);
 
-        $user->sendEmailVerificationNotification();
+        $message = [
+            'url' => route('user.email.verify', ['user' => $user->id]),
+        ];
+
+        $user->notify(new UserEmailVerificationNotification($message));
 
         return response(['message' => 'Register Success Admin will review your application'], 200);
     }
