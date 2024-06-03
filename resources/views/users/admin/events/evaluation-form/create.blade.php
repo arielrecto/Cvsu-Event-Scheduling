@@ -2,13 +2,13 @@
     <div class="panel">
         <x-dashboard.header :route="route('events.show', ['event' => $event->id])" :event_name="'Evaluation From Create - ' . $event->name" />
 
-            <x-notification-message/>
+        <x-notification-message />
 
-            @php
-                $hosts = json_encode($event->hosts()->with('speaker')->get())
-            @endphp
+        @php
+            $hosts = json_encode($event->hosts()->with('speaker')->get());
+        @endphp
 
-        <div x-data="evaluationFormGenerator" x-init="addSpeakersDefault({{$hosts}})" class="flex flex-col gap-2">
+        <div x-data="evaluationFormGenerator" x-init="addSpeakersDefault({{ $hosts }})" class="flex flex-col gap-2">
             <p class="input-generic-label">
                 <span>*</span>
                 sample text
@@ -87,8 +87,8 @@
                         </template>
 
                         <div class="flex items-center justify-end gap-2">
-                            <button class="btn btn-xs btn-primary"
-                                @click="() => editFieldId = field.localId"><i class="fi fi-rr-edit"></i></button>
+                            <button class="btn btn-xs btn-primary" @click="() => editFieldId = field.localId"><i
+                                    class="fi fi-rr-edit"></i></button>
                             <button class="btn btn-xs btn-error" @click="removeField(field.localId)">
                                 <i class="fi fi-rr-trash"></i>
                             </button>
@@ -133,23 +133,35 @@
                         <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
 
                         <template x-for="s_field in speaker.fields">
-                            <div class="w-auto h-auto">
-                                <label for="" class="input-generic-label capitalize" x-text="s_field.question"></label>
-                                <template x-if="s_field.input_type !== 'radio'">
-                                    <input :type="s_field.input_type" class="input-generic">
-                                </template>
-                                <template x-if="s_field.input_type === 'radio'">
-                                    <div class="flex items-center gap-5">
-                                        <template x-for="i in parseInt(s_field.radio_max)" :key="i">
-                                            <div class="flex flex-col items-center">
-                                                <input type="radio" name="radio-4" class="radio radio-accent"
-                                                    :value="i" />
-                                                <span x-text="i"></span>
-                                            </div>
-                                        </template>
-                                    </div>
-                                </template>
+
+                            <div class="flex items-center justify-between">
+
+                                <div class="w-auto h-auto">
+                                    <label for="" class="input-generic-label capitalize"
+                                        x-text="s_field.question"></label>
+                                    <template x-if="s_field.input_type !== 'radio'">
+                                        <input :type="s_field.input_type" class="input-generic">
+                                    </template>
+                                    <template x-if="s_field.input_type === 'radio'">
+                                        <div class="flex items-center gap-5">
+                                            <template x-for="i in parseInt(s_field.radio_max)" :key="i">
+                                                <div class="flex flex-col items-center">
+                                                    <input type="radio" name="radio-4" class="radio radio-accent"
+                                                        :value="i" />
+                                                    <span x-text="i"></span>
+                                                </div>
+                                            </template>
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="flex items-center justify-end gap-2">
+                                    <button class="btn btn-xs btn-primary"><i class="fi fi-rr-edit"></i></button>
+                                    <button class="btn btn-xs btn-error">
+                                        <i class="fi fi-rr-trash"></i>
+                                    </button>
+                                </div>
                             </div>
+
 
                         </template>
 
@@ -205,14 +217,6 @@
                         </div> --}}
                     </div>
 
-                    <div class="flex items-center justify-end gap-2">
-                        <button class="btn btn-xs btn-primary"
-                           ><i class="fi fi-rr-edit"></i></button>
-                        <button class="btn btn-xs btn-error">
-                            <i class="fi fi-rr-trash"></i>
-                        </button>
-                    </div>
-
                 </div>
 
             </template>
@@ -222,10 +226,10 @@
 
 
 
-            <form method="POST" action="{{route('events.evaluation.form.store')}}">
+            <form method="POST" action="{{ route('events.evaluation.form.store') }}">
                 @csrf
 
-                <input type="hidden" name="event_id" value="{{$event->id}}">
+                <input type="hidden" name="event_id" value="{{ $event->id }}">
                 <input type="hidden" name="evaluation_form" x-model="JSON.stringify(form)">
 
                 <button class="btn btn-accent"> save </button>
