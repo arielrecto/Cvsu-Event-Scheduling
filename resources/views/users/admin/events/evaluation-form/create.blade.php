@@ -130,7 +130,38 @@
             <template x-for="(speaker, index) in form.speakers">
                 <div class="flex items-center justify-between">
                     <div class="input-generic-div w-full">
-                        <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
+
+                        <div class="flex justify-between items-center">
+                            <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
+                            <button @click="addSpeakerField = index ">Add Fields</button>
+                        </div>
+
+                        <div x-show="addSpeakerField === index" class="flex flex-col gap-2 bg-base-100 p-5 rounded-lg">
+                            <label for="" class="input-generic-label"><span>*</span> Set Question and type of
+                                input</label>
+                            <div class="input-generic-div">
+                                <label for="" class="input-generic-label">Question</label>
+                                <input type="text" x-model="fieldBlueprint.question" class="input-generic">
+                                <label for="" class="input-generic-label">Input Type</label>
+                                <select x-model="fieldBlueprint.input_type" @change="checkInputTypeField($event)"
+                                    class="select select-accent w-full">
+                                    <option disabled selected>Select</option>
+                                    <option value="text">Text</option>
+                                    {{-- <option value="number">Number</option> --}}
+                                    <option value="radio">Radio</option>
+                                    {{-- <option>Light mode</option> --}}
+                                </select>
+
+                                <template x-if="fieldBlueprint.input_type === 'radio'">
+                                    <div class="flex flex-col gap-2">
+                                        <label for="" class="input-generic-label">Radio Range</label>
+                                        <input type="text" x-model="fieldBlueprint.radio_max" class="input-generic">
+                                    </div>
+                                </template>
+                                <button @click="addField" class="btn btn-accent">Add input</button>
+                            </div>
+                        </div>
+
 
                         <template x-for="s_field in speaker.fields">
 

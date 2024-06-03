@@ -201,6 +201,7 @@ Alpine.data("evaluationFormGenerator", () => ({
     titleToggle: true,
     fieldToggle: false,
     editFieldId: null,
+    addSpeakerField : null,
     init() {
         defaultEvaluationData.default.forEach((item) => {
             this.form.fields.push({
