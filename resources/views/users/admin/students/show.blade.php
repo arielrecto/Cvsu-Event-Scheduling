@@ -47,7 +47,11 @@
                         <p>{{ $student->name }}</p>
                     </div>
                     <div class="flex flex-col gap-2">
-                        <h1 class="panel-label">Email {{$student->email_verified_at ? 'Email Verified' : 'Not Verified'}} </h1>
+                        <h1 class="panel-label">Email : @if ($student->email_verified_at)
+                            <span class="text-success">Verified Email</span>
+                            @else
+                            <span class="text-error">Not Verified Email</span>
+                        @endif </h1>
                         <p>{{ $student->email }}</p>
                     </div>
                 </div>
