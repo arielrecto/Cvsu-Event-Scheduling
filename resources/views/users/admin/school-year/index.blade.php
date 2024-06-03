@@ -32,6 +32,7 @@
                         <tr class="bg-base-100">
                             <th></th>
                             <td>{{ $schoolYear->year }}</td>
+                            <td>{{ date('F d, Y', strtotime($schoolYear->created_at)) }}</td>
 
                             <td>
                                 <div class="flex items-center gap-2">
