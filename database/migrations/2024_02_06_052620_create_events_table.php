@@ -2,6 +2,7 @@
 
 use App\Enums\EventStatusEnum;
 use App\Models\EventSpeaker;
+use App\Models\SchoolYear;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->boolean('is_archive')->default(false);
             $table->string('category');
             $table->string('semester');
+            $table->foreignIdFor(SchoolYear::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

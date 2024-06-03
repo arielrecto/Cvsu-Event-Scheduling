@@ -25,7 +25,8 @@ class Event extends Model
         'is_done',
         'is_archive',
         'category',
-        'semester'
+        'semester',
+        'school_year_id'
     ];
 
 
@@ -92,5 +93,8 @@ class Event extends Model
         }
 
        return $word;
+    }
+    public function schoolYear() {
+        return $this->belongsTo(SchoolYear::class);
     }
 }
