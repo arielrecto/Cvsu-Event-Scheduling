@@ -12,7 +12,7 @@
             <h1 class="panel-title">Add School Year</h1>
 
 
-            <form action="{{route('course.store')}}" method="post" class="w-full flex flex-col gap-2">
+            <form action="{{route('school-year.store')}}" method="post" class="w-full flex flex-col gap-2">
                 @csrf
 
                 <div class="input-generic-div">
