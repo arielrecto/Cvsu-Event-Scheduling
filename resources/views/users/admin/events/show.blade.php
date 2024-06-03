@@ -46,10 +46,21 @@
                         <label for="" class="text-sm text-accent">Name</label>
                         <h1 class="text-lg">{{ $event->name }}</h1>
                     </div>
-                    <div class="flex flex-col gap-2">
-                        <label for="" class="text-sm text-accent">Category</label>
-                        <h1 class="text-sm">{{ $event->category }}</h1>
+                    <div class="grid grid-cols-3 grid-flow-row gap-2">
+                        <div class="flex flex-col gap-2">
+                            <label for="" class="text-sm text-accent">Category</label>
+                            <h1 class="text-sm">{{ $event->category }}</h1>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="" class="text-sm text-accent">School Year</label>
+                            <h1 class="text-sm">{{ $event->school_year }}</h1>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label for="" class="text-sm text-accent">Semester</label>
+                            <h1 class="text-sm">{{ $event->semester }}</h1>
+                        </div>
                     </div>
+
                     <div class="flex flex-col gap-2">
                         <label for="" class="text-sm text-accent">Event Referrence:</label>
                         <h1 class="text-sm">{{ $event->ref }}</h1>
