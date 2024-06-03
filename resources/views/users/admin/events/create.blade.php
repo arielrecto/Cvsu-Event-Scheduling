@@ -135,7 +135,7 @@
             <div class="input-generic-div">
                 <label for="" class="input-generic-label">Category</label>
                 <div class="flex items-center gap-2">
-                    <select name="category" multiple class="select select-accent w-full">
+                    <select name="category" class="select select-accent w-full">
                         <option disabled selected>Select Category</option>
 
                         <option value="online" class="capitalize">Online</option>
