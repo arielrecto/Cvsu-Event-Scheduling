@@ -11,7 +11,7 @@
 
             <h1 class="panel-title"> {{ $schoolYear->year }}</h1>
 
-
+            <h1 class="text-sm text-accent">Events</h1c>
             <div class="overflow-y-auto">
                 <table class="table">
                     <!-- head -->
