@@ -184,7 +184,7 @@
                                     <template x-if="s_field.input_type === 'radio'">
                                         <div class="flex flex-col gap-2">
                                             <label for="" class="input-generic-label">Radio Range</label>
-                                            <input type="text" x-model="s_field.radio_max" class="input-generic">
+                                            <input type="number" x-model="s_field.radio_max" class="input-generic">
                                         </div>
                                     </template>
                                     {{-- <button @click="addField" class="btn btn-accent">Add input</button> --}}
