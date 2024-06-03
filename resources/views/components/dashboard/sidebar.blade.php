@@ -37,7 +37,7 @@
         ],
         [
             'url' => 'school-year.index',
-            'icon' => 'fi fi-rr-chalkboard-user mt-1',
+            'icon' => 'fi fi-rr-school mt-1',
             'name' => 'School Year',
         ],
     ];

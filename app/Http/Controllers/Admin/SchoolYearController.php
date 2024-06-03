@@ -24,7 +24,7 @@ class SchoolYearController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.admin.school-year.create');
     }
 
     /**

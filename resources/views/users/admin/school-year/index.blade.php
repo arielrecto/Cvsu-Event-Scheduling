@@ -5,8 +5,8 @@
 
         <div class="flex items-center justify-between">
             <h1 class="panel-title">Course</h1>
-            <a href="{{ route('course.create') }}" class="btn-generic">
-                create Course
+            <a href="{{ route('school-year.create') }}" class="btn-generic">
+                School Year
             </a>
         </div>
 
