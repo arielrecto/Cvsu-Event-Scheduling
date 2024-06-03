@@ -70,7 +70,9 @@ class EventController extends Controller
             'end_date' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',
-            'category' => 'required'
+            'category' => 'required',
+            'semester' => 'required',
+            'school_year' => 'required'
         ]);
 
 
@@ -98,7 +100,9 @@ class EventController extends Controller
             'end_time' => $request->end_time,
             'description' => $request->description,
             'location' => $request->locations,
-            'category' => $request->category
+            'category' => $request->category,
+            'semester' => $request->semester,
+            'school_year' => $request->school_year
         ]);
 
         $speakers = $request->speakers;
