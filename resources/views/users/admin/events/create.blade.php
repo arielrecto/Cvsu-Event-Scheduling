@@ -149,6 +149,40 @@
                     <p class="text-xs text-error">{{ $errors->first('category') }}</p>
                 @endif
             </div>
+            <div class="input-generic-div">
+                <label for="" class="input-generic-label">Semester</label>
+                <div class="flex items-center gap-2">
+                    <select name="semester" class="select select-accent w-full">
+                        <option disabled selected>Select Semester</option>
+
+                        <option value="1st Semester" class="capitalize">1st Semester</option>
+
+                        <option value="2nd Semester" class="capitalize">2nd Semester</option>
+
+                    </select>
+
+                </div>
+                @if ($errors->has('semester'))
+                    <p class="text-xs text-error">{{ $errors->first('semester') }}</p>
+                @endif
+            </div>
+            <div class="input-generic-div">
+                <label for="" class="input-generic-label">School Year</label>
+                <div class="flex items-center gap-2">
+                    <select name="school_year" class="select select-accent w-full">
+                        <option disabled selected>Select School Year</option>
+
+                        @foreach ($schoolYears as $schoolYear)
+                            <option value="{{ $schoolYear->year }}" class="capitalize">{{ $schoolYear->year }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
+                @if ($errors->has('school_year'))
+                    <p class="text-xs text-error">{{ $errors->first('school_year') }}</p>
+                @endif
+            </div>
     </div>
 
     <div class="h-auto w-auto flex flex-col gap-2" x-data="textEditor">

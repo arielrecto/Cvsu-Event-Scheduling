@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\EventHost;
+use App\Models\SchoolYear;
 
 use function PHPSTORM_META\map;
 
@@ -49,7 +50,9 @@ class EventController extends Controller
 
         $speakers = EventSpeaker::latest()->get();
 
-        return view('users.admin.events.create', compact(['speakers']));
+        $schoolYears = SchoolYear::get();
+
+        return view('users.admin.events.create', compact(['speakers', 'schoolYears']));
     }
 
     /**
