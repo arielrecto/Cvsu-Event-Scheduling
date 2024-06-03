@@ -85,6 +85,7 @@ class SchoolYearController extends Controller
         //
     }
     public function printShow(string $id){
+
         $schoolYear = SchoolYear::find($id);
 
         $events  =  Event::whereSchoolYear($schoolYear->year)->latest()->paginate(10);
