@@ -255,7 +255,24 @@ Alpine.data("evaluationFormGenerator", () => ({
             radio_max: 1,
         };
     },
-    removeField(localId) {
+    removeField(localId, speakerIndex = null) {
+
+        if(!speaker){
+
+            console.log('====================================');
+            console.log(speakerIndex, localId);
+            console.log('====================================');
+
+            // this.form = {
+            //     ...this.form,
+            //     speakers : [
+            //         ...this.form.speakers[speakerIndex].filter((s_field) =>)
+            //     ]
+            // }
+
+            return;
+        }
+
         this.form = {
             ...this.form,
             fields: this.form.fields.filter(

@@ -127,7 +127,7 @@
             </template>
 
 
-            <template x-for="speaker in form.speakers">
+            <template x-for="(speaker, index) in form.speakers">
                 <div class="flex items-center justify-between">
                     <div class="input-generic-div w-full">
                         <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="flex items-center justify-end gap-2">
                                         <button class="btn btn-xs btn-primary"  @click="() => editFieldId = s_field.localId"><i class="fi fi-rr-edit"></i></button>
-                                        <button class="btn btn-xs btn-error">
+                                        <button class="btn btn-xs btn-error" @click="removeField(field.localId, index)">
                                             <i class="fi fi-rr-trash"></i>
                                         </button>
                                     </div>
@@ -171,7 +171,7 @@
                                     </div>
 
                                     <input type="text" x-model="s_field.question" class="input-generic">
-                                    <label for="" class="input-generic-label">Input Type</label>
+                                    {{-- <label for="" class="input-generic-label">Input Type</label> --}}
                                     {{-- <select x-model="s_field.input_type" @change="checkInputTypeField($event)"
                                         class="select select-accent w-full">
                                         <option disabled selected>Select</option>
