@@ -62,6 +62,7 @@ Route::get('/dashboard', function () {
 
     $events_json = Event::where('is_archive', false)->get()->toJson();
 
+
     return view('dashboard', compact(['events', 'events_json', 'totalUnverifiedStudent', 'totalVerifiedStudent']));
 })->middleware(['auth', 'verified'])->name('dashboard');
 

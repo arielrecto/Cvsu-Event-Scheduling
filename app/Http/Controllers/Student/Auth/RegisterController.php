@@ -109,8 +109,7 @@ class RegisterController extends Controller
 
         $user->assignRole($studentRole);
 
-
-
+        $user->sendEmailVerificationNotification();
 
         return response(['message' => 'Register Success Admin will review your application'], 200);
     }
