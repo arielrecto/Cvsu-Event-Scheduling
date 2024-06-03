@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Event;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class SchoolYearController extends Controller
 {
@@ -52,7 +53,12 @@ class SchoolYearController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $schoolYear = SchoolYear::find($id);
+
+        $events  =  Event::whereSchoolYear($schoolYear->year)->latest()->paginate(10);
+
+
+        return view('users.admin.school-year.show', compact(['schoolYear', 'events']));
     }
 
     /**
