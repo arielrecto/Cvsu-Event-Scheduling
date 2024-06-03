@@ -16,6 +16,7 @@ use App\Http\Controllers\Student\EventController as StudentEventController;
 use App\Http\Controllers\Student\StudentController as StudentStudentController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\InstructorController;
+use App\Http\Controllers\Admin\SchoolYearController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\HomeController;
@@ -144,6 +145,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('students', StudentController::class);
         Route::resource('course', CourseController::class);
         Route::resource('instructors', InstructorController::class);
+        Route::resource('shool-year', SchoolYearController::class);
     });
 
     Route::middleware(['role:instructor'])->prefix('faculty')->as('faculty.')->group(function () {

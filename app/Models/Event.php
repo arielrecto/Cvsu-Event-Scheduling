@@ -24,7 +24,8 @@ class Event extends Model
         'status',
         'is_done',
         'is_archive',
-        'category'
+        'category',
+        'semester'
     ];
 
 

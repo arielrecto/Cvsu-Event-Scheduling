@@ -35,6 +35,11 @@
             'icon' => 'fi fi-rr-chalkboard-user mt-1',
             'name' => 'Instructors',
         ],
+        [
+            'url' => 'school-year.index',
+            'icon' => 'fi fi-rr-chalkboard-user mt-1',
+            'name' => 'School Year',
+        ],
     ];
 @endphp
 
