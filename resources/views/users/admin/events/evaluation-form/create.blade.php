@@ -168,11 +168,11 @@
                             <div class="w-fill flex flex-col gap-2">
                                 <div class="flex items-center justify-between">
 
-                                    <div class="w-auto h-auto">
+                                    <div class="w-auto h-auto flex flex-col gap-2">
                                         <label for="" class="input-generic-label capitalize"
                                             x-text="s_field.question"></label>
                                         <template x-if="s_field.input_type !== 'radio'">
-                                            <input :type="s_field.input_type" class="input-generic">
+                                            <input :type="s_field.input_type" class="input-generic w-full">
                                         </template>
                                         <template x-if="s_field.input_type === 'radio'">
                                             <div class="flex items-center gap-5">
