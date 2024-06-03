@@ -48,7 +48,7 @@
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="" class="text-sm text-accent">Category</label>
-                        <h1 class="text-lg">{{ $event->category }}</h1>
+                        <h1 class="text-sm">{{ $event->category }}</h1>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="" class="text-sm text-accent">Event Referrence:</label>
