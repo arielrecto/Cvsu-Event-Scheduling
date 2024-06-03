@@ -12,8 +12,4 @@ class SchoolYear extends Model
     protected $fillable = [
         'year'
     ];
-
-    public function events() {
-        return $this->hasMany(Event::class);
-    }
 }

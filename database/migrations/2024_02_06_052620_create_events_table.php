@@ -30,7 +30,7 @@ return new class extends Migration
             $table->boolean('is_archive')->default(false);
             $table->string('category');
             $table->string('semester');
-            $table->foreignIdFor(SchoolYear::class)->constrained()->onDelete('cascade');
+            $table->string('school_year');
             $table->timestamps();
         });
     }
