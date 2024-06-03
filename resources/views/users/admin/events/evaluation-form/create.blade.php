@@ -133,7 +133,7 @@
 
                         <div class="flex justify-between items-center">
                             <label for="" class="text-lg font-bold text-accent" x-text="speaker.name"></label>
-                            <button @click="addSpeakerField = index ">Add Fields</button>
+                            <button @click="addSpeakerField = index">Add Fields</button>
                         </div>
 
                         <div x-show="addSpeakerField === index" class="flex flex-col gap-2 bg-base-100 p-5 rounded-lg">
