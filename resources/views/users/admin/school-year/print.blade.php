@@ -62,7 +62,7 @@
                                 <h1>Total Events</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>{{$totalEvents}}</span>
+                                <span>{{$totalEvents !== 0 ? $totalEvents : "N\A"}}</span>
                             </h1>
 
                         </div>
@@ -72,7 +72,7 @@
                                 <h1>1st Semester</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>{{$totalEventFirstSem}}</span>
+                                <span>{{$totalEventFirstSem !== 0 ? $totalEventFirstSem : 'N\A'}}</span>
                             </h1>
 
                         </div>
@@ -82,14 +82,14 @@
                                 <h1>2nd semester</h1>
                             </div>
                             <h1 class="card-number">
-                                <span>{{$totalEventSecondSem}}</span>
+                                <span>{{$totalEventSecondSem !== 0 ? $totalEventSecondSem : 'N\A'}}</span>
                             </h1>
 
                         </div>
                     </div>
 
                     <h1 class="text-sm text-accent">Events</h1c>
-                        <div class="overflow-y-auto">
+                        <div class="">
                             <table class="table">
                                 <!-- head -->
                                 <thead class="bg-secondary">
